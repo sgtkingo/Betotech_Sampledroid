@@ -25,7 +25,9 @@ namespace ConcreteSampleTransformers
 
         Storage Storage;
         FileManager FileManager;
+
         public static ConsoleBox ConsoleBox;
+        public static PropertiesManager PropertiesManager;
 
         private List<Error> errors;
 
@@ -38,6 +40,8 @@ namespace ConcreteSampleTransformers
             ConsoleBox=new ConsoleBox(BOX);
             Storage=new Storage();
             FileManager=new FileManager();
+
+            PropertiesManager=new PropertiesManager(ConsoleBox,FileManager);
 
             ConsoleBox.WriteLineToConsole("PROGRAM READY!",ConsoleBox.LineType.Bold);
         }

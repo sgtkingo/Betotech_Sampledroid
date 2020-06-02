@@ -5,7 +5,6 @@ namespace ConcreteSampleTransformers
 {
     public class FileManager
     {
- 
         public bool LoadFile(VirtualFile virtualFile){ 
             virtualFile.FILEDATA="";
             if (!File.Exists(virtualFile.FILEPATH))
@@ -52,7 +51,7 @@ namespace ConcreteSampleTransformers
                 Processer.ConsoleBox.WriteLineToConsole("CODE:"+e.ToString());
                 return false;
                 }
-            Processer.ConsoleBox.WriteLineToConsole("FILE "+virtualFile.getFullFileName()+" SAVED!");
+            Processer.ConsoleBox.WriteLineToConsole("FILE "+virtualFile.FILENAME+" SAVED!");
             return true;
         }
 
