@@ -27,7 +27,7 @@ namespace ConcreteSampleTransformers
             this.openFileDialog.DefaultExt="*.*";
             this.openFileDialog.Filter = "All files (*.*)|*.*";
 
-            this.txt_filetype.Text=Processer.PropertiesManager.primalFileType;
+            this.txt_filetype.Text=PropertiesManager.primalFileType;
 
             EnableProcess(false);
             return;

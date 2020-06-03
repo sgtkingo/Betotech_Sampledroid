@@ -41,14 +41,12 @@ namespace ConcreteSampleTransformers
             MyConsoleBox.Clear();
         }
         public void SaveToFile(string file){ 
-            string path = @"report\"+file+".txt";
-
+            string path =PropertiesManager.currentDirectory+PropertiesManager.pathLocalReportsFiles+file+PropertiesManager.primalReportType;
                 // Delete the file if it exists.
                 if (File.Exists(path))
                 {
                     File.Delete(path);
                 }
-
                 //Create the file.
                 using (FileStream fs = new FileStream(path,FileMode.Create))
                 {
@@ -58,8 +56,7 @@ namespace ConcreteSampleTransformers
 
                         sw.Close();
                         fs.Close();
-                }            
-            
+                }               
         }
     }
 }

@@ -9,17 +9,19 @@ namespace ConcreteSampleTransformers
 {
     public class PropertiesManager
     {
-        public string currentDirectory="";
-        public const string pathSettingFiles=@"\settings\";
-        public const string namePathFile="pathFile.path";
+        public static string currentDirectory="";
+        public static string pathLocalReportsFiles=@"\reports\";
+        private const string pathLocalSettingFiles=@"\settings\";
+        private const string namePathFile="pathFile.path";
 
-        public string primalFileType=".CSV";
+        public static string primalFileType=".csv";
+        public static string primalReportType=".txt";
 
         private const string inPathMark="INPATH";
         private const string outPathMark="OUTPATH";
         private const char splitPathMark='-';
 
-        public VirtualFile pathFile;
+        private VirtualFile pathFile;
 
         public string pathIN{ get;set; }
         public string pathOUT{ get;set; }
@@ -35,16 +37,21 @@ namespace ConcreteSampleTransformers
             pathIN=currentDirectory;
             pathOUT=currentDirectory;
             pathFile=new VirtualFile();
-            pathFile.appendFile(currentDirectory+pathSettingFiles+namePathFile);
+            pathFile.appendFile(currentDirectory+pathLocalSettingFiles+namePathFile);
             checkDirectory();
             reloadPathFile();
         }
 
         private void checkDirectory(){ 
-            if(!Directory.Exists(currentDirectory+pathSettingFiles)){ 
-                Directory.CreateDirectory(currentDirectory+pathSettingFiles);
+            if(!Directory.Exists(currentDirectory+pathLocalSettingFiles)){ 
+                Directory.CreateDirectory(currentDirectory+pathLocalSettingFiles);
                 ConsoleBox.WriteLineToConsole("Settings directory create!");
             }else ConsoleBox.WriteLineToConsole("Setting directory check: OK.");
+
+            if(!Directory.Exists(currentDirectory+pathLocalReportsFiles)){ 
+                Directory.CreateDirectory(currentDirectory+pathLocalReportsFiles);
+                ConsoleBox.WriteLineToConsole("Reports directory create!");
+            }
         }
 
         private void parsePathFile(){
