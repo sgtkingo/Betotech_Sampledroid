@@ -12,10 +12,12 @@ namespace ConcreteSampleTransformers
         public int getType { get; set; }
         public string sampleCode { get; set; }
         public string sampleSimpleCode { get; set; }
+        public string sampleDate { get; set; }
 
         public PrototypeSample(string code){
             getType=(int)TypesEnums.Type.NoType;
             sampleCode=code;
+            sampleDate=DateTime.Now.ToShortDateString();
         }
 
         public string getSampleAsFormatData(bool format)
@@ -26,6 +28,11 @@ namespace ConcreteSampleTransformers
         public bool haveData()
         {
             return false;
+        }
+
+        public string getSimpleCode()
+        {
+            return sampleSimpleCode;
         }
     }
 }

@@ -11,6 +11,7 @@ namespace ConcreteSampleTransformers
         public int getType { get; set; }
         public string sampleCode { get; set; }
         public string sampleSimpleCode{ get; set; }
+        public string sampleDate { get; set; }
 
         private bool S1_FOUND=false;
         private string S1_Mark="0";
@@ -36,10 +37,24 @@ namespace ConcreteSampleTransformers
         private string S3_Width="0";
         private string S3_Height="0";
 
-        public CubeSample(string code){ 
+        public CubeSample(string code,string date){ 
             getType=(int)TypesEnums.Type.Cube; 
             sampleCode=code;
-            sampleSimpleCode=code.Substring(4,5);
+            sampleSimpleCode=getSimpleCode();
+            sampleDate=date;
+        }
+
+        public string getSimpleCode()
+        {
+            string simple="";
+            int last_index=0;
+            int first_index=0;
+            try{
+                last_index=sampleCode.LastIndexOf('/');
+                first_index=sampleCode.IndexOf('/');
+                simple=sampleCode.Substring(first_index+1,(last_index-first_index)-1);
+            }catch(Exception e){ Processer.ConsoleBox.WriteLineToConsole(e.ToString()); simple=""; }
+            return simple;
         }
 
         private string FindAndReplace(string data){
@@ -86,13 +101,19 @@ namespace ConcreteSampleTransformers
             //load data to object
             } 
         }
+        private string createHead(){ 
+            string head="";
+                head+=sampleCode;
+                head+=";";
+                head+=sampleSimpleCode;
+                head+=";";
+                head+=sampleDate;
+                head+="\n";
+            return head;
+        }
         private string zerolessFormat(){ 
             string formatData="";
             if(S1_FOUND){ 
-                formatData+=sampleCode;
-                formatData+=";";
-                formatData+=sampleSimpleCode;
-                formatData+="\n";
                 formatData+=S1_Mark;
                 formatData+=";";
                 formatData+=S1_Lenght;
@@ -137,10 +158,6 @@ namespace ConcreteSampleTransformers
         }
         private string zeroFormat(){ 
             string formatData="";
-                formatData+=sampleCode;
-                formatData+=";";
-                formatData+=sampleSimpleCode;
-                formatData+="\n";
                 formatData+=S1_Mark;
                 formatData+=";";
                 formatData+=S1_Lenght;
@@ -181,8 +198,11 @@ namespace ConcreteSampleTransformers
 
         public string getSampleAsFormatData(bool format)
         {
-            if(format)return zerolessFormat();
-            else return zeroFormat();  
+            string data="";
+            data+=createHead();
+            if(format) data+=zerolessFormat();
+            else data+=zeroFormat();
+            return data;
         }
 
         public bool haveData(){

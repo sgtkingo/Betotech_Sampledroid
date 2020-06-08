@@ -11,8 +11,10 @@ namespace ConcreteSampleTransformers
         int getType{ get;set; }
         string sampleCode{ get; set; }
         string sampleSimpleCode{ get; set; }
+        string sampleDate { get; set; }
 
         string getSampleAsFormatData(bool format);  
+        string getSimpleCode();
         bool haveData();
     }
 }

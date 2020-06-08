@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
@@ -8,8 +9,9 @@ namespace ConcreteSampleTransformers
 {
     public class Processer
     {
-        private const string codePattern = @"[0-9]{3}/[0-9]{5}/[0-9]{2}"; //recognize code pattern
-        private const string dataCubePattern = @"\d+(;\d+\.?\d*){7}"; //recognize data Cube pattern
+        private const string codePattern = @"[0-9]+/[0-9]{5}/[0-9]+"; //recognize code pattern
+        private const string datePattern = @"(\d{2}\.\d{2}\.\d{4})+"; //recognize date pattern
+        private const string dataCubePattern = @"(;\d+\.?\d*){7}"; //recognize data Cube pattern
         private const string dataCylinderPattern = @"%%%"; //recognize data Cube pattern
         // Get current culture's NumberFormatInfo object.
         //private NumberFormatInfo nfi = CultureInfo.CurrentCulture.NumberFormat;
@@ -47,7 +49,7 @@ namespace ConcreteSampleTransformers
         }
         private Sample TransformSample(TypesEnums.Type T,Sample Prototype){
             Sample S=null;
-            if(T==TypesEnums.Type.Cube)S=new CubeSample(Prototype.sampleCode);
+            if(T==TypesEnums.Type.Cube)S=new CubeSample(Prototype.sampleCode,Prototype.sampleDate);
             if(T==TypesEnums.Type.Cylinder)S=null; //Cylinder type doest exist yet
             return S;
         }
@@ -61,8 +63,21 @@ namespace ConcreteSampleTransformers
               cube.FillSample(data,ABC);
            }
         }
+        private string cutDate(string data){ 
+            string date="";
+            string[] parts=data.Split(';');
+            if(parts.Length >= 8){
+                if(RecognizeDate(parts[3])){ 
+                    date=parts[3];
+                }
+            }
+            return date;
+        }
         private bool RecognizeCode(string data){ 
             return Regex.IsMatch(data,codePattern);
+        }
+        private bool RecognizeDate(string data){ 
+            return Regex.IsMatch(data,datePattern);
         }
         private TypesEnums.Type RecognizeData(string data){
             if (Regex.IsMatch(data,dataCubePattern)){
@@ -92,6 +107,10 @@ namespace ConcreteSampleTransformers
                     S=CreateNewSample(actualCode);
                     continue;
                 }
+                else if(RecognizeDate(line)){
+                    if(S!=null)S.sampleDate=cutDate(line);
+                    continue;
+                }
                 else if((actualType=RecognizeData(line))!=TypesEnums.Type.NoType){ 
                     if(S==null){ 
                         errors.Add(new Error("ERROR","S == null",(errors.Count).ToString()));
@@ -104,6 +123,11 @@ namespace ConcreteSampleTransformers
                     N_ABC++; 
                     FillSample(S,line,N_ABC);
                 } 
+                if(S!=null){ 
+                    if(S.getType!=(int)TypesEnums.Type.NoType){
+                        Storage.SaveSample(S);
+                    }
+                }
             }
             return printERRORs();    
         }
@@ -115,10 +139,32 @@ namespace ConcreteSampleTransformers
 
             return ParseSamples(DATA);    
         }
-
+        private string createHead(){ 
+            string head="";
+                head+="Kod";
+                head+=";";   
+                head+="Delka";
+                head+=";";
+                head+="Sirka";
+                head+=";";
+                head+="Vyska";
+                head+=";";
+                head+="Vaha";
+                head+=";";
+                head+="Nalozeni";
+                head+=";";
+                head+="DATE/TIME:";
+                head+=";";
+                head+=DateTime.Now.ToShortDateString();
+                head+=";";
+                head+=DateTime.Now.ToShortTimeString();
+                head+="\n";
+            return head;
+        }
         public bool MakeFile(VirtualFile virtualFile){
             if(virtualFile==null)return false;
             DATA="";
+            DATA+=createHead();
             foreach(Sample S in Storage.GetAllSamples()){
                 DATA+=S.getSampleAsFormatData(Zeroless);
                 DATA+="\n";

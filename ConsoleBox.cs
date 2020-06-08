@@ -42,21 +42,10 @@ namespace ConcreteSampleTransformers
         }
         public void SaveToFile(string file){ 
             string path =PropertiesManager.currentDirectory+PropertiesManager.pathLocalReportsFiles+file+PropertiesManager.primalReportType;
-                // Delete the file if it exists.
-                if (File.Exists(path))
-                {
-                    File.Delete(path);
-                }
-                //Create the file.
-                using (FileStream fs = new FileStream(path,FileMode.Create))
-                {
-                    fs.Seek(0,SeekOrigin.Begin);
-                        StreamWriter sw=new StreamWriter(fs);
-                        sw.Write(MyConsoleBox.Text);
-
-                        sw.Close();
-                        fs.Close();
-                }               
+            VirtualFile virtualFile=new VirtualFile();
+            virtualFile.appendFile(path);
+            virtualFile.FILEDATA=MyConsoleBox.Text;
+            FileManager.SaveFile(virtualFile);
         }
     }
 }
