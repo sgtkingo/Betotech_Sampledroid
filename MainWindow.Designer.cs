@@ -44,7 +44,6 @@
             this.l_console = new System.Windows.Forms.Label();
             this.btn_reportConsole = new System.Windows.Forms.Button();
             this.btn_clearConsole = new System.Windows.Forms.Button();
-            this.chbox_zeroless = new System.Windows.Forms.CheckBox();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.btn_input = new System.Windows.Forms.Button();
             this.btn_output = new System.Windows.Forms.Button();
@@ -71,7 +70,7 @@
             this.pic_Logo.InitialImage = ((System.Drawing.Image)(resources.GetObject("pic_Logo.InitialImage")));
             this.pic_Logo.Location = new System.Drawing.Point(12, 12);
             this.pic_Logo.Name = "pic_Logo";
-            this.pic_Logo.Size = new System.Drawing.Size(180, 80);
+            this.pic_Logo.Size = new System.Drawing.Size(208, 80);
             this.pic_Logo.TabIndex = 3;
             this.pic_Logo.TabStop = false;
             this.pic_Logo.WaitOnLoad = true;
@@ -200,17 +199,6 @@
             this.btn_clearConsole.UseVisualStyleBackColor = true;
             this.btn_clearConsole.Click += new System.EventHandler(this.btn_clearConsole_Click);
             // 
-            // chbox_zeroless
-            // 
-            this.chbox_zeroless.AutoSize = true;
-            this.chbox_zeroless.Location = new System.Drawing.Point(528, 84);
-            this.chbox_zeroless.Name = "chbox_zeroless";
-            this.chbox_zeroless.Size = new System.Drawing.Size(83, 17);
-            this.chbox_zeroless.TabIndex = 22;
-            this.chbox_zeroless.Text = "ZEROLESS";
-            this.chbox_zeroless.UseVisualStyleBackColor = true;
-            this.chbox_zeroless.CheckedChanged += new System.EventHandler(this.chbox_zeroless_CheckedChanged);
-            // 
             // btn_input
             // 
             this.btn_input.Location = new System.Drawing.Point(13, 307);
@@ -257,7 +245,6 @@
             this.Controls.Add(this.txt_filetype);
             this.Controls.Add(this.btn_output);
             this.Controls.Add(this.btn_input);
-            this.Controls.Add(this.chbox_zeroless);
             this.Controls.Add(this.btn_clearConsole);
             this.Controls.Add(this.btn_reportConsole);
             this.Controls.Add(this.l_console);
@@ -276,7 +263,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainWindow";
-            this.Text = "CMB - Concrete sampler";
+            this.Text = "BETOTECH - Concrete Samples Autoformator";
             this.Load += new System.EventHandler(this.MainWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pic_Logo)).EndInit();
             this.ResumeLayout(false);
@@ -301,7 +288,6 @@
         private System.Windows.Forms.Label l_console;
         private System.Windows.Forms.Button btn_reportConsole;
         private System.Windows.Forms.Button btn_clearConsole;
-        private System.Windows.Forms.CheckBox chbox_zeroless;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.Button btn_input;
         private System.Windows.Forms.Button btn_output;

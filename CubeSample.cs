@@ -8,53 +8,42 @@ namespace ConcreteSampleTransformers
 {
     public class CubeSample : Sample
     {
-        public int getType { get; set; }
-        public string sampleCode { get; set; }
-        public string sampleSimpleCode{ get; set; }
-        public string sampleDate { get; set; }
+        private const int dataArrLenght = 7;
+        private enum DataTypeToName{ Mark=0, Mass=1, Lenght=2, Width=3, Height=4, Capacity=5, Load=6 };
 
         private bool S1_FOUND=false;
-        private string S1_Mark="0";
-        private string S1_Mass="0";
-        private string S1_Load="0";
-        private string S1_Lenght="0";
-        private string S1_Width="0";
-        private string S1_Height="0";
+        private string[] S1_ArrData;
 
         private bool S2_FOUND=false;
-        private string S2_Mark="0";
-        private string S2_Mass="0";
-        private string S2_Load="0";
-        private string S2_Lenght="0";
-        private string S2_Width="0";
-        private string S2_Height="0";
+        private string[] S2_ArrData;
 
         private bool S3_FOUND=false;
-        private string S3_Mark="0";
-        private string S3_Mass="0";
-        private string S3_Load="0";
-        private string S3_Lenght="0";
-        private string S3_Width="0";
-        private string S3_Height="0";
+        private string[] S3_ArrData;
 
         public CubeSample(string code,string date){ 
-            getType=(int)TypesEnums.Type.Cube; 
+            S1_ArrData=new string[dataArrLenght];
+            S2_ArrData=new string[dataArrLenght];
+            S3_ArrData=new string[dataArrLenght];
+            ClearSample();
+
+            getType=TypesEnums.Type.Cube; 
             sampleCode=code;
-            sampleSimpleCode=getSimpleCode();
             sampleDate=date;
+            sampleSimpleCode=cutSimpleCode();
         }
 
-        public string getSimpleCode()
+        protected override void ClearSample()
         {
-            string simple="";
-            int last_index=0;
-            int first_index=0;
-            try{
-                last_index=sampleCode.LastIndexOf('/');
-                first_index=sampleCode.IndexOf('/');
-                simple=sampleCode.Substring(first_index+1,(last_index-first_index)-1);
-            }catch(Exception e){ Processer.ConsoleBox.WriteLineToConsole(e.ToString()); simple=""; }
-            return simple;
+            sampleCode="";
+            sampleDate="";
+            getType=TypesEnums.Type.NoType;
+
+            S1_FOUND=S2_FOUND=S3_FOUND=false;
+            for(int i=0;i<dataArrLenght;i++){ 
+                S1_ArrData[i]="0";
+                S2_ArrData[i]="0";
+                S3_ArrData[i]="0";
+            }
         }
 
         private string FindAndReplace(string data){
@@ -73,139 +62,125 @@ namespace ConcreteSampleTransformers
                 if(i==5 || i==7)continue;
                 if(ABC==1){
                     S1_FOUND=true;
-                    if(i==0)S1_Mark=Parts[i];
-                    if(i==1)S1_Lenght=Parts[i];
-                    if(i==2)S1_Width=Parts[i];
-                    if(i==3)S1_Height=Parts[i];
-                    if(i==4)S1_Mass=Parts[i];
-                    if(i==6)S1_Load=Parts[i];
+                    if(i==0)S1_ArrData[(int)DataTypeToName.Mark]=Parts[i];
+                    if(i==1)S1_ArrData[(int)DataTypeToName.Lenght]=Parts[i];
+                    if(i==2)S1_ArrData[(int)DataTypeToName.Width]=Parts[i];
+                    if(i==3)S1_ArrData[(int)DataTypeToName.Height]=Parts[i];
+                    if(i==4)S1_ArrData[(int)DataTypeToName.Mass]=Parts[i];
+                    if(i==6)S1_ArrData[(int)DataTypeToName.Load]=Parts[i];
                 }
                 if(ABC==2){
                     S2_FOUND=true;
-                    if(i==0)S2_Mark=Parts[i];
-                    if(i==1)S2_Lenght=Parts[i];
-                    if(i==2)S2_Width=Parts[i];
-                    if(i==3)S2_Height=Parts[i];
-                    if(i==4)S2_Mass=Parts[i];
-                    if(i==6)S2_Load=Parts[i];                    
+                    if(i==0)S2_ArrData[(int)DataTypeToName.Mark]=Parts[i];
+                    if(i==1)S2_ArrData[(int)DataTypeToName.Lenght]=Parts[i];
+                    if(i==2)S2_ArrData[(int)DataTypeToName.Width]=Parts[i];
+                    if(i==3)S2_ArrData[(int)DataTypeToName.Height]=Parts[i];
+                    if(i==4)S2_ArrData[(int)DataTypeToName.Mass]=Parts[i];
+                    if(i==6)S2_ArrData[(int)DataTypeToName.Load]=Parts[i];                 
                 }
                 if(ABC==3){ 
                     S3_FOUND=true;
-                    if(i==0)S3_Mark=Parts[i];
-                    if(i==1)S3_Lenght=Parts[i];
-                    if(i==2)S3_Width=Parts[i];
-                    if(i==3)S3_Height=Parts[i];
-                    if(i==4)S3_Mass=Parts[i];
-                    if(i==6)S3_Load=Parts[i];
+                    if(i==0)S3_ArrData[(int)DataTypeToName.Mark]=Parts[i];
+                    if(i==1)S3_ArrData[(int)DataTypeToName.Lenght]=Parts[i];
+                    if(i==2)S3_ArrData[(int)DataTypeToName.Width]=Parts[i];
+                    if(i==3)S3_ArrData[(int)DataTypeToName.Height]=Parts[i];
+                    if(i==4)S3_ArrData[(int)DataTypeToName.Mass]=Parts[i];
+                    if(i==6)S3_ArrData[(int)DataTypeToName.Load]=Parts[i];
                 }
             //load data to object
             } 
         }
+        private void FillMassCapacityToSamples(){
+            double tempResult=0;
+            double temp_L_mm=0;
+            double temp_W_mm=0;
+            double temp_H_mm=0;
+            if(S1_FOUND){
+                try{
+                    temp_L_mm=double.Parse(S1_ArrData[(int)DataTypeToName.Lenght],Processer.nfi);
+                    temp_W_mm=double.Parse(S1_ArrData[(int)DataTypeToName.Width],Processer.nfi);
+                    temp_H_mm=double.Parse(S1_ArrData[(int)DataTypeToName.Height],Processer.nfi);
+                }catch (Exception e){ 
+                    tempResult=0;
+                    Processer.ConsoleBox.WriteToConsole(e.ToString()); 
+                }
+                 tempResult=this.calculateMassCapacity_dm3(temp_L_mm,temp_W_mm,temp_H_mm);
+                 S1_ArrData[(int)DataTypeToName.Capacity] = tempResult.ToString();
+            }
+            if(S2_FOUND){
+                try{
+                    temp_L_mm=double.Parse(S2_ArrData[(int)DataTypeToName.Lenght],Processer.nfi);
+                    temp_W_mm=double.Parse(S2_ArrData[(int)DataTypeToName.Width],Processer.nfi);
+                    temp_H_mm=double.Parse(S2_ArrData[(int)DataTypeToName.Height],Processer.nfi);
+                }catch (Exception e){ 
+                    tempResult=0;
+                    Processer.ConsoleBox.WriteToConsole(e.ToString()); 
+                }
+                 tempResult=this.calculateMassCapacity_dm3(temp_L_mm,temp_W_mm,temp_H_mm);
+                 S2_ArrData[(int)DataTypeToName.Capacity] = tempResult.ToString();
+            }  
+            if(S3_FOUND){
+                try{
+                    temp_L_mm=double.Parse(S3_ArrData[(int)DataTypeToName.Lenght],Processer.nfi);
+                    temp_W_mm=double.Parse(S3_ArrData[(int)DataTypeToName.Width],Processer.nfi);
+                    temp_H_mm=double.Parse(S3_ArrData[(int)DataTypeToName.Height],Processer.nfi);
+                }catch (Exception e){ 
+                    tempResult=0;
+                    Processer.ConsoleBox.WriteToConsole(e.ToString()); 
+                }
+                 tempResult=this.calculateMassCapacity_dm3(temp_L_mm,temp_W_mm,temp_H_mm);
+                 S3_ArrData[(int)DataTypeToName.Capacity] = tempResult.ToString();
+            }              
+        }
+        private double calculateMassCapacity_dm3(double L_mm, double W_mm, double H_mm){ 
+            double result=0;
+                result=(L_mm*W_mm*H_mm)/1000000;
+                result=Math.Round(result,3);
+            return result;
+        }
+
         private string createHead(){ 
             string head="";
                 head+=sampleCode;
                 head+=";";
                 head+=sampleSimpleCode;
                 head+=";";
+                head+=getType;
+                head+=";";
                 head+=sampleDate;
                 head+="\n";
             return head;
         }
-        private string zerolessFormat(){ 
+        private string createBody(){
             string formatData="";
-            if(S1_FOUND){ 
-                formatData+=S1_Mark;
-                formatData+=";";
-                formatData+=S1_Lenght;
-                formatData+=";";
-                formatData+=S1_Width;
-                formatData+=";";
-                formatData+=S1_Height;
-                formatData+=";";
-                formatData+=S1_Mass;
-                formatData+=";";
-                formatData+=S1_Load;
-            }
-            if(S2_FOUND){
+                for(int i=0;i<dataArrLenght;i++){ 
+                    formatData+=S1_ArrData[i];
+                    formatData+=";";
+                }
                 formatData+="\n";
-                formatData+=S2_Mark;
-                formatData+=";";
-                formatData+=S2_Lenght;
-                formatData+=";";
-                formatData+=S2_Width;
-                formatData+=";";
-                formatData+=S2_Height;
-                formatData+=";";
-                formatData+=S2_Mass;
-                formatData+=";";
-                formatData+=S2_Load;
-            }
-            if(S3_FOUND){
+                for(int i=0;i<dataArrLenght;i++){ 
+                    formatData+=S2_ArrData[i];
+                    formatData+=";";
+                }
                 formatData+="\n";
-                formatData+=S3_Mark;
-                formatData+=";";
-                formatData+=S3_Lenght;
-                formatData+=";";
-                formatData+=S3_Width;
-                formatData+=";";
-                formatData+=S3_Height;
-                formatData+=";";
-                formatData+=S3_Mass;
-                formatData+=";";
-                formatData+=S3_Load;
-            }
-            return formatData;
-        }
-        private string zeroFormat(){ 
-            string formatData="";
-                formatData+=S1_Mark;
-                formatData+=";";
-                formatData+=S1_Lenght;
-                formatData+=";";
-                formatData+=S1_Width;
-                formatData+=";";
-                formatData+=S1_Height;
-                formatData+=";";
-                formatData+=S1_Mass;
-                formatData+=";";
-                formatData+=S1_Load;
-                formatData+="\n";
-                formatData+=S2_Mark;
-                formatData+=";";
-                formatData+=S2_Lenght;
-                formatData+=";";
-                formatData+=S2_Width;
-                formatData+=";";
-                formatData+=S2_Height;
-                formatData+=";";
-                formatData+=S2_Mass;
-                formatData+=";";
-                formatData+=S2_Load;
-                formatData+="\n";
-                formatData+=S3_Mark;
-                formatData+=";";
-                formatData+=S3_Lenght;
-                formatData+=";";
-                formatData+=S3_Width;
-                formatData+=";";
-                formatData+=S3_Height;
-                formatData+=";";
-                formatData+=S3_Mass;
-                formatData+=";";
-                formatData+=S3_Load;
+                for(int i=0;i<dataArrLenght;i++){ 
+                    formatData+=S3_ArrData[i];
+                    formatData+=";";
+                }      
             return formatData;
         }
 
-        public string getSampleAsFormatData(bool format)
+        public override string getSampleAsFormatData()
         {
+            FillMassCapacityToSamples();
+
             string data="";
             data+=createHead();
-            if(format) data+=zerolessFormat();
-            else data+=zeroFormat();
+            data+=createBody();
             return data;
         }
 
-        public bool haveData(){
+        public override bool haveData(){
             return (S1_FOUND|S2_FOUND|S3_FOUND);
         }
     }

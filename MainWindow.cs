@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Deployment.Application;
+using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace ConcreteSampleTransformers
@@ -26,11 +29,16 @@ namespace ConcreteSampleTransformers
             this.openFileDialog.Title="Browse file to transform:";
             this.openFileDialog.DefaultExt="*.*";
             this.openFileDialog.Filter = "All files (*.*)|*.*";
+            this.openFileDialog.HelpRequest+=showHelp;
 
             this.txt_filetype.Text=PropertiesManager.primalFileType;
 
             EnableProcess(false);
             return;
+        }
+
+        private void showHelp(object sender, EventArgs eventArgs){
+            MessageBox.Show("Open TXT file to process sample.");
         }
 
         private void btn_Process_Click(object sender, EventArgs e)
@@ -109,15 +117,14 @@ namespace ConcreteSampleTransformers
         }
         private void btn_about_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Jiri Konecny; \tBETTACOMP \nAutoformating concrete sampler \nV1.3\t\t\t2020");
+            string version = Application.ProductVersion;
+            if (ApplicationDeployment.IsNetworkDeployed)
+            {
+                version = string.Format("v{0}",
+                    ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4));
+            }
+            MessageBox.Show("Jiri Konecny@BETTACOMP \nConcrete samples autoformator \n"+version+"\t\t\t2020");
         }
-
-        private void chbox_zeroless_CheckedChanged(object sender, EventArgs e)
-        {
-            Processer.Zeroless=chbox_zeroless.Checked;
-            Processer.ConsoleBox.WriteLineToConsole("ZEROLESS FUNCTION: "+chbox_zeroless.Checked);
-        }
-
         private void btn_input_Click(object sender, EventArgs e)
         {
             if(this.folderBrowserDialog.ShowDialog() == DialogResult.OK){ 

@@ -22,7 +22,7 @@ namespace ConcreteSampleTransformers
 
         public List<Sample> GetFiltredSamples(TypesEnums.Type T){
             List<Sample> filtredSamples=new List<Sample>();
-            foreach(Sample S in samples.Where(s => (s.getType == (int)T))){
+            foreach(Sample S in samples.Where(s => (s.getType == T))){
                     if(S.haveData()){ 
                     filtredSamples.Add(S);
                 }

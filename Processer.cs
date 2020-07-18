@@ -9,12 +9,13 @@ namespace ConcreteSampleTransformers
 {
     public class Processer
     {
+                // Get current culture's NumberFormatInfo object.
+        public static NumberFormatInfo nfi = CultureInfo.CurrentCulture.NumberFormat;
+
         private const string codePattern = @"[0-9]+/[0-9]{5}/[0-9]+"; //recognize code pattern
         private const string datePattern = @"(\d{2}\.\d{2}\.\d{4})+"; //recognize date pattern
         private const string dataCubePattern = @"(;\d+\.?\d*){7}"; //recognize data Cube pattern
-        private const string dataCylinderPattern = @"%%%"; //recognize data Cube pattern
-        // Get current culture's NumberFormatInfo object.
-        //private NumberFormatInfo nfi = CultureInfo.CurrentCulture.NumberFormat;
+        private const string dataCylinderPattern = @"%%%"; //recognize data Cylinder pattern
         private const string messageOK="PROCESS DONE - NO ERROR";
         private const string messageERROR="PROCESS DONE - ERRORS FOUND!!!";
         private const string messageFAIL="PROCESS DONE - FAIL!!!";
@@ -23,7 +24,6 @@ namespace ConcreteSampleTransformers
         private int ERRORS=0;
 
         public string FinalMessage{ get;set;}
-        public bool Zeroless;
 
         Storage Storage;
         FileManager FileManager;
@@ -36,7 +36,6 @@ namespace ConcreteSampleTransformers
         public Processer(RichTextBox BOX){ 
             DATA="";
             ERRORS=0;
-            Zeroless=false;
             errors=new List<Error>();
 
             ConsoleBox=new ConsoleBox(BOX);
@@ -58,7 +57,7 @@ namespace ConcreteSampleTransformers
         }
         private void FillSample(Sample S, string data, int ABC){
            if(S==null)return;
-           if(S.getType==(int)TypesEnums.Type.Cube){
+           if(S.getType==TypesEnums.Type.Cube){
               CubeSample cube=(CubeSample)S;
               cube.FillSample(data,ABC);
            }
@@ -101,7 +100,7 @@ namespace ConcreteSampleTransformers
 
             foreach(string line in Lines){
                 if(RecognizeCode(line)){
-                    if(S!=null)if(S.getType==(int)TypesEnums.Type.NoType){ errors.Add(new Error("ERROR","S is PROTOTYPE!",S.sampleCode)); }
+                    if(S!=null)if(S.getType==TypesEnums.Type.NoType){ errors.Add(new Error("ERROR","S is PROTOTYPE!",S.sampleCode)); }
                     Storage.SaveSample(S);
                     actualCode=line;
                     S=CreateNewSample(actualCode);
@@ -116,7 +115,7 @@ namespace ConcreteSampleTransformers
                         errors.Add(new Error("ERROR","S == null",(errors.Count).ToString()));
                         continue;
                     }
-                    if(S.getType==(int)TypesEnums.Type.NoType){ 
+                    if(S.getType==TypesEnums.Type.NoType){ 
                         S=TransformSample(actualType,S);
                         N_ABC=0;
                     }
@@ -132,8 +131,6 @@ namespace ConcreteSampleTransformers
             return printERRORs();    
         }
         public bool MakeSamples(VirtualFile virtualFile){
-            if(virtualFile==null)return false;
-            DATA="";
             if(!FileManager.LoadFile(virtualFile))return false;
             DATA=virtualFile.FILEDATA;
 
@@ -141,17 +138,19 @@ namespace ConcreteSampleTransformers
         }
         private string createHead(){ 
             string head="";
-                head+="Kod";
-                head+=";";   
-                head+="Delka";
+                head+="Kod [-]";
+                head+=";";  
+                head+="Vaha [kg]";
+                head+=";";            
+                head+="Delka [mm]";
                 head+=";";
-                head+="Sirka";
+                head+="Sirka [mm]";
                 head+=";";
-                head+="Vyska";
+                head+="Vyska [mm]";
                 head+=";";
-                head+="Vaha";
+                head+="Objem [dm^3]";
                 head+=";";
-                head+="Nalozeni";
+                head+="Nalozeni [kg/m^3]";
                 head+=";";
                 head+="DATE/TIME:";
                 head+=";";
@@ -166,7 +165,7 @@ namespace ConcreteSampleTransformers
             DATA="";
             DATA+=createHead();
             foreach(Sample S in Storage.GetAllSamples()){
-                DATA+=S.getSampleAsFormatData(Zeroless);
+                DATA+=S.getSampleAsFormatData();
                 DATA+="\n";
             }
             virtualFile.FILEDATA=DATA;

@@ -6,15 +6,31 @@ using System.Threading.Tasks;
 
 namespace ConcreteSampleTransformers
 {
-    public interface Sample
+    public abstract class Sample
     {
-        int getType{ get;set; }
-        string sampleCode{ get; set; }
-        string sampleSimpleCode{ get; set; }
-        string sampleDate { get; set; }
+        public TypesEnums.Type getType{ get; set; }
+        public string sampleCode{ get; set; }
+        public string sampleSimpleCode{ get; set; }
+        public string sampleDate { get; set; }
 
-        string getSampleAsFormatData(bool format);  
-        string getSimpleCode();
-        bool haveData();
+        protected abstract void ClearSample(); 
+        public abstract string getSampleAsFormatData();  
+        public abstract bool haveData();
+
+        protected string cutSimpleCode(){ 
+            string simple="";
+            int last_index=0;
+            int first_index=0;
+            try{
+                last_index=sampleCode.LastIndexOf('/');
+                first_index=sampleCode.IndexOf('/');
+                simple=sampleCode.Substring(first_index+1,(last_index-first_index)-1);
+            }catch(IndexOutOfRangeException e){ Processer.ConsoleBox.WriteLineToConsole(e.ToString()); simple=""; }
+            return simple;
+        }
+
+        protected void TimeStampSample(){ 
+            sampleDate=DateTime.Now.ToShortDateString();
+        }
     }
 }

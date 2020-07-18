@@ -6,6 +6,8 @@ namespace ConcreteSampleTransformers
     public class FileManager
     {
         public static bool LoadFile(VirtualFile virtualFile){ 
+            if(virtualFile == null)return false;
+
             virtualFile.FILEDATA="";
             if (!File.Exists(virtualFile.FILEPATH))
             {
@@ -36,6 +38,8 @@ namespace ConcreteSampleTransformers
         }
 
         public static bool SaveFile(VirtualFile virtualFile){
+            if(virtualFile == null)return false;
+
             string filePath=(virtualFile.FILEPATH);
             try{ 
                 using (FileStream fs = new FileStream(filePath,FileMode.Create))
