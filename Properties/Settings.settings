@@ -1,0 +1,30 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ConcreteSampleTransformers.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="inputDataPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">//</Value>
+    </Setting>
+    <Setting Name="outputDataPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">//</Value>
+    </Setting>
+    <Setting Name="reportDataPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\reports\</Value>
+    </Setting>
+    <Setting Name="outputFileType" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="autosaveFunction" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="inputNfi" Type="System.Char" Scope="User">
+      <Value Profile="(Default)">.</Value>
+    </Setting>
+    <Setting Name="outputNfi" Type="System.Char" Scope="User">
+      <Value Profile="(Default)">,</Value>
+    </Setting>
+    <Setting Name="Nastavení" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>
