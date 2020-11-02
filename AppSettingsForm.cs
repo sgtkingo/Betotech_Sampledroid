@@ -108,7 +108,7 @@ namespace ConcreteSampleTransformers
         private void btn_Connect_Click(object sender, EventArgs e)
         {
             if( ConnectForm().DialogResult == DialogResult.OK){
-                l_status.Text = "Connected";
+                l_status.Text = "Connected!";
             }
             else
             {
