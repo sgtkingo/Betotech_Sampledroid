@@ -49,12 +49,12 @@
             this.btn_InPathSet = new System.Windows.Forms.Button();
             this.gbox_NumberFormat = new System.Windows.Forms.GroupBox();
             this.gpbox_SQL = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.btn_Connect = new System.Windows.Forms.Button();
             this.l_sqladdr = new System.Windows.Forms.Label();
             this.txt_SQLAddr = new System.Windows.Forms.TextBox();
             this.l_status = new System.Windows.Forms.Label();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource_LanguageIN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource_LanguageOUT)).BeginInit();
             this.gbox_Path.SuspendLayout();
@@ -187,7 +187,7 @@
             this.btn_SaveAndClose.Name = "btn_SaveAndClose";
             this.btn_SaveAndClose.Size = new System.Drawing.Size(228, 64);
             this.btn_SaveAndClose.TabIndex = 8;
-            this.btn_SaveAndClose.Text = "Save changes";
+            this.btn_SaveAndClose.Text = "Save";
             this.btn_SaveAndClose.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btn_SaveAndClose.UseVisualStyleBackColor = true;
             this.btn_SaveAndClose.Click += new System.EventHandler(this.btn_SaveAndClose_Click);
@@ -260,6 +260,16 @@
             this.gpbox_SQL.TabStop = false;
             this.gpbox_SQL.Text = "SQL Database ";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label7.Location = new System.Drawing.Point(285, 16);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(59, 16);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "Status: ";
+            // 
             // btn_Connect
             // 
             this.btn_Connect.BackColor = System.Drawing.SystemColors.Highlight;
@@ -295,21 +305,11 @@
             this.l_status.AutoSize = true;
             this.l_status.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.l_status.ForeColor = System.Drawing.Color.Red;
-            this.l_status.Location = new System.Drawing.Point(402, 16);
+            this.l_status.Location = new System.Drawing.Point(347, 16);
             this.l_status.Name = "l_status";
             this.l_status.Size = new System.Drawing.Size(13, 16);
             this.l_status.TabIndex = 0;
             this.l_status.Text = "-";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label7.Location = new System.Drawing.Point(347, 16);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(59, 16);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "Status: ";
             // 
             // AppSettingsForm
             // 
@@ -320,7 +320,7 @@
             this.Controls.Add(this.gbox_NumberFormat);
             this.Controls.Add(this.gbox_Path);
             this.Controls.Add(this.btn_SaveAndClose);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "AppSettingsForm";
             this.Text = "Settings";

@@ -24,9 +24,11 @@ namespace ConcreteSampleTransformers
         public static string reportDataPath { get; private set; }
 
         public const string fileTypeCSV = ".csv";
-        public const string fileTypeObject = ".sfo";
+        public const string fileTypeDatabase = "SQL Database";
         public const string fileTypeReport = ".txt";
         public const string unknownFileType = ".dat";
+
+        public static string connectionString { get; set; }
 
         public static string currentDirectoryPath { get; set; }
 
@@ -35,7 +37,7 @@ namespace ConcreteSampleTransformers
         public static string GetOutputFileType {
             get {
                 if (ActualFileType == TypesEnums.FileType.CSV) return fileTypeCSV;
-                if (ActualFileType == TypesEnums.FileType.OBJECT) return fileTypeObject;
+                if (ActualFileType == TypesEnums.FileType.DATABASE) return fileTypeDatabase;
                 else return unknownFileType;
             }
         }
@@ -72,6 +74,7 @@ namespace ConcreteSampleTransformers
             inputDataPath = Properties.Settings.Default.inputDataPath;
             outputDataPath = Properties.Settings.Default.outputDataPath;
             reportDataPath = Properties.Settings.Default.reportDataPath;
+            connectionString = Properties.Settings.Default.connectionString;
             ActualFileType = (TypesEnums.FileType)Properties.Settings.Default.outputFileType;
 
             Console.WriteLine("Settings load!");
@@ -84,6 +87,9 @@ namespace ConcreteSampleTransformers
             Properties.Settings.Default.inputDataPath = inputDataPath;
             Properties.Settings.Default.outputDataPath = outputDataPath;
             Properties.Settings.Default.outputFileType = (int)ActualFileType;
+
+            Properties.Settings.Default.connectionString = connectionString;
+
             Properties.Settings.Default.Save();
 
             Console.WriteLine("Settings save!");

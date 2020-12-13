@@ -174,9 +174,9 @@
             this.label_FileType.AutoSize = true;
             this.label_FileType.Location = new System.Drawing.Point(420, 12);
             this.label_FileType.Name = "label_FileType";
-            this.label_FileType.Size = new System.Drawing.Size(81, 13);
+            this.label_FileType.Size = new System.Drawing.Size(65, 13);
             this.label_FileType.TabIndex = 29;
-            this.label_FileType.Text = "Output file type:";
+            this.label_FileType.Text = "Output type:";
             // 
             // btn_Settings
             // 
@@ -229,7 +229,7 @@
             this.btn_savefile.Name = "btn_savefile";
             this.btn_savefile.Size = new System.Drawing.Size(173, 72);
             this.btn_savefile.TabIndex = 8;
-            this.btn_savefile.Text = "SAVE FILE";
+            this.btn_savefile.Text = "SAVE";
             this.btn_savefile.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btn_savefile.UseVisualStyleBackColor = true;
             this.btn_savefile.Click += new System.EventHandler(this.btn_savefile_Click);
@@ -271,7 +271,6 @@
             this.btn_Process.TabIndex = 0;
             this.btn_Process.Text = "PROCESS";
             this.btn_Process.UseVisualStyleBackColor = false;
-            this.btn_Process.EnabledChanged += new System.EventHandler(this.btn_Process_EnabledChanged);
             this.btn_Process.Click += new System.EventHandler(this.btn_Process_Click);
             // 
             // MainWindow

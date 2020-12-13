@@ -20,11 +20,15 @@ namespace ConcreteSampleTransformers
         private const string dataCylinderPattern = @"(;\d+\.?\d*){6}"; //recognize data Cylinder pattern
 
         public Storage Storage { get; private set; }
+        public DatabaseManager DatabaseManager{ get; private set; }
         public FileManager FileManager { get; private set; }
         public FileMaker FileMaker { get; private set; }
         public ErrorManager ErrorManager { get; private set; }
         public StatsManager StatsManager { get; private set; }
         public ViewerManager ViewerManager { get; private set; }
+
+        public bool Result { get; private set; }
+        public DateTime LastTimeStamp { get; private set; }
 
         public static ConsoleBox ConsoleBox;
 
@@ -34,10 +38,11 @@ namespace ConcreteSampleTransformers
             PropertiesManager.Init();
 
             Storage =new Storage();
+            DatabaseManager = new DatabaseManager(PropertiesManager.connectionString);
             ErrorManager = new ErrorManager(Storage, ConsoleBox);
             StatsManager = new StatsManager(Storage, ConsoleBox);
             FileManager = new FileManager();
-            FileMaker= new FileMaker(Storage);
+            FileMaker= new FileMaker(Storage, DatabaseManager);
             ViewerManager = new ViewerManager(Storage);
 
             ConsoleBox.WriteLineToConsole("\tPROGRAM READY!",ConsoleBox.LineType.Bold);
@@ -138,12 +143,22 @@ namespace ConcreteSampleTransformers
             ConsoleBox.WriteLineToConsole("Parsing complete...");
             return CheckForERRORs();    
         }
-        public bool MakeSamples(VirtualFile virtualFile){
-            if(!FileManager.LoadFile(virtualFile))return false;
 
-            string data=virtualFile.getFileData();
+        private string PrepareDataForProcess(VirtualFile virtualFile)
+        {
+            if (!FileManager.LoadFile(virtualFile)) return string.Empty;
+            return virtualFile.getFileData();
+        }
+
+        private void DoProcess(string data)
+        {
             ConsoleBox.WriteLineToConsole("Start proccess...", ConsoleBox.LineType.NoLine);
-            return ParseSamples(data);    
+            Result = ParseSamples(data);
+            LastTimeStamp = DateTime.Now;
+        }
+        public void MakeSamples(VirtualFile virtualFile){
+            string data = PrepareDataForProcess(virtualFile);
+            DoProcess(data);
         }  
         
         public bool MakeFiles(){

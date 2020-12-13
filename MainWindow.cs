@@ -12,6 +12,8 @@ namespace ConcreteSampleTransformers
         public MainWindow()
         {
             InitializeComponent();
+            btn_openfile.Click += CheckLoadedFileEvent;
+            btn_Process.Click += CheckProcessResultEvent;
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
@@ -20,6 +22,7 @@ namespace ConcreteSampleTransformers
             virtualFileIN=null;
 
             UseSettings();
+            EnableProcess(false);
         }
 
         private void UseSettings() {
@@ -38,28 +41,36 @@ namespace ConcreteSampleTransformers
                 rdbtn_Object.Checked = true;
 
             chbox_autosave.Checked = PropertiesManager.autosaveFunction;
-
-            EnableProcess(false);
         }
 
-        private void btn_Process_Click(object sender, EventArgs e)
-        {
-            EnableProcess(false);
-            if (LocalProcesser.MakeSamples(virtualFileIN)){
-
+        private void Process(){
+            LocalProcesser.MakeSamples(virtualFileIN);
+            if (LocalProcesser.Result)
+            {
                 LocalProcesser.FlushStats();
                 if (PropertiesManager.autosaveFunction)
                 {
                     SaveFileRoutine();
-                }else
+                }
+                else
                 {
                     Processer.ConsoleBox.WriteLineToConsole("Please, save the file...");
                 }
             }
-            else{ 
-                MessageBox.Show(LocalProcesser.GetFinalMessage(),"ERROR",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            else
+            {
+                MessageBox.Show(LocalProcesser.GetFinalMessage(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            EnableProcess(true);
+        }
+
+        private void btn_Process_Click(object sender, EventArgs e)
+        {
+            Process();
+        }
+
+        private void CheckProcessResultEvent(object sender, EventArgs e)
+        {
+            btn_savefile.Enabled = LocalProcesser.Result;
         }
 
         private void btn_openfile_Click(object sender, EventArgs e)
@@ -76,7 +87,6 @@ namespace ConcreteSampleTransformers
         private void FileLoadRoutine(){
             //Set init directory by settings
             this.openFileDialog.InitialDirectory = PropertiesManager.inputDataPath;
-            virtualFileIN =new VirtualFile();
 
             string fp=string.Empty;
             if(this.openFileDialog.ShowDialog() == DialogResult.OK){ 
@@ -84,18 +94,19 @@ namespace ConcreteSampleTransformers
             }
             else
             {
-                EnableProcess(false);
                 return;
-            } 
-
+            }
+            virtualFileIN = new VirtualFile();
             virtualFileIN.appendFile(fp);
             intxt_filename_in.Text = virtualFileIN.FILENAME;
+        }
 
-            EnableProcess(true);
+        private void CheckLoadedFileEvent(object sender, EventArgs e){
+            EnableProcess(virtualFileIN != null);
         }
 
         private void SaveFileRoutine(){
-            if ( ShowDataTablesForm().DialogResult == DialogResult.Abort ){
+            if ( ShowDataTablesForm().DialogResult != DialogResult.OK ){
                 MessageBox.Show("Result was REJECTED by user!", "Reject", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Processer.ConsoleBox.WriteLineToConsole($"FILE {PropertiesManager.fileNameOUT} DOES NOT SAVE!",ConsoleBox.LineType.Bold);
                 return;
@@ -117,11 +128,7 @@ namespace ConcreteSampleTransformers
         private void EnableProcess(bool process)
         {
             btn_Process.Enabled = process;
-        }
-
-        private void btn_Process_EnabledChanged(object sender, EventArgs e)
-        {
-            btn_savefile.Enabled = btn_Process.Enabled;
+            btn_savefile.Enabled = false;
         }
 
         //Console and report 
@@ -168,7 +175,7 @@ namespace ConcreteSampleTransformers
         {
             if (rdbtn_CSV.Checked) { 
                 PropertiesManager.ActualFileType = TypesEnums.FileType.CSV;
-                Console.WriteLine("File type change to: " + TypesEnums.FileType.CSV);
+                Console.WriteLine("File type change to: " + PropertiesManager.ActualFileType);
                 txt_filetype.Text = PropertiesManager.GetOutputFileType;
             }
         }
@@ -176,8 +183,8 @@ namespace ConcreteSampleTransformers
         private void rdbtn_Object_CheckedChanged(object sender, EventArgs e)
         {
             if (rdbtn_Object.Checked) {
-                PropertiesManager.ActualFileType = TypesEnums.FileType.OBJECT;
-                Console.WriteLine("File type change to: " + TypesEnums.FileType.OBJECT);
+                PropertiesManager.ActualFileType = TypesEnums.FileType.DATABASE;
+                Console.WriteLine("File type change to: " + PropertiesManager.ActualFileType);
                 txt_filetype.Text = PropertiesManager.GetOutputFileType;
             }
         }
@@ -201,27 +208,23 @@ namespace ConcreteSampleTransformers
 
         //Create another forms
         private void ShowSettingsForm(){
-            this.Enabled = false;
-            var form = new AppSettingsForm();
+            var form = new AppSettingsForm(LocalProcesser.DatabaseManager);
             form.FormClosed += (sender_, e_) => { this.Enabled = true; };
-            form.Show();
+            form.ShowDialog();
         }
 
         private DataViewForm ShowDataTablesForm()
         {
-            this.Enabled = false;
             var form = new DataViewForm(LocalProcesser.ViewerManager);
             form.FormClosed += (sender_, e_) => { this.Enabled = true; };
             form.ShowDialog();
 
             return form;
         }
-
         //Form closing
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             PropertiesManager.SaveSettings();
         }
-
     }
 }

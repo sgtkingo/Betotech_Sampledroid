@@ -9,6 +9,6 @@ namespace ConcreteSampleTransformers
     public static class TypesEnums
     {
         public enum SampleType{ Cube=1, Cylinder=2, NoType=0};
-        public enum FileType { CSV = 0, OBJECT=1 } 
+        public enum FileType { CSV = 0, DATABASE=1 } 
     }
 }

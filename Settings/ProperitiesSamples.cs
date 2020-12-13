@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConcreteSampleTransformers
 {
-    public class ProperitiesSamples
+    public static class ProperitiesSamples
     {
         //Sample properities
         private static string CubeHeadLabels = $"Kod [-];Vaha [kg];Delka [mm];Sirka [mm];Vyska [mm];Objem [dm^3];Obj. hmotnost [kg/m^3];Tlak [kN];Valid [True/False]\n";

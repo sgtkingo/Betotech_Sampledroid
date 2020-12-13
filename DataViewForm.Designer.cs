@@ -35,16 +35,16 @@
             this.bindingSource_Cylinder = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl = new System.Windows.Forms.TabControl();
             this.page_CUBE = new System.Windows.Forms.TabPage();
-            this.page_CYLINDER = new System.Windows.Forms.TabPage();
             this.dataGridView_Cube = new System.Windows.Forms.DataGridView();
+            this.page_CYLINDER = new System.Windows.Forms.TabPage();
             this.dataGridView_Cylinder = new System.Windows.Forms.DataGridView();
             this.l_dataName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource_Cube)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource_Cylinder)).BeginInit();
             this.tabControl.SuspendLayout();
             this.page_CUBE.SuspendLayout();
-            this.page_CYLINDER.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Cube)).BeginInit();
+            this.page_CYLINDER.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Cylinder)).BeginInit();
             this.SuspendLayout();
             // 
@@ -96,18 +96,6 @@
             this.page_CUBE.Text = "CUBE";
             this.page_CUBE.UseVisualStyleBackColor = true;
             // 
-            // page_CYLINDER
-            // 
-            this.page_CYLINDER.Controls.Add(this.dataGridView_Cylinder);
-            this.page_CYLINDER.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.page_CYLINDER.Location = new System.Drawing.Point(4, 22);
-            this.page_CYLINDER.Name = "page_CYLINDER";
-            this.page_CYLINDER.Padding = new System.Windows.Forms.Padding(3);
-            this.page_CYLINDER.Size = new System.Drawing.Size(951, 321);
-            this.page_CYLINDER.TabIndex = 1;
-            this.page_CYLINDER.Text = "CYLINDER";
-            this.page_CYLINDER.UseVisualStyleBackColor = true;
-            // 
             // dataGridView_Cube
             // 
             this.dataGridView_Cube.AllowUserToAddRows = false;
@@ -119,6 +107,18 @@
             this.dataGridView_Cube.ReadOnly = true;
             this.dataGridView_Cube.Size = new System.Drawing.Size(939, 311);
             this.dataGridView_Cube.TabIndex = 1;
+            // 
+            // page_CYLINDER
+            // 
+            this.page_CYLINDER.Controls.Add(this.dataGridView_Cylinder);
+            this.page_CYLINDER.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.page_CYLINDER.Location = new System.Drawing.Point(4, 22);
+            this.page_CYLINDER.Name = "page_CYLINDER";
+            this.page_CYLINDER.Padding = new System.Windows.Forms.Padding(3);
+            this.page_CYLINDER.Size = new System.Drawing.Size(951, 321);
+            this.page_CYLINDER.TabIndex = 1;
+            this.page_CYLINDER.Text = "CYLINDER";
+            this.page_CYLINDER.UseVisualStyleBackColor = true;
             // 
             // dataGridView_Cylinder
             // 
@@ -151,7 +151,7 @@
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.btn_Reject);
             this.Controls.Add(this.btn_OK);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "DataViewForm";
             this.Text = "Show";
@@ -160,8 +160,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource_Cylinder)).EndInit();
             this.tabControl.ResumeLayout(false);
             this.page_CUBE.ResumeLayout(false);
-            this.page_CYLINDER.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Cube)).EndInit();
+            this.page_CYLINDER.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Cylinder)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

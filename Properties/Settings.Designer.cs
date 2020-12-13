@@ -109,13 +109,14 @@ namespace ConcreteSampleTransformers.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Nastavení {
+        [global::System.Configuration.DefaultSettingValueAttribute("Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=myPassword" +
+            ";")]
+        public string connectionString {
             get {
-                return ((string)(this["Nastavení"]));
+                return ((string)(this["connectionString"]));
             }
             set {
-                this["Nastavení"] = value;
+                this["connectionString"] = value;
             }
         }
     }

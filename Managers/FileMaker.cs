@@ -3,29 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ConcreteSampleTransformers.Managers;
 
 namespace ConcreteSampleTransformers
 {
     public class FileMaker
     {
         Storage Storage;
+        DatabaseManager DatabaseManager;
 
-        public static bool MakeFileProcedureOK { get; private set; }
-
-        public FileMaker(Storage storage) {
+        public FileMaker(Storage storage, DatabaseManager databaseManager) {
             Storage = storage;
+            DatabaseManager = databaseManager;
         }
 
         public bool MakeFiles(TypesEnums.FileType T) {
             if (T == TypesEnums.FileType.CSV) return MakeCSVFiles();
-            if (T == TypesEnums.FileType.OBJECT) return MakeObjectFiles();
+            if (T == TypesEnums.FileType.DATABASE) return MakeDabaseTransaction();
             return false;
         }
-        private bool MakeObjectFiles()
-        {
-            //Dodelat
-            return false;
+
+        private bool MakeDabaseTransaction(){
+            return DatabaseManager.SaveDataToDatabase();
         }
+
         private bool MakeCSVFiles() {
             return 
                 (SaveSamplesByTypeAsCSV(TypesEnums.SampleType.Cube)

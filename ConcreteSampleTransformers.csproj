@@ -120,6 +120,8 @@
     <Compile Include="DataViewForm.Designer.cs">
       <DependentUpon>DataViewForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Managers\ConnectionStringBuilder.cs" />
+    <Compile Include="Managers\DatabaseManager.cs" />
     <Compile Include="Managers\ViewerManager.cs" />
     <Compile Include="Share\ConsoleBox.cs" />
     <Compile Include="Samples\DSO\CylinderSamplePartDso .cs" />

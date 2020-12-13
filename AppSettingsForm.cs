@@ -1,23 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using ConcreteSampleTransformers.Managers;
 
 namespace ConcreteSampleTransformers
 {
     public partial class AppSettingsForm : Form
     {
-        public AppSettingsForm()
+        private DatabaseManager DatabaseManager;
+
+        public AppSettingsForm(DatabaseManager databaseManager)
         {
             InitializeComponent();
+            DatabaseManager = databaseManager;
+            this.Load += RefereshDirectoryPathsEvent;
         }
 
         private void AppSettingsForm_Load(object sender, EventArgs e)
         {
+            TryConnectToDatabase();
+
             this.btn_InPathSet.Click += RefereshDirectoryPathsEvent;
             this.btn_OutPathSet.Click += RefereshDirectoryPathsEvent;
-
-            RefereshDirectoryPathsEvent(sender, e);
             BindLanguageList();
 
             txt_langIn.Text = PropertiesManager.inputNfiSeparator.ToString();
@@ -33,6 +39,36 @@ namespace ConcreteSampleTransformers
             bindingSource_LanguageIN.ResetBindings(false);
             bindingSource_LanguageOUT.DataSource = PropertiesManager.numberFormatInfoMap;
             bindingSource_LanguageOUT.ResetBindings(false);
+
+            SetLanguageList();
+        }
+
+        private void SetLanguageList(){
+            try
+            {
+                foreach (var item in cbox_inputLang.Items)
+                {
+                    char key = ((KeyValuePair<char, string>)item).Key;
+                    if (key == PropertiesManager.inputNfiSeparator)
+                    {
+                        cbox_inputLang.SelectedItem = item;
+                        break;
+                    }
+                }
+                foreach (var item in cbox_outputLang.Items)
+                {
+                    char key = ((KeyValuePair<char, string>)item).Key;
+                    if (key == PropertiesManager.outputNfiSeparator)
+                    {
+                        cbox_outputLang.SelectedItem = item;
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exp: {ex.Message}|{ex.Source}");
+            }
         }
 
         private void btn_InPathSet_Click(object sender, EventArgs e)
@@ -107,13 +143,46 @@ namespace ConcreteSampleTransformers
 
         private void btn_Connect_Click(object sender, EventArgs e)
         {
-            if( ConnectForm().DialogResult == DialogResult.OK){
+            ChangeConnection();
+        }
+
+        private void ParseServerAddress(){
+            try
+            {
+                string cntStr = PropertiesManager.connectionString;
+                txt_SQLAddr.Text = cntStr.Substring(0, cntStr.IndexOf(';'));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Exp: {e.Message}|{e.Source}");
+            }
+        }
+
+        private async Task TryConnectToDatabase(){
+            l_status.Text = "Try to connect...";
+            await Task.Run(() => DatabaseManager.ConnectToDatabase());
+            ShowConnectionStatus();
+        }
+
+        private async void ChangeConnection()
+        {
+            if (ConnectForm().DialogResult == DialogResult.OK)
+            {
+                await TryConnectToDatabase();
+            }
+        }
+
+        private void ShowConnectionStatus()
+        {
+            ParseServerAddress();
+            if (DatabaseManager.ConnectionStatus)
+            {
                 l_status.Text = "Connected!";
             }
             else
             {
                 l_status.Text = "Disconnected...";
-            } 
+            }
         }
 
         private SQLConnectForm ConnectForm(){
