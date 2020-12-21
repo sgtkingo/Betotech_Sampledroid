@@ -120,7 +120,7 @@
     <Compile Include="DataViewForm.Designer.cs">
       <DependentUpon>DataViewForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Managers\ConnectionStringBuilder.cs" />
+    <Compile Include="SQL\ConnectionStringBuilder.cs" />
     <Compile Include="Managers\DatabaseManager.cs" />
     <Compile Include="Managers\ViewerManager.cs" />
     <Compile Include="Share\ConsoleBox.cs" />
@@ -156,6 +156,7 @@
     <Compile Include="SQLConnectForm.Designer.cs">
       <DependentUpon>SQLConnectForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SQL\SQLConnector.cs" />
     <EmbeddedResource Include="AppSettingsForm.resx">
       <DependentUpon>AppSettingsForm.cs</DependentUpon>
     </EmbeddedResource>

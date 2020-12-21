@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -143,53 +144,36 @@ namespace ConcreteSampleTransformers
 
         private void btn_Connect_Click(object sender, EventArgs e)
         {
-            ChangeConnection();
-        }
-
-        private void ParseServerAddress(){
-            try
-            {
-                string cntStr = PropertiesManager.connectionString;
-                txt_SQLAddr.Text = cntStr.Substring(0, cntStr.IndexOf(';'));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Exp: {e.Message}|{e.Source}");
-            }
+            SetConnection();
         }
 
         private async Task TryConnectToDatabase(){
             l_status.Text = "Try to connect...";
-            await Task.Run(() => DatabaseManager.ConnectToDatabase());
-            ShowConnectionStatus();
-        }
+            l_status.ForeColor = Color.Violet;
 
-        private async void ChangeConnection()
-        {
-            if (ConnectForm().DialogResult == DialogResult.OK)
-            {
-                await TryConnectToDatabase();
-            }
+            await Task.Run(() => DatabaseManager.Connect());
+            ShowConnectionStatus();
         }
 
         private void ShowConnectionStatus()
         {
-            ParseServerAddress();
-            if (DatabaseManager.ConnectionStatus)
-            {
-                l_status.Text = "Connected!";
-            }
-            else
-            {
-                l_status.Text = "Disconnected...";
-            }
+            txt_SQLAddr.Text = DatabaseManager.GetServerInfo();
+            l_status.Text = DatabaseManager.SQLConnector.ConnectionMessage;
+            if( DatabaseManager.SQLConnector.ConnectionStatus){
+                l_status.ForeColor = Color.Green;
+            }else l_status.ForeColor = Color.Red;
         }
 
-        private SQLConnectForm ConnectForm(){
-            var form = new SQLConnectForm();
-            form.ShowDialog();
+        private void SetConnection()
+        {
+            CreateConnectForm();
+            ShowConnectionStatus();
+        }
 
-            return form;
+        private void CreateConnectForm(){
+            //Test
+            var form = new SQLConnectForm(DatabaseManager.SQLConnector);
+            form.ShowDialog();
         }
     }
 }
