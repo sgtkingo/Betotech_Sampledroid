@@ -60,11 +60,11 @@ namespace ConcreteSampleTransformers
             numberFormatInfoMap.Add('.', "English");
         }
 
-        private static void checkDirectory(){ 
-            if(!Directory.Exists(currentDirectoryPath + reportDataPath)){ 
+        private static void checkDirectory(){
+            currentDirectoryPath = Directory.GetCurrentDirectory();
+            if (!Directory.Exists(currentDirectoryPath + reportDataPath)){ 
                 Directory.CreateDirectory(currentDirectoryPath + reportDataPath);
             }
-            currentDirectoryPath = Directory.GetCurrentDirectory();
         }
 
         private static void loadSettings(){

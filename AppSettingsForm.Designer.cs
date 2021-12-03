@@ -65,7 +65,7 @@
             // txtInputDataPath
             // 
             this.txtInputDataPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txtInputDataPath.Location = new System.Drawing.Point(99, 13);
+            this.txtInputDataPath.Location = new System.Drawing.Point(99, 18);
             this.txtInputDataPath.Name = "txtInputDataPath";
             this.txtInputDataPath.ReadOnly = true;
             this.txtInputDataPath.Size = new System.Drawing.Size(349, 26);
@@ -75,7 +75,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(25, 18);
+            this.label2.Location = new System.Drawing.Point(25, 24);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(68, 16);
             this.label2.TabIndex = 1;
@@ -85,7 +85,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(15, 51);
+            this.label1.Location = new System.Drawing.Point(15, 57);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(78, 16);
             this.label1.TabIndex = 3;
@@ -94,7 +94,7 @@
             // txtOutputDataPath
             // 
             this.txtOutputDataPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txtOutputDataPath.Location = new System.Drawing.Point(99, 45);
+            this.txtOutputDataPath.Location = new System.Drawing.Point(99, 51);
             this.txtOutputDataPath.Name = "txtOutputDataPath";
             this.txtOutputDataPath.ReadOnly = true;
             this.txtOutputDataPath.Size = new System.Drawing.Size(349, 26);
@@ -187,7 +187,7 @@
             this.btn_SaveAndClose.Name = "btn_SaveAndClose";
             this.btn_SaveAndClose.Size = new System.Drawing.Size(228, 64);
             this.btn_SaveAndClose.TabIndex = 8;
-            this.btn_SaveAndClose.Text = "Save";
+            this.btn_SaveAndClose.Text = "Confirm";
             this.btn_SaveAndClose.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btn_SaveAndClose.UseVisualStyleBackColor = true;
             this.btn_SaveAndClose.Click += new System.EventHandler(this.btn_SaveAndClose_Click);
@@ -211,7 +211,7 @@
             // 
             this.btn_OutPathSet.BackgroundImage = global::ConcreteSampleTransformers.Properties.Resources.folder;
             this.btn_OutPathSet.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btn_OutPathSet.Location = new System.Drawing.Point(454, 47);
+            this.btn_OutPathSet.Location = new System.Drawing.Point(454, 53);
             this.btn_OutPathSet.Name = "btn_OutPathSet";
             this.btn_OutPathSet.Size = new System.Drawing.Size(35, 25);
             this.btn_OutPathSet.TabIndex = 5;
@@ -222,7 +222,7 @@
             // 
             this.btn_InPathSet.BackgroundImage = global::ConcreteSampleTransformers.Properties.Resources.folder;
             this.btn_InPathSet.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btn_InPathSet.Location = new System.Drawing.Point(454, 14);
+            this.btn_InPathSet.Location = new System.Drawing.Point(454, 18);
             this.btn_InPathSet.Name = "btn_InPathSet";
             this.btn_InPathSet.Size = new System.Drawing.Size(35, 25);
             this.btn_InPathSet.TabIndex = 4;
@@ -264,7 +264,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label7.Location = new System.Drawing.Point(285, 16);
+            this.label7.Location = new System.Drawing.Point(222, 16);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(59, 16);
             this.label7.TabIndex = 8;
@@ -288,9 +288,9 @@
             this.l_sqladdr.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.l_sqladdr.Location = new System.Drawing.Point(6, 23);
             this.l_sqladdr.Name = "l_sqladdr";
-            this.l_sqladdr.Size = new System.Drawing.Size(104, 16);
+            this.l_sqladdr.Size = new System.Drawing.Size(88, 16);
             this.l_sqladdr.TabIndex = 6;
-            this.l_sqladdr.Text = "Server address:";
+            this.l_sqladdr.Text = "Server name:";
             // 
             // txt_SQLAddr
             // 
@@ -305,7 +305,7 @@
             this.l_status.AutoSize = true;
             this.l_status.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.l_status.ForeColor = System.Drawing.Color.Red;
-            this.l_status.Location = new System.Drawing.Point(347, 16);
+            this.l_status.Location = new System.Drawing.Point(278, 16);
             this.l_status.Name = "l_status";
             this.l_status.Size = new System.Drawing.Size(13, 16);
             this.l_status.TabIndex = 0;

@@ -56,7 +56,7 @@
             // 
             // txt_Console
             // 
-            this.txt_Console.Font = new System.Drawing.Font("Myriad Pro Cond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_Console.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Console.Location = new System.Drawing.Point(192, 142);
             this.txt_Console.Name = "txt_Console";
             this.txt_Console.ReadOnly = true;
@@ -275,6 +275,7 @@
             // 
             // MainWindow
             // 
+            this.AcceptButton = this.btn_Process;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 365);
@@ -302,7 +303,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainWindow";
-            this.Text = "BETOTECH - Concrete Samples Autoformator";
+            this.Text = "BETOTECH -Sampledroid";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Load += new System.EventHandler(this.MainWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pic_Logo)).EndInit();

@@ -1,11 +1,14 @@
 ﻿using System.IO;
 using System.Windows.Forms;
 
+using ControlModul.FileControl;
+
 namespace ConcreteSampleTransformers
 {
     public class ConsoleBox
     {
         public enum LineType{ Normal='-', Bold='•', Star='*', NoLine = 0}
+        public enum MessageType { None, Info, Warning, Error }
 
         RichTextBox MyConsoleBox;
         public ConsoleBox(RichTextBox C){
@@ -45,8 +48,8 @@ namespace ConcreteSampleTransformers
         public void SaveToFile(string file){ 
             string path =PropertiesManager.currentDirectoryPath+PropertiesManager.reportDataPath+file+PropertiesManager.fileTypeReport;
             VirtualFile virtualFile=new VirtualFile();
-            virtualFile.appendFile(path);
-            virtualFile.fillFile(MyConsoleBox.Text);
+            virtualFile.AppendFile(path);
+            virtualFile.FillFile(MyConsoleBox.Text);
 
             FileManager.SaveFile(virtualFile);
         }

@@ -1,0 +1,26 @@
+Console READY!
+----------------------------------------
+	PROGRAM READY!
+••••••••••••••••••••••••••••••••••••••••
+Start proccess...
+Start parsing [693] lines...
+Parsing complete...
+----------------------------------------
+	***ERROR CONTROL***
+••••••••••••••••••••••••••••••••••••••••
+Number of corrupt samples: 0
+Number of erros and warnings: 0
+
+----------------------------------------
+Final result: ALL OK :)
+••••••••••••••••••••••••••••••••••••••••
+	***STATS***
+••••••••••••••••••••••••••••••••••••••••
+Total generated samples: -1-
+----------------------------------------
+Generated -0- Cube samples 
+Generated -1- Cylinder samples 
+
+••••••••••••••••••••••••••••••••••••••••
+SAVE PROCESS FINISH: FAIL!
+----------------------------------------

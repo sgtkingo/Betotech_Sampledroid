@@ -2,6 +2,8 @@
 using System.Deployment.Application;
 using System.Windows.Forms;
 
+using ControlModul.FileControl;
+
 namespace ConcreteSampleTransformers
 {
     public partial class MainWindow : Form
@@ -59,7 +61,7 @@ namespace ConcreteSampleTransformers
             }
             else
             {
-                MessageBox.Show(LocalProcesser.GetFinalMessage(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LocalProcesser.GetFinalMessage(), "Proccess error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -97,7 +99,7 @@ namespace ConcreteSampleTransformers
                 return;
             }
             virtualFileIN = new VirtualFile();
-            virtualFileIN.appendFile(fp);
+            virtualFileIN.AppendFile(fp);
             intxt_filename_in.Text = virtualFileIN.FILENAME;
         }
 
@@ -107,7 +109,7 @@ namespace ConcreteSampleTransformers
 
         private void SaveFileRoutine(){
             if ( ShowDataTablesForm().DialogResult != DialogResult.OK ){
-                MessageBox.Show("Result was REJECTED by user!", "Reject", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Result was REJECTED by user!", "Reject by user", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Processer.ConsoleBox.WriteLineToConsole($"FILE {PropertiesManager.fileNameOUT} DOES NOT SAVE!",ConsoleBox.LineType.Bold);
                 return;
             }
@@ -118,7 +120,7 @@ namespace ConcreteSampleTransformers
             }
             if(!LocalProcesser.MakeFiles()){
                 Processer.ConsoleBox.WriteLineToConsole("SAVE PROCESS FINISH: FAIL!");
-                MessageBox.Show("Save file FAIL!","Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Save file FAIL!","Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             Processer.ConsoleBox.WriteLineToConsole("Please, load next file...");
@@ -197,27 +199,22 @@ namespace ConcreteSampleTransformers
         //About program
         private void btn_about_Click(object sender, EventArgs e)
         {
-            string version = Application.ProductVersion;
-            if (ApplicationDeployment.IsNetworkDeployed)
-            {
-                version = string.Format("{0}", ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4));
-            }
-            string info = $"{Application.ProductName}[{version}] | {Application.CompanyName} \n \tDeveloper: Jiri Konecny @ 2020";
-            MessageBox.Show(info, "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var about = new AboutBox();
+            about.ShowDialog(this);
         }
 
         //Create another forms
         private void ShowSettingsForm(){
-            var form = new AppSettingsForm(LocalProcesser.DatabaseManager);
+            var form = new AppSettingsForm(LocalProcesser.DataManager);
             form.FormClosed += (sender_, e_) => { this.Enabled = true; };
-            form.ShowDialog();
+            form.ShowDialog(this);
         }
 
         private DataViewForm ShowDataTablesForm()
         {
             var form = new DataViewForm(LocalProcesser.ViewerManager);
             form.FormClosed += (sender_, e_) => { this.Enabled = true; };
-            form.ShowDialog();
+            form.ShowDialog(this);
 
             return form;
         }

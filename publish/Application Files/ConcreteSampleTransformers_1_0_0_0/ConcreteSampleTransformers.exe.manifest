@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="ConcreteSampleTransformers.exe" version="1.0.0.0" publicKeyToken="7cc56446167aa12d" language="neutral" processorArchitecture="msil" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="ConcreteSampleTransformers" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="ConcreteSampleTransformers.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet version="1" class="System.Security.NamedPermissionSet" Name="LocalIntranet" Description="Default rights given to applications on the local intranet" Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!-- Možnosti manifestu UAC
+             Pokud chcete změnit úroveň Řízení uživatelských účtů Windows, nahraďte
+             uzel requestedExecutionLevel jedním z následujících.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+            Zadáním elementu requestedExecutionLevel se zakáže virtualizace souborů a registru. 
+            Pokud vaše aplikace vyžaduje tuto virtualizaci pro zpětnou kompatibilitu, odeberte
+            tento element.
+        -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ConcreteSampleTransformers.exe" size="24008">
+      <assemblyIdentity name="ConcreteSampleTransformers" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>FxswwKgnvoMkx/BKYAc349h1vXN3wFpn+HwaaYp3GzM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="ConcreteSampleTransformers.exe.config" size="189">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>rl5/qDc7Jz+tB+BIbOv9iMGPlRe6YJwrjmU09dnlPcs=</dsig:DigestValue>
+    </hash>
+  </file>
+  <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
+    <application>
+      <!-- Seznam verzí Windows, na kterých je tato aplikace testovaná a ve kterých
+           má fungovat. Odstraňte komentář u příslušných elementů a Windows
+           automaticky vybere nejkompatibilnější prostředí. -->
+      <!-- Windows Vista -->
+      <!--<supportedOS Id="{e2011457-1546-43c5-a5fe-008deee3d3f0}" />-->
+      <!-- Windows 7 -->
+      <!--<supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}" />-->
+      <!-- Windows 8 -->
+      <!--<supportedOS Id="{4a2f28e3-53b9-4441-ba9c-d69d4a4a6e38}" />-->
+      <!-- Windows 8.1 -->
+      <!--<supportedOS Id="{1f676c76-80e1-4239-95bb-83d0f6d0da78}" />-->
+      <!-- Windows 10 -->
+      <!--<supportedOS Id="{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}" />-->
+    </application>
+  </compatibility>
+<publisherIdentity name="CN=DRAGONDENPC\jirka" issuerKeyHash="0b00ffdf79a2beb6f410434d39779dae5d6a2cb4" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>ASZ+xs+3GDtRoWNRv+/++IMchDrdWhZGn+5WzJqy8x4=</DigestValue></Reference></SignedInfo><SignatureValue>KHK/ecaXV7PrvidaxHF9Isb9a3XWldwh1LGWj4jTfA+/it7wuLmHn6h9hbkS2Y1HgpVg+j00zOmg0B9M9YtnkqtV1yca0Kih0gvtVeJoVb3i5c23qWN0u7nrJA51eDuBZ3IOVdwLgIwXMqoFNx7yKq9inMsw3RIBfEUAXsQIxhI=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>2B6y7oqdq13JrLz48UJVN2/g74RsdgMS3HQny04bk0jhU+PSooIfH0FicUabAsCa2Be5WCFIdORf8G0cOV10jqS2LVWYyIcMeotEyxXo6RNMAyJZELqVGIkWL0CAqlx6F6ug25q07lpAST3EtzDdn8n82XRAWMXnaLuHRNFj9Jk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="1ef3b29acc56ee9f46165add3a841c83f8feefbf5163a1513b18b7cfc67e2601" Description="" Url=""><as:assemblyIdentity name="ConcreteSampleTransformers.exe" version="1.0.0.0" publicKeyToken="7cc56446167aa12d" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=DRAGONDENPC\jirka</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>2mOK8t6bg9keYkjRfU3U5GB6JDDPybMYp1e+igou2EY=</DigestValue></Reference></SignedInfo><SignatureValue>tD0NdnL9RDTg4PrTCxzAnVGQ6TRDM0QrvZm+MSlMvqIf4MEzPojAg/Jf8EGGHBgjWpcotymjpLF3XM+JfcHBoQ+q8arseuUU8GNtIBolOXomhHziHUsZCM3QmZF64n53NbZhrGjI/tG9siFWE251mzbBjcSkGoC2ryX6fSdZXr0=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>2B6y7oqdq13JrLz48UJVN2/g74RsdgMS3HQny04bk0jhU+PSooIfH0FicUabAsCa2Be5WCFIdORf8G0cOV10jqS2LVWYyIcMeotEyxXo6RNMAyJZELqVGIkWL0CAqlx6F6ug25q07lpAST3EtzDdn8n82XRAWMXnaLuHRNFj9Jk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB3TCCAUagAwIBAgIQaG9wVw1v3YNJrSM2apaw8TANBgkqhkiG9w0BAQsFADAtMSswKQYDVQQDHiIARABSAEEARwBPAE4ARABFAE4AUABDAFwAagBpAHIAawBhMB4XDTIwMDUyOTE2NTU0NVoXDTIxMDUyOTIyNTU0NVowLTErMCkGA1UEAx4iAEQAUgBBAEcATwBOAEQARQBOAFAAQwBcAGoAaQByAGsAYTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA2B6y7oqdq13JrLz48UJVN2/g74RsdgMS3HQny04bk0jhU+PSooIfH0FicUabAsCa2Be5WCFIdORf8G0cOV10jqS2LVWYyIcMeotEyxXo6RNMAyJZELqVGIkWL0CAqlx6F6ug25q07lpAST3EtzDdn8n82XRAWMXnaLuHRNFj9JkCAwEAATANBgkqhkiG9w0BAQsFAAOBgQC97AFvB7PIcCpU93Jh7ghMdTVwmGEKdeQjYqTxqPV8ZMK4uoUQnI9NmdQfp4obbLVRz0AodDcVOcjTuXHrOwyrGOL1iuEvy0/JCGvmXv5WR3GKc6r5gu221DZcwGUAW31QcxY1fsNkGD84DQ39Oi+tXArQj6HjWbpHqNB/HgE/Ig==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

@@ -5,14 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using ConcreteSampleTransformers.Managers;
 
+using ControlModul.FileControl;
+
 namespace ConcreteSampleTransformers
 {
     public class FileMaker
     {
         Storage Storage;
-        DatabaseManager DatabaseManager;
+        DataManager DatabaseManager;
 
-        public FileMaker(Storage storage, DatabaseManager databaseManager) {
+        public FileMaker(Storage storage, DataManager databaseManager) {
             Storage = storage;
             DatabaseManager = databaseManager;
         }
@@ -23,8 +25,14 @@ namespace ConcreteSampleTransformers
             return false;
         }
 
+        //TODO
         private bool MakeDabaseTransaction(){
-            return DatabaseManager.SaveDataToDatabase();
+            var samples = PrepareDataForDatabase();
+            return DatabaseManager.SaveData(samples);
+        }
+        //TODO Generate list of samples
+        private List<object> PrepareDataForDatabase(){
+            return null;
         }
 
         private bool MakeCSVFiles() {
@@ -42,8 +50,8 @@ namespace ConcreteSampleTransformers
             string FP = PropertiesManager.GetSampleFilePathByType(sampleType);
             string LABELS = ProperitiesSamples.GetSampleLabelByType(sampleType);
 
-            virtualFile.appendFile(FP);
-            virtualFile.setLabels(LABELS);
+            virtualFile.AppendFile(FP);
+            virtualFile.SetLabels(LABELS);
             foreach (Sample S in Storage.GetFiltredSamples(sampleType))
             {
                 DATA += S.getSampleAsFormatData();
@@ -51,7 +59,7 @@ namespace ConcreteSampleTransformers
             }
             DATA += ProperitiesSamples.GetDateTimeStamp();
 
-            virtualFile.fillFile(DATA);
+            virtualFile.FillFile(DATA);
             return FileManager.SaveFile(virtualFile);
         }
     }

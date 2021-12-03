@@ -6,29 +6,32 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ConcreteSampleTransformers.Managers;
 
+using ControlModul.DBControl.SQL;
+
 namespace ConcreteSampleTransformers
 {
     public partial class AppSettingsForm : Form
     {
-        private DatabaseManager DatabaseManager;
+        private DataManager DataManager;
 
-        public AppSettingsForm(DatabaseManager databaseManager)
+        public AppSettingsForm(DataManager dataManager)
         {
             InitializeComponent();
-            DatabaseManager = databaseManager;
+            DataManager = dataManager;
+
             this.Load += RefereshDirectoryPathsEvent;
         }
 
         private void AppSettingsForm_Load(object sender, EventArgs e)
-        {
-            TryConnectToDatabase();
-
+        { 
             this.btn_InPathSet.Click += RefereshDirectoryPathsEvent;
             this.btn_OutPathSet.Click += RefereshDirectoryPathsEvent;
             BindLanguageList();
 
             txt_langIn.Text = PropertiesManager.inputNfiSeparator.ToString();
             txt_langOut.Text = PropertiesManager.outputNfiSeparator.ToString();
+
+            ShowConnectionStatus(DataManager.ServerName, string.Empty);
         }
 
         private void BindLanguageList()
@@ -142,38 +145,34 @@ namespace ConcreteSampleTransformers
             this.Close();
         }
 
+        //SQL settings
+
         private void btn_Connect_Click(object sender, EventArgs e)
         {
             SetConnection();
         }
 
-        private async Task TryConnectToDatabase(){
-            l_status.Text = "Try to connect...";
-            l_status.ForeColor = Color.Violet;
-
-            await Task.Run(() => DatabaseManager.Connect());
-            ShowConnectionStatus();
-        }
-
-        private void ShowConnectionStatus()
-        {
-            txt_SQLAddr.Text = DatabaseManager.GetServerInfo();
-            l_status.Text = DatabaseManager.SQLConnector.ConnectionMessage;
-            if( DatabaseManager.SQLConnector.ConnectionStatus){
-                l_status.ForeColor = Color.Green;
-            }else l_status.ForeColor = Color.Red;
-        }
 
         private void SetConnection()
         {
             CreateConnectForm();
-            ShowConnectionStatus();
+        }
+
+
+        private void ShowConnectionStatus(string serverName, string status)
+        {
+            txt_SQLAddr.Text = serverName;
+            l_status.Text = status;
         }
 
         private void CreateConnectForm(){
             //Test
-            var form = new SQLConnectForm(DatabaseManager.SQLConnector);
-            form.ShowDialog();
+            var form = new SQLConnectionFom(DataManager.ConnectionString, true);
+            if( form.ShowDialog() == DialogResult.OK)
+            {
+                DataManager.ConnectionString = form.SQLConnector.ConnectionString;
+            }
+            ShowConnectionStatus(DataManager.ServerName, form.SQLConnector.LastTestMessage);
         }
     }
 }

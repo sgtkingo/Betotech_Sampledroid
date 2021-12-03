@@ -189,5 +189,15 @@ namespace ConcreteSampleTransformers.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Vyhledává lokalizovaný prostředek typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sql_logo {
+            get {
+                object obj = ResourceManager.GetObject("sql_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

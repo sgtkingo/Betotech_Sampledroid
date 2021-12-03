@@ -6,6 +6,8 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using ConcreteSampleTransformers.Managers;
 
+using ControlModul.FileControl;
+
 namespace ConcreteSampleTransformers
 {
     public class Processer
@@ -20,8 +22,7 @@ namespace ConcreteSampleTransformers
         private const string dataCylinderPattern = @"(;\d+\.?\d*){6}"; //recognize data Cylinder pattern
 
         public Storage Storage { get; private set; }
-        public DatabaseManager DatabaseManager{ get; private set; }
-        public FileManager FileManager { get; private set; }
+        public DataManager DataManager{ get; private set; }
         public FileMaker FileMaker { get; private set; }
         public ErrorManager ErrorManager { get; private set; }
         public StatsManager StatsManager { get; private set; }
@@ -38,11 +39,10 @@ namespace ConcreteSampleTransformers
             PropertiesManager.Init();
 
             Storage =new Storage();
-            DatabaseManager = new DatabaseManager(PropertiesManager.connectionString);
+            DataManager = new DataManager(PropertiesManager.connectionString);
             ErrorManager = new ErrorManager(Storage, ConsoleBox);
             StatsManager = new StatsManager(Storage, ConsoleBox);
-            FileManager = new FileManager();
-            FileMaker= new FileMaker(Storage, DatabaseManager);
+            FileMaker= new FileMaker(Storage, DataManager);
             ViewerManager = new ViewerManager(Storage);
 
             ConsoleBox.WriteLineToConsole("\tPROGRAM READY!",ConsoleBox.LineType.Bold);
@@ -147,7 +147,7 @@ namespace ConcreteSampleTransformers
         private string PrepareDataForProcess(VirtualFile virtualFile)
         {
             if (!FileManager.LoadFile(virtualFile)) return string.Empty;
-            return virtualFile.getFileData();
+            return virtualFile.GetData();
         }
 
         private void DoProcess(string data)
