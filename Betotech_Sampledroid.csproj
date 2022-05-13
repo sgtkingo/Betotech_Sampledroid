@@ -81,13 +81,20 @@
     <StartupObject>ConcreteSampleTransformers.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ControlModulDLL">
-      <HintPath>..\..\..\Jirka\PRG\CSharp\Moduls\ControlModule_CShrapDLL\ControlModule_CShrapDLL\bin\Release\ControlModulDLL.dll</HintPath>
+    <Reference Include="ControlModul, Version=1.2.5.131, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlModul.1.2.5.131\lib\net45\ControlModul.dll</HintPath>
     </Reference>
     <Reference Include="CsvHelper, Version=15.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
       <HintPath>..\packages\CsvHelper.15.0.5\lib\net45\CsvHelper.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
@@ -140,11 +147,11 @@
     <Compile Include="Managers\ErrorManager.cs" />
     <Compile Include="Managers\FileMaker.cs" />
     <Compile Include="Samples\DSO\ISamplePartDso.cs" />
-    <Compile Include="MainWindow.cs">
+    <Compile Include="HomeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainWindow.Designer.cs">
-      <DependentUpon>MainWindow.cs</DependentUpon>
+    <Compile Include="HomeForm.Designer.cs">
+      <DependentUpon>HomeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Processer.cs" />
     <Compile Include="Program.cs" />
@@ -165,8 +172,8 @@
     <EmbeddedResource Include="DataViewForm.resx">
       <DependentUpon>DataViewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainWindow.resx">
-      <DependentUpon>MainWindow.cs</DependentUpon>
+    <EmbeddedResource Include="HomeForm.resx">
+      <DependentUpon>HomeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -178,7 +185,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="Betotech_Sampledroid_Key.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
@@ -207,6 +213,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="control_modul.ico" />
     <Content Include="icon.ico" />
     <None Include="Resources\pic\sql_logo.png" />
     <None Include="Resources\fonts\Myriad Pro Condensed.ttf" />
@@ -222,17 +229,9 @@
     <None Include="Resources\pic\clear.png" />
     <None Include="Resources\pic\betotech_logo.png" />
     <None Include="Resources\icon.ico" />
-    <None Include="sources\pic\gear.png" />
-    <None Include="sources\pic\loading.png" />
-    <None Include="sources\pic\chat.png" />
-    <None Include="sources\pic\gear-proccess.png" />
-    <None Include="sources\pic\folder_save.png" />
-    <None Include="sources\pic\folder.png" />
-    <None Include="sources\pic\diskette.png" />
-    <None Include="sources\pic\clear.png" />
-    <None Include="sources\pic\betotech_logo.png" />
-    <None Include="sources\pic\about.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Managers\Entity\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

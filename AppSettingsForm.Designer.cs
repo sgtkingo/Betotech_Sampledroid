@@ -264,7 +264,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label7.Location = new System.Drawing.Point(222, 16);
+            this.label7.Location = new System.Drawing.Point(116, 16);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(59, 16);
             this.label7.TabIndex = 8;
@@ -305,7 +305,7 @@
             this.l_status.AutoSize = true;
             this.l_status.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.l_status.ForeColor = System.Drawing.Color.Red;
-            this.l_status.Location = new System.Drawing.Point(278, 16);
+            this.l_status.Location = new System.Drawing.Point(172, 16);
             this.l_status.Name = "l_status";
             this.l_status.Size = new System.Drawing.Size(13, 16);
             this.l_status.TabIndex = 0;

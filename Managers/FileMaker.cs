@@ -22,6 +22,8 @@ namespace ConcreteSampleTransformers
         public bool MakeFiles(TypesEnums.FileType T) {
             if (T == TypesEnums.FileType.CSV) return MakeCSVFiles();
             if (T == TypesEnums.FileType.DATABASE) return MakeDabaseTransaction();
+            if (T == TypesEnums.FileType.ALL) return (MakeCSVFiles() && MakeDabaseTransaction());
+
             return false;
         }
 
@@ -30,6 +32,7 @@ namespace ConcreteSampleTransformers
             var samples = PrepareDataForDatabase();
             return DatabaseManager.SaveData(samples);
         }
+
         //TODO Generate list of samples
         private List<object> PrepareDataForDatabase(){
             return null;

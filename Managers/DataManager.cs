@@ -15,11 +15,17 @@ namespace ConcreteSampleTransformers.Managers
     {
         private string _ConnectionString;
         public string ConnectionString { get { return _ConnectionString; } set { ParseConnectionString(value); _ConnectionString = value; } }
-        public string ServerName { get; set; }
+        public string ServerName { get; private set; }
 
         public DataManager(string connectionString){
             ConnectionString = connectionString;
             //Int Etnity here
+        }
+
+        //Todo use Entity FW and save list of samples 
+        public bool SaveData(object samples)
+        {
+            return true;
         }
 
         private void ParseConnectionString(string connectionString)
@@ -32,12 +38,6 @@ namespace ConcreteSampleTransformers.Managers
             var DatabaseName = scsb.InitialCatalog;
             var Username = scsb.UserID;
             ServerName = $"{ServerAddress} -> {DatabaseName} ({Username})";
-        }
-
-        //Todo use Entity FW and save list of samples 
-        public bool SaveData(object samples)
-        {
-            return true;
         }
     }
 }

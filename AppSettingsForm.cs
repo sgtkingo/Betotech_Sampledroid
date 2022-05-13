@@ -167,12 +167,21 @@ namespace ConcreteSampleTransformers
 
         private void CreateConnectForm(){
             //Test
-            var form = new SQLConnectionFom(DataManager.ConnectionString, true);
+            var form = new SQLConnectionForm(DataManager.ConnectionString, true);
             if( form.ShowDialog() == DialogResult.OK)
             {
                 DataManager.ConnectionString = form.SQLConnector.ConnectionString;
             }
-            ShowConnectionStatus(DataManager.ServerName, form.SQLConnector.LastTestMessage);
+
+            if(form.SQLConnector != null)
+            {
+                ShowConnectionStatus(DataManager.ServerName, form.SQLConnector.LastTestMessage);
+            }
+            else
+            {
+                ShowConnectionStatus(DataManager.ServerName, "Not connected!");
+            }
+                
         }
     }
 }

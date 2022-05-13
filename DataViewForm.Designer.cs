@@ -63,7 +63,7 @@
             // 
             // btn_Reject
             // 
-            this.btn_Reject.BackColor = System.Drawing.SystemColors.GrayText;
+            this.btn_Reject.BackColor = System.Drawing.Color.Red;
             this.btn_Reject.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Reject.Location = new System.Drawing.Point(553, 366);
             this.btn_Reject.Name = "btn_Reject";
@@ -102,9 +102,11 @@
             this.dataGridView_Cube.AllowUserToDeleteRows = false;
             this.dataGridView_Cube.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView_Cube.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_Cube.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView_Cube.Location = new System.Drawing.Point(6, 6);
             this.dataGridView_Cube.Name = "dataGridView_Cube";
             this.dataGridView_Cube.ReadOnly = true;
+            this.dataGridView_Cube.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_Cube.Size = new System.Drawing.Size(939, 311);
             this.dataGridView_Cube.TabIndex = 1;
             // 
@@ -126,9 +128,11 @@
             this.dataGridView_Cylinder.AllowUserToDeleteRows = false;
             this.dataGridView_Cylinder.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView_Cylinder.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_Cylinder.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView_Cylinder.Location = new System.Drawing.Point(6, 5);
             this.dataGridView_Cylinder.Name = "dataGridView_Cylinder";
             this.dataGridView_Cylinder.ReadOnly = true;
+            this.dataGridView_Cylinder.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_Cylinder.Size = new System.Drawing.Size(939, 311);
             this.dataGridView_Cylinder.TabIndex = 2;
             // 

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 
+using ControlModul.Handlers.Loger;
+
 namespace ConcreteSampleTransformers
 {
     public static class PropertiesManager
@@ -21,10 +23,12 @@ namespace ConcreteSampleTransformers
         //Properities
         public static string inputDataPath { get; set; }
         public static string outputDataPath { get; set; }
-        public static string reportDataPath { get; private set; }
+        public static string reportDataPath { get; private set; } = "\\reports\\";
+        public static string logsDataPath { get; private set; } = "\\logs\\";
 
         public const string fileTypeCSV = ".csv";
         public const string fileTypeDatabase = "SQL Database";
+        public const string fileTypeAll = "CSV + SQL";
         public const string fileTypeReport = ".txt";
         public const string unknownFileType = ".dat";
 
@@ -38,6 +42,7 @@ namespace ConcreteSampleTransformers
             get {
                 if (ActualFileType == TypesEnums.FileType.CSV) return fileTypeCSV;
                 if (ActualFileType == TypesEnums.FileType.DATABASE) return fileTypeDatabase;
+                if (ActualFileType == TypesEnums.FileType.ALL) return fileTypeAll;
                 else return unknownFileType;
             }
         }
@@ -48,6 +53,7 @@ namespace ConcreteSampleTransformers
             generateLanguageList();
             loadSettings();
             checkDirectory();
+            initLoger();
 
             Console.WriteLine("ProperitiesManager initialized!");
         }
@@ -65,6 +71,10 @@ namespace ConcreteSampleTransformers
             if (!Directory.Exists(currentDirectoryPath + reportDataPath)){ 
                 Directory.CreateDirectory(currentDirectoryPath + reportDataPath);
             }
+            if (!Directory.Exists(currentDirectoryPath + logsDataPath))
+            {
+                Directory.CreateDirectory(currentDirectoryPath + logsDataPath);
+            }
         }
 
         private static void loadSettings(){
@@ -73,11 +83,15 @@ namespace ConcreteSampleTransformers
             autosaveFunction = Properties.Settings.Default.autosaveFunction;
             inputDataPath = Properties.Settings.Default.inputDataPath;
             outputDataPath = Properties.Settings.Default.outputDataPath;
-            reportDataPath = Properties.Settings.Default.reportDataPath;
             connectionString = Properties.Settings.Default.connectionString;
             ActualFileType = (TypesEnums.FileType)Properties.Settings.Default.outputFileType;
 
             Console.WriteLine("Settings load!");
+        }
+
+        private static void initLoger()
+        {
+            Loger.SetLogDir(currentDirectoryPath + logsDataPath);
         }
 
         public static void SaveSettings(){
@@ -107,6 +121,7 @@ namespace ConcreteSampleTransformers
         {
             return fileNameOUT + ProperitiesSamples.GetSampleExtensionNameByType(sampleType) + GetOutputFileType;
         }
+
         public static string GetSampleFilePathByType(TypesEnums.SampleType sampleType)
         {
             return outputDataPath + @"\" + GetSampleFileNameByType(sampleType);

@@ -1,0 +1,139 @@
+﻿<LogEntry Date="2022-05-13 19:52:21" Severity="Exception" Source="ControlModul.FileControl.FileManager.LoadFile" ThreadId="1">
+  <Exception ID="5017077c-7e96-42d0-b1ab-39ce23fc1ebd" Type="System.IO.FileNotFoundException" Source="System.IO.__Error.WinIOError">
+    <Message>Soubor E:\BETOTECH\Betotech_Sampledroid\Betotech_Sampledroid\bin\Debug\reports\05_13_07.txt nebyl nalezen.</Message>
+    <StackTrace>   v System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   v System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean checkHost)
+   v System.IO.File.InternalReadAllText(String path, Encoding encoding, Boolean checkHost)
+   v System.IO.File.ReadAllText(String path)
+   v ControlModul.FileControl.FileManager.LoadFile(String path)</StackTrace>
+  </Exception>
+</LogEntry>
+<LogEntry Date="2022-05-13 19:53:15" Severity="Info" Source="ControlModul.FileControl.FileManager.SaveFile" ThreadId="1">
+  <Message>File 05_13_07.txt saved!</Message>
+</LogEntry>
+<LogEntry Date="2022-05-13 20:06:24" Severity="Info" Source="ControlModul.FileControl.FileManager.LoadFile" ThreadId="1">
+  <Message>File 444.2020 loaded...</Message>
+</LogEntry>
+<LogEntry Date="2022-05-13 20:08:01" Severity="Info" Source="ControlModul.FileControl.FileManager.LoadFile" ThreadId="1">
+  <Message>File 1.6.2020 loaded...</Message>
+</LogEntry>
+<LogEntry Date="2022-05-13 20:08:29" Severity="Exception" Source="ControlModul.FileControl.FileManager.LoadFile" ThreadId="1">
+  <Exception ID="d045e74c-34b5-4b13-9e62-2b0e6614e668" Type="System.ArgumentException" Source="System.IO.Path.LegacyNormalizePath">
+    <Message>Cesta UNC musí být ve tvaru \\server\sdílená_složka.</Message>
+    <StackTrace>   v System.IO.Path.LegacyNormalizePath(String path, Boolean fullCheck, Int32 maxPathLength, Boolean expandShortPaths)
+   v System.IO.Path.NormalizePath(String path, Boolean fullCheck, Int32 maxPathLength, Boolean expandShortPaths)
+   v System.IO.Path.NormalizePath(String path, Boolean fullCheck, Int32 maxPathLength)
+   v System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean checkHost)
+   v System.IO.File.InternalReadAllText(String path, Encoding encoding, Boolean checkHost)
+   v System.IO.File.ReadAllText(String path)
+   v ControlModul.FileControl.FileManager.LoadFile(String path)</StackTrace>
+  </Exception>
+</LogEntry>
+<LogEntry Date="2022-05-13 20:08:48" Severity="Exception" Source="ControlModul.FileControl.FileManager.SaveFile" ThreadId="1">
+  <Exception ID="be892bc8-a286-466e-af10-04788fe35f96" Type="System.ArgumentException" Source="System.IO.Path.LegacyNormalizePath">
+    <Message>Cesta UNC musí být ve tvaru \\server\sdílená_složka.</Message>
+    <StackTrace>   v System.IO.Path.LegacyNormalizePath(String path, Boolean fullCheck, Int32 maxPathLength, Boolean expandShortPaths)
+   v System.IO.Path.NormalizePath(String path, Boolean fullCheck, Int32 maxPathLength, Boolean expandShortPaths)
+   v System.IO.Path.NormalizePath(String path, Boolean fullCheck, Int32 maxPathLength)
+   v System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   v System.IO.FileStream..ctor(String path, FileMode mode)
+   v ControlModul.FileControl.FileManager.SaveFile(VirtualFile virtualFile)</StackTrace>
+  </Exception>
+</LogEntry>
+<LogEntry Date="2022-05-13 20:10:03" Severity="Exception" Source="ControlModul.FileControl.FileManager.LoadFile" ThreadId="1">
+  <Exception ID="960d1680-2d9f-48b5-9485-da2a02f0a10d" Type="System.IO.FileNotFoundException" Source="System.IO.__Error.WinIOError">
+    <Message>Soubor E:\BETOTECH\Betotech_Sampledroid\Betotech_Sampledroid\bin\Debug\reports\05_13_08.txt nebyl nalezen.</Message>
+    <StackTrace>   v System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   v System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean checkHost)
+   v System.IO.File.InternalReadAllText(String path, Encoding encoding, Boolean checkHost)
+   v System.IO.File.ReadAllText(String path)
+   v ControlModul.FileControl.FileManager.LoadFile(String path)</StackTrace>
+  </Exception>
+</LogEntry>
+<LogEntry Date="2022-05-13 20:10:05" Severity="Info" Source="ControlModul.FileControl.FileManager.SaveFile" ThreadId="1">
+  <Message>File 05_13_08.txt saved!</Message>
+</LogEntry>
+<LogEntry Date="2022-05-13 20:12:19" Severity="Info" Source="ControlModul.FileControl.FileManager.LoadFile" ThreadId="1">
+  <Message>File 1.6.2020 loaded...</Message>
+</LogEntry>
+<LogEntry Date="2022-05-13 20:14:49" Severity="Exception" Source="ControlModul.FileControl.FileManager.LoadFile" ThreadId="1">
+  <Exception ID="c2c946ad-ef48-4e02-839a-07c8555de0d9" Type="System.ArgumentException" Source="System.IO.Path.LegacyNormalizePath">
+    <Message>Cesta UNC musí být ve tvaru \\server\sdílená_složka.</Message>
+    <StackTrace>   v System.IO.Path.LegacyNormalizePath(String path, Boolean fullCheck, Int32 maxPathLength, Boolean expandShortPaths)
+   v System.IO.Path.NormalizePath(String path, Boolean fullCheck, Int32 maxPathLength, Boolean expandShortPaths)
+   v System.IO.Path.NormalizePath(String path, Boolean fullCheck, Int32 maxPathLength)
+   v System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean checkHost)
+   v System.IO.File.InternalReadAllText(String path, Encoding encoding, Boolean checkHost)
+   v System.IO.File.ReadAllText(String path)
+   v ControlModul.FileControl.FileManager.LoadFile(String path)</StackTrace>
+  </Exception>
+</LogEntry>
+<LogEntry Date="2022-05-13 20:14:51" Severity="Exception" Source="ControlModul.FileControl.FileManager.SaveFile" ThreadId="1">
+  <Exception ID="ebfa0ef4-5223-4765-bd44-b5da4be7fa96" Type="System.ArgumentException" Source="System.IO.Path.LegacyNormalizePath">
+    <Message>Cesta UNC musí být ve tvaru \\server\sdílená_složka.</Message>
+    <StackTrace>   v System.IO.Path.LegacyNormalizePath(String path, Boolean fullCheck, Int32 maxPathLength, Boolean expandShortPaths)
+   v System.IO.Path.NormalizePath(String path, Boolean fullCheck, Int32 maxPathLength, Boolean expandShortPaths)
+   v System.IO.Path.NormalizePath(String path, Boolean fullCheck, Int32 maxPathLength)
+   v System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   v System.IO.FileStream..ctor(String path, FileMode mode)
+   v ControlModul.FileControl.FileManager.SaveFile(VirtualFile virtualFile)</StackTrace>
+  </Exception>
+</LogEntry>
+<LogEntry Date="2022-05-13 20:15:55" Severity="Info" Source="ControlModul.FileControl.FileManager.SaveFile" ThreadId="1">
+  <Message>File 05_13_08.txt saved!</Message>
+</LogEntry>
+<LogEntry Date="2022-05-13 20:17:03" Severity="Exception" Source="ControlModul.FileControl.FileManager.LoadFile" ThreadId="1">
+  <Exception ID="0d2f79cb-25d7-41cf-97ab-fc404b8d34f4" Type="System.IO.FileNotFoundException" Source="System.IO.__Error.WinIOError">
+    <Message>Soubor E:\BETOTECH\Betotech_Sampledroid\Betotech_Sampledroid\bin\Debug\reports\05_13_08_03.txt nebyl nalezen.</Message>
+    <StackTrace>   v System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   v System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean checkHost)
+   v System.IO.File.InternalReadAllText(String path, Encoding encoding, Boolean checkHost)
+   v System.IO.File.ReadAllText(String path)
+   v ControlModul.FileControl.FileManager.LoadFile(String path)</StackTrace>
+  </Exception>
+</LogEntry>
+<LogEntry Date="2022-05-13 20:17:14" Severity="Info" Source="ControlModul.FileControl.FileManager.SaveFile" ThreadId="1">
+  <Message>File 05_13_08_03.txt saved!</Message>
+</LogEntry>
+<LogEntry Date="2022-05-13 20:17:18" Severity="Exception" Source="ControlModul.FileControl.FileManager.LoadFile" ThreadId="1">
+  <Exception ID="05d0d48c-7c1c-4de6-b717-d1c8f7a56885" Type="System.IO.FileNotFoundException" Source="System.IO.__Error.WinIOError">
+    <Message>Soubor E:\BETOTECH\Betotech_Sampledroid\Betotech_Sampledroid\bin\Debug\reports\05_13_08_18.txt nebyl nalezen.</Message>
+    <StackTrace>   v System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   v System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean checkHost)
+   v System.IO.File.InternalReadAllText(String path, Encoding encoding, Boolean checkHost)
+   v System.IO.File.ReadAllText(String path)
+   v ControlModul.FileControl.FileManager.LoadFile(String path)</StackTrace>
+  </Exception>
+</LogEntry>
+<LogEntry Date="2022-05-13 20:17:20" Severity="Info" Source="ControlModul.FileControl.FileManager.SaveFile" ThreadId="1">
+  <Message>File 05_13_08_18.txt saved!</Message>
+</LogEntry>
+<LogEntry Date="2022-05-13 20:18:04" Severity="Exception" Source="ControlModul.FileControl.FileManager.LoadFile" ThreadId="1">
+  <Exception ID="c05b2342-8289-4aeb-9fa6-a9b44122a8a4" Type="System.IO.FileNotFoundException" Source="System.IO.__Error.WinIOError">
+    <Message>Soubor E:\BETOTECH\Betotech_Sampledroid\Betotech_Sampledroid\bin\Debug\reports\05_13_08_59.txt nebyl nalezen.</Message>
+    <StackTrace>   v System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   v System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean checkHost)
+   v System.IO.File.InternalReadAllText(String path, Encoding encoding, Boolean checkHost)
+   v System.IO.File.ReadAllText(String path)
+   v ControlModul.FileControl.FileManager.LoadFile(String path)</StackTrace>
+  </Exception>
+</LogEntry>
+<LogEntry Date="2022-05-13 20:19:48" Severity="Info" Source="ControlModul.FileControl.FileManager.SaveFile" ThreadId="1">
+  <Message>File 05_13_08_42.txt saved!</Message>
+</LogEntry>

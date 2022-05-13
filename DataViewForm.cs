@@ -58,5 +58,6 @@ namespace ConcreteSampleTransformers
             if (tabControl.SelectedIndex == 1)
                 l_dataName.Text = TypesEnums.SampleType.Cylinder.ToString();
         }
+
     }
 }

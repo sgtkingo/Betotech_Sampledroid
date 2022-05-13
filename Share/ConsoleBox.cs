@@ -29,8 +29,8 @@ namespace ConcreteSampleTransformers
             MyConsoleBox.AppendText(text+"\n");
             this.Line((char)T);
         }
-        public void WriteToConsole(string text){ 
-            MyConsoleBox.Text+=text;
+        private void WriteToConsole(string text){
+            MyConsoleBox.AppendText(text + "\n");
         }
         public void Line(char C='-', int LENGHT=40){
             if (C == 0) return;
@@ -45,13 +45,13 @@ namespace ConcreteSampleTransformers
         public void ClearConsole(){ 
             MyConsoleBox.Clear();
         }
+
         public void SaveToFile(string file){ 
             string path =PropertiesManager.currentDirectoryPath+PropertiesManager.reportDataPath+file+PropertiesManager.fileTypeReport;
             VirtualFile virtualFile=new VirtualFile();
-            virtualFile.AppendFile(path);
+            virtualFile.AppendFile(path, false);
             virtualFile.FillFile(MyConsoleBox.Text);
-
-            FileManager.SaveFile(virtualFile);
+            virtualFile.SaveFile();
         }
     }
 }
