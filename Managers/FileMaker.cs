@@ -66,7 +66,10 @@ namespace ConcreteSampleTransformers
             DATA += ProperitiesSamples.GetDateTimeStamp();
 
             virtualFile.FillFile(DATA);
-            return FileManager.SaveFile(virtualFile);
+            bool saved = FileManager.SaveFile(virtualFile);
+            if (saved) Processer.ConsoleBox.Detail($"→ {virtualFile.FILENAME}");
+            else Processer.ConsoleBox.Error($"Cannot save {virtualFile.FILENAME}");
+            return saved;
         }
     }
 }

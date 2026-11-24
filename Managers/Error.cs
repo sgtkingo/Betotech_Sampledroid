@@ -20,7 +20,7 @@ namespace ConcreteSampleTransformers
 
         public override string ToString()
         {
-            return "•"+ErrorType+" | "+ErrorInfo+"["+ErrorID+"]";
+            return string.IsNullOrEmpty(ErrorID) ? ErrorInfo : $"{ErrorID}: {ErrorInfo}";
         }
     }
 }

@@ -57,7 +57,7 @@
             // 
             // txt_Console
             // 
-            this.txt_Console.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_Console.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txt_Console.Location = new System.Drawing.Point(192, 142);
             this.txt_Console.Name = "txt_Console";
             this.txt_Console.ReadOnly = true;

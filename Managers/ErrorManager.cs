@@ -8,9 +8,9 @@ namespace ConcreteSampleTransformers
 {
     public class ErrorManager
     {
-        private const string messageOK = "ALL OK :)";
-        private const string messageERROR = "ERRORs FOUND!";
-        private const string messageFAIL = "FAIL!!!";
+        private const string messageOK = "ALL OK";
+        private const string messageERROR = "ERRORS FOUND";
+        private const string messageFAIL = "FAILED";
         public string FinalMessage { get; private set; }
 
         Storage _Storage;
@@ -34,47 +34,41 @@ namespace ConcreteSampleTransformers
 
         public bool CheckERRORs()
         {
-            bool result = true;
-            string output = "";
+            int badSamples = _Storage.GetNumberOfBadSamples();
+            bool noSamples = _Storage.isStorageEmpty();
 
-            _ConsoleBox.WriteLineToConsole("\t***ERROR CONTROL***", ConsoleBox.LineType.Bold);
-            FinalMessage = messageOK;
-            if (errors.Count > 0)
+            //List problems found while parsing
+            foreach (Error E in errors)
             {
-                errors.Add(new Error("WARNING", "FIND ERRORS!", (errors.Count).ToString()));
-                FinalMessage = messageERROR;
-                result = false;
+                if (E.ErrorType == "WARNING") _ConsoleBox.Warning(E.ToString());
+                else _ConsoleBox.Error(E.ToString());
             }
-            if (_Storage.GetNumberOfBadSamples() > 0)
-            {
-                errors.Add(new Error("ERROR", "FIND SOME BAD SAMPLES", _Storage.GetNumberOfBadSamples().ToString()));
-                FinalMessage = messageFAIL;
-                result = false;
-            }
-            if (_Storage.isStorageEmpty())
-            {
-                errors.Add(new Error("ERROR", "NO SAMPLES FOUND!", (errors.Count).ToString()));
-                FinalMessage = messageFAIL;
-                result = false;
-            }
-            //Fill output info
-            output += "Number of corrupt samples: " + _Storage.GetNumberOfBadSamples();
-            output += "\n";
             foreach (Sample S in _Storage.GetBadSamples())
             {
-                output += "CORRUPT SAMPLE: " + S.sampleCode;
-                output += "\n";
+                _ConsoleBox.Error($"{S.sampleCode}: corrupt sample");
             }
-            //output += "\n";
-            output += "Number of erros and warnings: " + errors.Count;
-            output += "\n";
-            foreach (Error E in this.errors)
+            if (noSamples)
             {
-                output += E.ToString();
-                output += "\n";
+                _ConsoleBox.Error("no samples found");
             }
-            _ConsoleBox.WriteLineToConsole(output);
-            _ConsoleBox.WriteLineToConsole("Final result: "+FinalMessage, ConsoleBox.LineType.Bold);
+
+            int problems = errors.Count + badSamples + (noSamples ? 1 : 0);
+            bool result = problems == 0;
+
+            if (result) FinalMessage = messageOK;
+            else if (noSamples || badSamples > 0) FinalMessage = messageFAIL;
+            else FinalMessage = messageERROR;
+
+            _ConsoleBox.Header("RESULT");
+            if (result)
+            {
+                _ConsoleBox.Success(FinalMessage);
+            }
+            else
+            {
+                _ConsoleBox.Error($"{FinalMessage} ({problems} problem{(problems == 1 ? "" : "s")})");
+                FinalMessage += $"\n{problems} problem{(problems == 1 ? "" : "s")} - see console.";
+            }
 
             return result;
         }

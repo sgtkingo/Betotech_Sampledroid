@@ -67,7 +67,7 @@ namespace ConcreteSampleTransformers
                 }
                 else
                 {
-                    Processer.ConsoleBox.WriteLineToConsole("Please, save the file...");
+                    Processer.ConsoleBox.Info("Check result and SAVE");
                 }
             }
             else
@@ -121,7 +121,7 @@ namespace ConcreteSampleTransformers
         private void SaveFileRoutine(){
             if ( ShowDataTablesForm().DialogResult != DialogResult.OK ){
                 MessageBox.Show("Result was REJECTED by user!", "Reject by user", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                Processer.ConsoleBox.WriteLineToConsole($"FILE {PropertiesManager.fileNameOUT} DOES NOT SAVE!",ConsoleBox.LineType.Bold);
+                Processer.ConsoleBox.Warning("Rejected by user - not saved");
                 return;
             }
 
@@ -131,11 +131,11 @@ namespace ConcreteSampleTransformers
             }
 
             if(!LocalProcesser.MakeFiles()){
-                Processer.ConsoleBox.WriteLineToConsole("SAVE PROCESS FINISH: FAIL!");
+                Processer.ConsoleBox.Error("Saving failed");
                 MessageBox.Show("Save file FAIL!","Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            Processer.ConsoleBox.WriteLineToConsole("Please, load next file...");
+            Processer.ConsoleBox.Success("Saved - open next file");
         }
 
         //Form control
@@ -223,6 +223,9 @@ namespace ConcreteSampleTransformers
             var form = new AppSettingsForm(LocalProcesser.DataManager);
             form.FormClosed += (sender_, e_) => { this.Enabled = true; };
             form.ShowDialog(this);
+
+            Processer.ConsoleBox.Header("SETTINGS");
+            LocalProcesser.WriteSettingsSummary();
         }
 
         private DataViewForm ShowDataTablesForm()

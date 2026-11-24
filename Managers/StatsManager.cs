@@ -17,15 +17,9 @@ namespace ConcreteSampleTransformers
         }
 
         public void GenerateStats(){
-            string stats = string.Empty;
-
-            _ConsoleBox.WriteLineToConsole("\t***STATS***", ConsoleBox.LineType.Bold);
-            stats = $"Total generated samples: -{_Storage.GetNumberOfSamples()}-";
-            _ConsoleBox.WriteLineToConsole(stats);
-
-            stats = $"Generated -{_Storage.GetNumberOfSamplesByType(TypesEnums.SampleType.Cube)}- {TypesEnums.SampleType.Cube} samples \n";
-            stats += $"Generated -{_Storage.GetNumberOfSamplesByType(TypesEnums.SampleType.Cylinder)}- {TypesEnums.SampleType.Cylinder} samples \n";
-            _ConsoleBox.WriteLineToConsole(stats, ConsoleBox.LineType.Bold);
+            _ConsoleBox.Info($"Samples : {_Storage.GetNumberOfSamples(),4}");
+            _ConsoleBox.Detail($"Cube    : {_Storage.GetNumberOfSamplesByType(TypesEnums.SampleType.Cube),4}");
+            _ConsoleBox.Detail($"Cylinder: {_Storage.GetNumberOfSamplesByType(TypesEnums.SampleType.Cylinder),4}");
         }
     }
 }

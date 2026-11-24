@@ -50,7 +50,22 @@ namespace ConcreteSampleTransformers
             FileMaker= new FileMaker(Storage, DataManager);
             ViewerManager = new ViewerManager(Storage);
 
-            ConsoleBox.WriteLineToConsole("\tPROGRAM READY!",ConsoleBox.LineType.Bold);
+            ConsoleBox.Header($"SAMPLEDROID {System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}");
+            WriteSettingsSummary();
+            ConsoleBox.Success("Ready - open file");
+        }
+
+        //Short overview of settings affecting the result
+        public void WriteSettingsSummary()
+        {
+            ConsoleBox.Detail($"In : dec '{PropertiesManager.inputNfiSeparator}'  col {SeparatorName(PropertiesManager.inputFieldSeparator)}");
+            ConsoleBox.Detail($"Out: dec '{PropertiesManager.outputNfiSeparator}'  col {SeparatorName(PropertiesManager.outputFieldSeparator)}");
+            ConsoleBox.Detail($"Density calc: {(PropertiesManager.computeObjHmotnost ? "ON" : "OFF")}");
+        }
+
+        private static string SeparatorName(char separator)
+        {
+            return separator == '\t' ? "TAB" : $"'{separator}'";
         }
         private Sample TransformSample(TypesEnums.SampleType T,Sample Prototype){
             Sample S=null;
@@ -137,13 +152,13 @@ namespace ConcreteSampleTransformers
             int line_number=0;
             string[] Lines=data.Split('\n');
 
-            ConsoleBox.WriteLineToConsole($"Start parsing [{Lines.Length}] lines...", ConsoleBox.LineType.NoLine);
+            ConsoleBox.Detail($"{data.TrimEnd('\r', '\n').Split('\n').Length} lines loaded");
 
             foreach (string rawLine in Lines){
                 line_number++;
                 string line = NormalizeLine(rawLine);
                 if(RecognizeCode(line)){
-                    if(S!=null)if(S.getType==TypesEnums.SampleType.NoType){ ErrorManager.Add(new Error("ERROR","S is PROTOTYPE!",S.sampleCode)); }
+                    if(S!=null)if(S.getType==TypesEnums.SampleType.NoType){ ErrorManager.Add(new Error("ERROR","no measurement data",S.sampleCode)); }
                     //Storage.SaveSample(S);
                     actualCode=CutCode(line);
                     S=CreateNewSample(actualCode);
@@ -155,11 +170,11 @@ namespace ConcreteSampleTransformers
                 }
                 else if((actualType=RecognizeData(line))!=TypesEnums.SampleType.NoType){
                     if(IsEmptyMeasurement(line)){
-                        ConsoleBox.WriteLineToConsole($"Empty measurement skipped (line {line_number}, sample {S?.sampleCode})", ConsoleBox.LineType.NoLine);
+                        ConsoleBox.Detail($"L{line_number}: empty test skipped");
                         continue;
                     }
                     if(S==null){
-                        ErrorManager.Add(new Error("ERROR","S == null",line_number.ToString()));
+                        ErrorManager.Add(new Error("ERROR","no sample code",$"L{line_number}"));
                         continue;
                     }
                     if(S.getType==TypesEnums.SampleType.NoType){ 
@@ -175,8 +190,7 @@ namespace ConcreteSampleTransformers
                     }
                 }
             }
-            ConsoleBox.WriteLineToConsole("Parsing complete...");
-            return CheckForERRORs();    
+            return CheckForERRORs();
         }
 
         private string PrepareDataForProcess(VirtualFile virtualFile)
@@ -187,14 +201,14 @@ namespace ConcreteSampleTransformers
 
         private void DoProcess(string data)
         {
-            ConsoleBox.WriteLineToConsole("Start proccess...", ConsoleBox.LineType.NoLine);
             Result = ParseSamples(data);
             LastTimeStamp = DateTime.Now;
         }
         public void MakeSamples(VirtualFile virtualFile){
+            ConsoleBox.Title(virtualFile.FILENAME);
             string data = PrepareDataForProcess(virtualFile);
             DoProcess(data);
-        }  
+        }
         
         public bool MakeFiles(){
             return FileMaker.MakeFiles(PropertiesManager.ActualFileType);

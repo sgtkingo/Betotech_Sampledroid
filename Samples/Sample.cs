@@ -66,7 +66,7 @@ namespace ConcreteSampleTransformers
                     S3_ArrData[i] = "0";
                 }
             }
-            catch (Exception e) { Processer.ConsoleBox.WriteLineToConsole("Error: " + e.Message + "|" + e.Source); }
+            catch (Exception e) { Processer.ConsoleBox.Error($"{sampleCode}: {e.Message}"); }
             ClearSample();
             MapFromTo();
         }
@@ -95,7 +95,7 @@ namespace ConcreteSampleTransformers
             }
             catch (ArgumentOutOfRangeException e)
             {
-                Processer.ConsoleBox.WriteLineToConsole(e.ToString());
+                Processer.ConsoleBox.Error($"{sampleCode}: {e.Message}");
                 simple ="";
             }
             return simple;
