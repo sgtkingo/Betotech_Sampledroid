@@ -9,3 +9,6 @@ Releases/
 # Local runtime output and IDE
 /logs/
 .vs/
+
+# Legacy ClickOnce publish output (replaced by Velopack)
+publish/
