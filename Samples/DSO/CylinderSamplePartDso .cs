@@ -27,7 +27,8 @@ namespace ConcreteSampleTransformers
             decimal tempResult = 0;
             decimal baseResult = 0;
 
-            baseResult = ((decimal)Math.PI * d_Prumer);
+            //V = pi * (d/2)^2 * h, [mm^3] -> [dm^3]
+            baseResult = ((decimal)Math.PI * d_Prumer * d_Prumer) / 4;
             tempResult = (baseResult*d_Vyska) / 1000000;
             tempResult = Math.Round(tempResult, 3);
 

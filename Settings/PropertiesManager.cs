@@ -29,6 +29,12 @@ namespace ConcreteSampleTransformers
         public static string outputColumnsCube { get; set; } = string.Empty;
         public static string outputColumnsCylinder { get; set; } = string.Empty;
 
+        //Directory is set and exists (default "//" or empty path is not valid)
+        public static bool IsValidDirectory(string path)
+        {
+            return !string.IsNullOrWhiteSpace(path) && Directory.Exists(path);
+        }
+
         public static string GetOutputColumnsConfig(TypesEnums.SampleType sampleType)
         {
             if (sampleType == TypesEnums.SampleType.Cube) return outputColumnsCube;

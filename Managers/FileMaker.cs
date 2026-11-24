@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,7 +40,12 @@ namespace ConcreteSampleTransformers
         }
 
         private bool MakeCSVFiles() {
-            return 
+            if (!PropertiesManager.IsValidDirectory(PropertiesManager.outputDataPath))
+            {
+                Processer.ConsoleBox.Error("Output folder not set - see Settings");
+                return false;
+            }
+            return
                 (SaveSamplesByTypeAsCSV(TypesEnums.SampleType.Cube)
                 & SaveSamplesByTypeAsCSV(TypesEnums.SampleType.Cylinder));
         }
@@ -48,28 +54,33 @@ namespace ConcreteSampleTransformers
         {
             if (Storage.isListEmpty(sampleType)) return true;
 
-            VirtualFile virtualFile = new VirtualFile();
-            string DATA = "";
             string FP = PropertiesManager.GetSampleFilePathByType(sampleType);
-            string LABELS = ProperitiesSamples.GetSampleLabelByType(sampleType);
+            string fileName = Path.GetFileName(FP);
 
             //Samples are formatted with internal separator ';', output file uses the one chosen in Settings
             char outputSeparator = PropertiesManager.outputFieldSeparator;
 
-            virtualFile.AppendFile(FP);
-            virtualFile.SetLabels(LABELS.Replace(Processer.FieldSeparator, outputSeparator));
+            var content = new StringBuilder();
+            content.Append(ProperitiesSamples.GetSampleLabelByType(sampleType).Replace(Processer.FieldSeparator, outputSeparator));
             foreach (Sample S in Storage.GetFiltredSamples(sampleType))
             {
-                DATA += S.getSampleAsFormatData().Replace(Processer.FieldSeparator, outputSeparator);
-                DATA += "\n";
+                content.Append(S.getSampleAsFormatData().Replace(Processer.FieldSeparator, outputSeparator));
+                content.Append("\n");
             }
-            DATA += ProperitiesSamples.GetDateTimeStamp();
+            content.Append(ProperitiesSamples.GetDateTimeStamp());
 
-            virtualFile.FillFile(DATA);
-            bool saved = FileManager.SaveFile(virtualFile);
-            if (saved) Processer.ConsoleBox.Detail($"→ {virtualFile.FILENAME}");
-            else Processer.ConsoleBox.Error($"Cannot save {virtualFile.FILENAME}");
-            return saved;
+            //Written directly: ControlModul FileManager reports success even when writing fails
+            try
+            {
+                File.WriteAllText(FP, content.ToString());
+            }
+            catch (Exception e)
+            {
+                Processer.ConsoleBox.Error($"Cannot save {fileName}: {e.Message.Trim()}");
+                return false;
+            }
+            Processer.ConsoleBox.Detail($"→ {fileName}");
+            return true;
         }
     }
 }

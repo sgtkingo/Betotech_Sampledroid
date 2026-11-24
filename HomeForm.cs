@@ -29,7 +29,7 @@ namespace ConcreteSampleTransformers
         }
 
         private void UseSettings() {
-            this.openFileDialog.InitialDirectory = PropertiesManager.inputDataPath;
+            SetInitialInputDirectory();
             this.openFileDialog.RestoreDirectory = true;
             this.openFileDialog.Title = "Browse file to transform:";
             this.openFileDialog.DefaultExt = "*.*";
@@ -99,7 +99,7 @@ namespace ConcreteSampleTransformers
         //Load and Save
         private void FileLoadRoutine(){
             //Set init directory by settings
-            this.openFileDialog.InitialDirectory = PropertiesManager.inputDataPath;
+            SetInitialInputDirectory();
 
             string fp=string.Empty;
             if(this.openFileDialog.ShowDialog() == DialogResult.OK){ 
@@ -114,11 +114,28 @@ namespace ConcreteSampleTransformers
             intxt_filename_in.Text = virtualFileIN.FILENAME;
         }
 
+        //Input folder from Settings only if it exists, otherwise dialog uses its default
+        private void SetInitialInputDirectory()
+        {
+            this.openFileDialog.InitialDirectory = PropertiesManager.IsValidDirectory(PropertiesManager.inputDataPath)
+                ? PropertiesManager.inputDataPath
+                : string.Empty;
+        }
+
         private void CheckLoadedFileEvent(object sender, EventArgs e){
             EnableProcess(virtualFileIN != null);
         }
 
         private void SaveFileRoutine(){
+            //CSV output needs existing output folder, check before user reviews the data
+            if (PropertiesManager.ActualFileType != TypesEnums.FileType.DATABASE
+                && !PropertiesManager.IsValidDirectory(PropertiesManager.outputDataPath))
+            {
+                Processer.ConsoleBox.Error("Output folder not set - see Settings");
+                MessageBox.Show("Output folder is not set or does not exist.\nSet Output path in Settings.", "Output folder", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if ( ShowDataTablesForm().DialogResult != DialogResult.OK ){
                 MessageBox.Show("Result was REJECTED by user!", "Reject by user", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Processer.ConsoleBox.Warning("Rejected by user - not saved");
@@ -132,7 +149,7 @@ namespace ConcreteSampleTransformers
 
             if(!LocalProcesser.MakeFiles()){
                 Processer.ConsoleBox.Error("Saving failed");
-                MessageBox.Show("Save file FAIL!","Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Saving failed - see console.","Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             Processer.ConsoleBox.Success("Saved - open next file");

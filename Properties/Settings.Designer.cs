@@ -25,7 +25,7 @@ namespace ConcreteSampleTransformers.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("//")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string inputDataPath {
             get {
                 return ((string)(this["inputDataPath"]));
@@ -37,7 +37,7 @@ namespace ConcreteSampleTransformers.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("//")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string outputDataPath {
             get {
                 return ((string)(this["outputDataPath"]));

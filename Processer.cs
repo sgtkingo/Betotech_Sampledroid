@@ -61,6 +61,10 @@ namespace ConcreteSampleTransformers
             ConsoleBox.Detail($"In : dec '{PropertiesManager.inputNfiSeparator}'  col {SeparatorName(PropertiesManager.inputFieldSeparator)}");
             ConsoleBox.Detail($"Out: dec '{PropertiesManager.outputNfiSeparator}'  col {SeparatorName(PropertiesManager.outputFieldSeparator)}");
             ConsoleBox.Detail($"Density calc: {(PropertiesManager.computeObjHmotnost ? "ON" : "OFF")}");
+            if (!PropertiesManager.IsValidDirectory(PropertiesManager.outputDataPath))
+            {
+                ConsoleBox.Warning("Output folder not set");
+            }
         }
 
         private static string SeparatorName(char separator)
