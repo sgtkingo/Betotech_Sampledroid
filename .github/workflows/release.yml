@@ -22,14 +22,15 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Resolve version
         id: version
         shell: pwsh
         run: |
           $version = "${{ github.ref_name }}".TrimStart('v')
-          $assembly = (Select-String -Path Properties/AssemblyInfo.cs -Pattern 'AssemblyVersion\("([^"]+)"\)').Matches[0].Groups[1].Value
+          # anchored to line start: AssemblyInfo.cs also contains commented-out example "// [assembly: AssemblyVersion("1.0.*")]"
+          $assembly = (Select-String -Path Properties/AssemblyInfo.cs -Pattern '^\[assembly: AssemblyVersion\("([^"]+)"\)').Matches[0].Groups[1].Value
           if (-not $assembly.StartsWith("$version.")) {
             throw "Tag v$version does not match AssemblyVersion $assembly - bump Properties/AssemblyInfo.cs first."
           }
