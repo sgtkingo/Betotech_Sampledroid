@@ -4,17 +4,17 @@
   <description asmv2:publisher="Jiri Konecny; BETTACOMP" co.v1:suiteName="CST" asmv2:product="ConcreteSampleTransformer" asmv2:supportUrl="https://www.bettacomp.com/" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" mapFileExtensions="true" co.v1:createDesktopShortcut="true" />
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.6.1" profile="Full" supportedRuntime="4.0.30319" />
+    <framework targetVersion="4.8" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="Betotech_Sampledroid.exe.manifest" size="77223">
+    <dependentAssembly dependencyType="install" codebase="Betotech_Sampledroid.exe.manifest" size="9677">
       <assemblyIdentity name="Betotech_Sampledroid.exe" version="1.2.1.20" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>SxOyShLN9vG0zxAjDf3mmM/nrOY7QCEQZUF2pozuJlo=</dsig:DigestValue>
+        <dsig:DigestValue>rwdM7+549PgKH0EfgXDojPobKUo6SVEWuse3CgnkJ1w=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
