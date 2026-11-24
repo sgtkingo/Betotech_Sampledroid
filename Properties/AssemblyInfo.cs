@@ -33,7 +33,7 @@ using System.Runtime.InteropServices;
 // Můžete zadat všechny hodnoty nebo nastavit výchozí číslo buildu a revize pomocí *, jak je vidět níže:
 // pomocí zástupného znaku * takto:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.3.05.131")]
-[assembly: AssemblyFileVersion("1.3.05.131")]
+[assembly: AssemblyVersion("1.4.0.132")]
+[assembly: AssemblyFileVersion("1.4.0.132")]
 [assembly: NeutralResourcesLanguage("en")]
 
