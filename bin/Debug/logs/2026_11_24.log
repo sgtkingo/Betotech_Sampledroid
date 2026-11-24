@@ -10,3 +10,117 @@
 <LogEntry Date="2026-11-24 14:15:48" Severity="Info" Source="ControlModul.FileControl.FileManager.LoadFile" ThreadId="1">
   <Message>File 26.11.24.K loaded...</Message>
 </LogEntry>
+<LogEntry Date="2026-11-24 14:17:33" Severity="Info" Source="ControlModul.FileControl.FileManager.LoadFile" ThreadId="1">
+  <Message>File 26.11.24.K loaded...</Message>
+</LogEntry>
+<LogEntry Date="2026-11-24 14:17:48" Severity="Info" Source="ControlModul.FileControl.FileManager.LoadFile" ThreadId="1">
+  <Message>File 26.11.24.K loaded...</Message>
+</LogEntry>
+<LogEntry Date="2026-11-24 14:20:05" Severity="Info" Source="ControlModul.FileControl.FileManager.LoadFile" ThreadId="1">
+  <Message>File 26.11.24.K loaded...</Message>
+</LogEntry>
+<LogEntry Date="2026-11-24 14:20:13" Severity="Exception" Source="ControlModul.FileControl.FileManager.LoadFile" ThreadId="1">
+  <Exception ID="95dc4c2a-9ac5-4444-8c2d-bb7f294189bb" Type="System.IO.IOException" Source="System.IO.__Error.WinIOError">
+    <Message>Zadaná cesta není platná.
+</Message>
+    <StackTrace>   v System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   v System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean checkHost)
+   v System.IO.File.InternalReadAllText(String path, Encoding encoding, Boolean checkHost)
+   v System.IO.File.ReadAllText(String path)
+   v ControlModul.FileControl.FileManager.LoadFile(String path)</StackTrace>
+  </Exception>
+</LogEntry>
+<LogEntry Date="2026-11-24 14:20:20" Severity="Exception" Source="ControlModul.Handlers.Error.ErrorMessager.ReportAsEmail" ThreadId="4">
+  <Exception ID="14fb5b1c-d0b5-4851-ad59-735bff826fda" Type="System.Net.Mail.SmtpFailedRecipientException" Source="ControlModul.Handlers.Loger.Loger.SendSupportEmail">
+    <Message>Chyba syntaxe, příkaz nebyl rozpoznán.</Message>
+    <StackTrace>   v ControlModul.Handlers.Loger.Loger.SendSupportEmail(Exception error)</StackTrace>
+  </Exception>
+</LogEntry>
+<LogEntry Date="2026-11-24 14:20:28" Severity="Exception" Source="ControlModul.FileControl.FileManager.SaveFile" ThreadId="1">
+  <Exception ID="a26531d1-37eb-4611-9fd8-18b9225545e5" Type="System.IO.IOException" Source="System.IO.__Error.WinIOError">
+    <Message>Zadaná cesta není platná.
+</Message>
+    <StackTrace>   v System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   v System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   v System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   v System.IO.File.InternalWriteAllText(String path, String contents, Encoding encoding, Boolean checkHost)
+   v System.IO.File.WriteAllText(String path, String contents)
+   v ControlModul.FileControl.FileManager.SaveFile(String path, String data)</StackTrace>
+  </Exception>
+</LogEntry>
+<LogEntry Date="2026-11-24 14:20:29" Severity="Info" Source="ControlModul.FileControl.FileManager.SaveFile" ThreadId="1">
+  <Message>File 26.11.24.K_Cube.csv saved!</Message>
+</LogEntry>
+<LogEntry Date="2026-11-24 14:36:25" Severity="Info" Source="ControlModul.FileControl.FileManager.LoadFile" ThreadId="1">
+  <Message>File 26.11.24.K loaded...</Message>
+</LogEntry>
+<LogEntry Date="2026-11-24 14:36:30" Severity="Exception" Source="ControlModul.FileControl.FileManager.LoadFile" ThreadId="1">
+  <Exception ID="bfbbdcd8-a379-4714-913d-434bf4168d30" Type="System.IO.IOException" Source="System.IO.__Error.WinIOError">
+    <Message>Zadaná cesta není platná.
+</Message>
+    <StackTrace>   v System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   v System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean checkHost)
+   v System.IO.File.InternalReadAllText(String path, Encoding encoding, Boolean checkHost)
+   v System.IO.File.ReadAllText(String path)
+   v ControlModul.FileControl.FileManager.LoadFile(String path)</StackTrace>
+  </Exception>
+</LogEntry>
+<LogEntry Date="2026-11-24 14:36:32" Severity="Exception" Source="ControlModul.FileControl.FileManager.SaveFile" ThreadId="1">
+  <Exception ID="a7692ae2-ed40-4616-b456-2aaa86d0a81e" Type="System.IO.IOException" Source="System.IO.__Error.WinIOError">
+    <Message>Zadaná cesta není platná.
+</Message>
+    <StackTrace>   v System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   v System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   v System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   v System.IO.File.InternalWriteAllText(String path, String contents, Encoding encoding, Boolean checkHost)
+   v System.IO.File.WriteAllText(String path, String contents)
+   v ControlModul.FileControl.FileManager.SaveFile(String path, String data)</StackTrace>
+  </Exception>
+</LogEntry>
+<LogEntry Date="2026-11-24 14:36:33" Severity="Info" Source="ControlModul.FileControl.FileManager.SaveFile" ThreadId="1">
+  <Message>File 26.11.24.K_Cube.csv saved!</Message>
+</LogEntry>
+<LogEntry Date="2026-11-24 14:36:47" Severity="Exception" Source="ControlModul.FileControl.FileManager.LoadFile" ThreadId="1">
+  <Exception ID="36ab5ec7-afc4-4cf9-8c94-4ca3f684a1b2" Type="System.IO.IOException" Source="System.IO.__Error.WinIOError">
+    <Message>Zadaná cesta není platná.
+</Message>
+    <StackTrace>   v System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   v System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean checkHost)
+   v System.IO.File.InternalReadAllText(String path, Encoding encoding, Boolean checkHost)
+   v System.IO.File.ReadAllText(String path)
+   v ControlModul.FileControl.FileManager.LoadFile(String path)</StackTrace>
+  </Exception>
+</LogEntry>
+<LogEntry Date="2026-11-24 14:36:52" Severity="Exception" Source="ControlModul.FileControl.FileManager.SaveFile" ThreadId="1">
+  <Exception ID="745c7aa9-cd4d-4c69-b6be-7ce3b1f0e3be" Type="System.IO.IOException" Source="System.IO.__Error.WinIOError">
+    <Message>Zadaná cesta není platná.
+</Message>
+    <StackTrace>   v System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   v System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   v System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   v System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   v System.IO.File.InternalWriteAllText(String path, String contents, Encoding encoding, Boolean checkHost)
+   v System.IO.File.WriteAllText(String path, String contents)
+   v ControlModul.FileControl.FileManager.SaveFile(String path, String data)</StackTrace>
+  </Exception>
+</LogEntry>
+<LogEntry Date="2026-11-24 14:36:53" Severity="Info" Source="ControlModul.FileControl.FileManager.SaveFile" ThreadId="1">
+  <Message>File 26.11.24.K_Cube.csv saved!</Message>
+</LogEntry>
+<LogEntry Date="2026-11-24 14:42:27" Severity="Info" Source="ControlModul.FileControl.FileManager.LoadFile" ThreadId="1">
+  <Message>File 26.11.24.K loaded...</Message>
+</LogEntry>
+<LogEntry Date="2026-11-24 14:42:54" Severity="Info" Source="ControlModul.FileControl.FileManager.LoadFile" ThreadId="1">
+  <Message>File 26.11.24.K loaded...</Message>
+</LogEntry>
