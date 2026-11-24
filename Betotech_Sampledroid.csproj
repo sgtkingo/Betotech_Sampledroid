@@ -86,6 +86,7 @@
       <DependentUpon>DataViewForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Managers\AppUpdater.cs" />
+    <Compile Include="Managers\AutopilotWatcher.cs" />
     <Compile Include="Managers\DataManager.cs" />
     <Compile Include="Managers\ViewerManager.cs" />
     <Compile Include="Share\ConsoleBox.cs" />

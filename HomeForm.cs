@@ -11,6 +11,7 @@ namespace ConcreteSampleTransformers
     {
         private Processer LocalProcesser;
         private VirtualFile virtualFileIN;
+        private AutopilotWatcher autopilot;
 
         public HomeForm()
         {
@@ -245,7 +246,16 @@ namespace ConcreteSampleTransformers
         private void intxt_filename_in_TextChanged(object sender, EventArgs e)
         {
             PropertiesManager.fileNameIN = intxt_filename_in.Text;
-            intxt_filename_out.Text = intxt_filename_in.Text;
+            intxt_filename_out.Text = SuggestOutputName(intxt_filename_in.Text);
+        }
+
+        //Output name from input name: text file extensions are dropped (data.csv -> data_Cube.csv),
+        //other names are kept (26.11.24.K -> 26.11.24.K_Cube.csv)
+        private static string SuggestOutputName(string inputName)
+        {
+            string extension = System.IO.Path.GetExtension(inputName).ToLowerInvariant();
+            bool textExtension = extension == ".csv" || extension == ".txt" || extension == ".dat" || extension == ".tsv";
+            return textExtension ? System.IO.Path.GetFileNameWithoutExtension(inputName) : inputName;
         }
 
         //Change output mode 
@@ -310,7 +320,118 @@ namespace ConcreteSampleTransformers
         //Form closing
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
+            StopAutopilot();
             PropertiesManager.SaveSettings();
+        }
+
+        //Autopilot: watch input folder, process every new file and save CSV to output folder
+        private void chbox_autopilot_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chbox_autopilot.Checked) StartAutopilot();
+            else StopAutopilot();
+        }
+
+        private void StartAutopilot()
+        {
+            if (autopilot != null) return;
+
+            string problem = null;
+            if (!PropertiesManager.IsValidDirectory(PropertiesManager.inputDataPath)) problem = "Input folder is not set or does not exist.";
+            else if (!PropertiesManager.IsValidDirectory(PropertiesManager.outputDataPath)) problem = "Output folder is not set or does not exist.";
+            if (problem != null)
+            {
+                MessageBox.Show(problem + "\nSet Input/Output path in Settings.", "Autopilot", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                chbox_autopilot.Checked = false;
+                return;
+            }
+
+            var watcher = new AutopilotWatcher(PropertiesManager.inputDataPath, this, IsAutopilotIgnored);
+            watcher.FileReady += AutopilotProcessFile;
+            watcher.Problem += message => Processer.ConsoleBox.Warning(message);
+            try
+            {
+                watcher.Start();
+            }
+            catch (Exception ex)
+            {
+                watcher.Dispose();
+                Processer.ConsoleBox.Error($"Autopilot: {ex.Message}");
+                chbox_autopilot.Checked = false;
+                return;
+            }
+            autopilot = watcher;
+
+            SetManualControls(false);
+            Processer.ConsoleBox.Header("AUTOPILOT ON");
+            Processer.ConsoleBox.Detail($"In : {PropertiesManager.inputDataPath}");
+            Processer.ConsoleBox.Detail($"Out: {PropertiesManager.outputDataPath}");
+            Processer.ConsoleBox.Info("Waiting for new files...");
+        }
+
+        private void StopAutopilot()
+        {
+            if (autopilot == null) return;
+
+            autopilot.Dispose();
+            autopilot = null;
+            SetManualControls(true);
+            Processer.ConsoleBox.Header("AUTOPILOT OFF");
+        }
+
+        //Manual workflow and Settings are locked while autopilot runs
+        private void SetManualControls(bool enabled)
+        {
+            btn_openfile.Enabled = enabled;
+            btn_Settings.Enabled = enabled;
+            if (enabled) EnableProcess(virtualFileIN != null);
+            else
+            {
+                btn_Process.Enabled = false;
+                btn_savefile.Enabled = false;
+            }
+        }
+
+        //Skip generated output files (no processing loop when input = output folder) and temporary files
+        private static bool IsAutopilotIgnored(string path)
+        {
+            string name = System.IO.Path.GetFileName(path);
+            string extension = System.IO.Path.GetExtension(path).ToLowerInvariant();
+
+            if (name.StartsWith("~") || name.StartsWith(".")) return true;
+            if (extension == ".tmp" || extension == ".part" || extension == ".crdownload") return true;
+            foreach (var type in new[] { TypesEnums.SampleType.Cube, TypesEnums.SampleType.Cylinder })
+            {
+                if (name.EndsWith(ProperitiesSamples.GetSampleExtensionNameByType(type) + PropertiesManager.fileTypeCSV, StringComparison.OrdinalIgnoreCase)) return true;
+            }
+            return false;
+        }
+
+        private void AutopilotProcessFile(string path)
+        {
+            try
+            {
+                virtualFileIN = new VirtualFile();
+                virtualFileIN.AppendFile(path);
+                intxt_filename_in.Text = virtualFileIN.FILENAME; //also sets output file name
+
+                LocalProcesser.MakeSamples(virtualFileIN);
+                if (!LocalProcesser.Result)
+                {
+                    Processer.ConsoleBox.Error("Autopilot: file skipped");
+                    return;
+                }
+                LocalProcesser.FlushStats();
+
+                //Autopilot always writes CSV files, no data review
+                if (LocalProcesser.FileMaker.MakeFiles(TypesEnums.FileType.CSV))
+                    Processer.ConsoleBox.Success("Autopilot: saved");
+                else
+                    Processer.ConsoleBox.Error("Autopilot: saving failed");
+            }
+            catch (Exception ex)
+            {
+                Processer.ConsoleBox.Error($"Autopilot: {ex.Message}");
+            }
         }
     }
 }

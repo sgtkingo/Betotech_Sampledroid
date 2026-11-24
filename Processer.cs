@@ -156,7 +156,8 @@ namespace ConcreteSampleTransformers
             int line_number=0;
             string[] Lines=data.Split('\n');
 
-            ConsoleBox.Detail($"{data.TrimEnd('\r', '\n').Split('\n').Length} lines loaded");
+            int lineCount = data.TrimEnd('\r', '\n').Split('\n').Length;
+            ConsoleBox.Detail($"{lineCount} line{(lineCount == 1 ? "" : "s")} loaded");
 
             foreach (string rawLine in Lines){
                 line_number++;

@@ -32,6 +32,7 @@
             this.txt_Console = new System.Windows.Forms.RichTextBox();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.chbox_autosave = new System.Windows.Forms.CheckBox();
+            this.chbox_autopilot = new System.Windows.Forms.CheckBox();
             this.intxt_filename_out = new System.Windows.Forms.TextBox();
             this.l_fileout = new System.Windows.Forms.Label();
             this.intxt_filename_in = new System.Windows.Forms.TextBox();
@@ -82,6 +83,18 @@
             this.chbox_autosave.Text = "AUTOSAVE";
             this.chbox_autosave.UseVisualStyleBackColor = true;
             this.chbox_autosave.CheckedChanged += new System.EventHandler(this.chbox_autosave_CheckedChanged);
+            // 
+            // chbox_autopilot
+            // 
+            this.chbox_autopilot.AutoSize = true;
+            this.chbox_autopilot.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.chbox_autopilot.Location = new System.Drawing.Point(236, 102);
+            this.chbox_autopilot.Name = "chbox_autopilot";
+            this.chbox_autopilot.Size = new System.Drawing.Size(92, 17);
+            this.chbox_autopilot.TabIndex = 32;
+            this.chbox_autopilot.Text = "AUTOPILOT";
+            this.chbox_autopilot.UseVisualStyleBackColor = true;
+            this.chbox_autopilot.CheckedChanged += new System.EventHandler(this.chbox_autopilot_CheckedChanged);
             // 
             // intxt_filename_out
             // 
@@ -268,7 +281,7 @@
             this.btn_Process.Image = global::ConcreteSampleTransformers.Properties.Resources.gear_proccess;
             this.btn_Process.Location = new System.Drawing.Point(236, 12);
             this.btn_Process.Name = "btn_Process";
-            this.btn_Process.Size = new System.Drawing.Size(178, 102);
+            this.btn_Process.Size = new System.Drawing.Size(178, 86);
             this.btn_Process.TabIndex = 0;
             this.btn_Process.Text = "PROCESS";
             this.btn_Process.UseVisualStyleBackColor = false;
@@ -292,6 +305,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 365);
+            this.Controls.Add(this.chbox_autopilot);
             this.Controls.Add(this.rdbtn_Both);
             this.Controls.Add(this.btn_Settings);
             this.Controls.Add(this.label_FileType);
@@ -335,6 +349,7 @@
         private System.Windows.Forms.Button btn_openfile;
         private System.Windows.Forms.Button btn_savefile;
         private System.Windows.Forms.CheckBox chbox_autosave;
+        private System.Windows.Forms.CheckBox chbox_autopilot;
         private System.Windows.Forms.TextBox intxt_filename_out;
         private System.Windows.Forms.Label l_fileout;
         private System.Windows.Forms.TextBox intxt_filename_in;
