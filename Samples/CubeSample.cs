@@ -9,8 +9,8 @@ namespace ConcreteSampleTransformers
 {
     public class CubeSample : Sample
     {
-        private const int thisDataArrLenght = 8;
-        public enum DataTypeToName{ ID=0, Hmotnost=1, Delka=2, Sirka=3, Vyska=4, Objem=5, ObjHmotnost=6, Tlak=7 };
+        private const int thisDataArrLenght = 9;
+        public enum DataTypeToName{ ID=0, Hmotnost=1, Delka=2, Sirka=3, Vyska=4, Objem=5, ObjHmotnost=6, Tlak=7, Pevnost=8 };
 
         public CubeSample(string code,string date){
             dataArrLenght = thisDataArrLenght;
@@ -51,26 +51,22 @@ namespace ConcreteSampleTransformers
             CreateDsoObjects();
         }
         private void FillMassCapacityToSamples(){
-            if(S1_SampleDso != null)
-            {
-                if (!S1_SampleDso.isValid()) return;
+            FillComputedValues(S1_SampleDso as CubeSamplePartDso, S1_ArrData);
+            FillComputedValues(S2_SampleDso as CubeSamplePartDso, S2_ArrData);
+            FillComputedValues(S3_SampleDso as CubeSamplePartDso, S3_ArrData);
+        }
+        private void FillComputedValues(CubeSamplePartDso dso, string[] arrData)
+        {
+            if (dso == null || !dso.isValid()) return;
 
-                 var S1_ObjectTmp = ((CubeSamplePartDso)S1_SampleDso);
-                 S1_ArrData[(int)DataTypeToName.Objem] = S1_ObjectTmp.d_Objem.ToString();
-            }
-            if (S2_SampleDso != null)
-            {
-                if (!S2_SampleDso.isValid()) return;
+            arrData[(int)DataTypeToName.Objem] = FormatOutputNumber(dso.d_Objem);
 
-                var S2_ObjectTmp = ((CubeSamplePartDso)S2_SampleDso);
-                S2_ArrData[(int)DataTypeToName.Objem] = S2_ObjectTmp.d_Objem.ToString();
-            }
-            if (S3_SampleDso != null)
+            //Volumetric density [kg/m^3] = weight [kg] / volume [m^3], only if enabled and missing in input
+            decimal volume_mm3 = dso.d_Delka * dso.d_Sirka * dso.d_Vyska;
+            if (PropertiesManager.computeObjHmotnost && dso.d_ObjHmotnost == 0 && volume_mm3 > 0)
             {
-                if (!S3_SampleDso.isValid()) return;
-
-                var S3_ObjectTmp = ((CubeSamplePartDso)S3_SampleDso);
-                S3_ArrData[(int)DataTypeToName.Objem] = S3_ObjectTmp.d_Objem.ToString();
+                decimal density = Math.Round(dso.d_Vaha * 1000000000m / volume_mm3, 0);
+                arrData[(int)DataTypeToName.ObjHmotnost] = FormatOutputNumber(density);
             }
         }
         public override string getSampleAsFormatData()
@@ -93,6 +89,7 @@ namespace ConcreteSampleTransformers
             FromToMap.Add(4, (int)DataTypeToName.Hmotnost);
             FromToMap.Add(5, (int)DataTypeToName.ObjHmotnost);
             FromToMap.Add(6, (int)DataTypeToName.Tlak);
+            FromToMap.Add(7, (int)DataTypeToName.Pevnost);
         }
 
 

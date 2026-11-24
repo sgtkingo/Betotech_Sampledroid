@@ -16,7 +16,9 @@ namespace ConcreteSampleTransformers
         public static NumberFormatInfo nfi = CultureInfo.CurrentCulture.NumberFormat;
 
         //Patterns
-        private const string codePattern = @"[0-9]+/[0-9]+/[0-9]+"; //recognize code pattern
+        private const string codePattern = @"[0-9]+/[0-9]+/[0-9]+"; //recognize code pattern (123/45678/20)
+        private const string numericCodePattern = @"^[0-9]{4,}$"; //recognize code as standalone number on its own line (2602755)
+        private const string zeroValuePattern = @"^0*([.,]0*)?$"; //recognize zero value (0, 0.0, 0,000)
         private const string datePattern = @"(\d{1,2}\.\d{1,2}\.\d{4})+"; //recognize date pattern (01.04.2020 or 1.4.2020)
         private const string dataCubePattern = @"(;\d+([.,]\d*)?){7}"; //recognize data Cube pattern (decimal '.' or ',')
         private const string dataCylinderPattern = @"(;\d+([.,]\d*)?){6}"; //recognize data Cylinder pattern (decimal '.' or ',')
@@ -83,15 +85,23 @@ namespace ConcreteSampleTransformers
             }
             return date;
         }
-        private bool RecognizeCode(string data){ 
-            return Regex.IsMatch(data,codePattern);
+        private bool RecognizeCode(string data){
+            return Regex.IsMatch(data,codePattern) || Regex.IsMatch(data,numericCodePattern);
         }
         //Returns only the field that holds the sample code (drops ";;;" padding from CSV exports)
         private string CutCode(string data){
             foreach (string part in data.Split(FieldSeparator)){
-                if (Regex.IsMatch(part, codePattern)) return part;
+                if (Regex.IsMatch(part, codePattern) || Regex.IsMatch(part, numericCodePattern)) return part;
             }
             return data;
+        }
+        //Measurement line with all values zero = aborted/empty test, it carries no data
+        private bool IsEmptyMeasurement(string data){
+            string[] parts = data.Split(FieldSeparator);
+            for (int i = 1; i < parts.Length; i++){
+                if (!Regex.IsMatch(parts[i], zeroValuePattern)) return false;
+            }
+            return true;
         }
         //Unify input line: strip line ending/BOM, convert input field separator (Settings) to ';', trim spaces and quotes of each field
         private string NormalizeLine(string line){
@@ -143,7 +153,11 @@ namespace ConcreteSampleTransformers
                     if(S!=null)S.sampleDate=cutDate(line);
                     continue;
                 }
-                else if((actualType=RecognizeData(line))!=TypesEnums.SampleType.NoType){ 
+                else if((actualType=RecognizeData(line))!=TypesEnums.SampleType.NoType){
+                    if(IsEmptyMeasurement(line)){
+                        ConsoleBox.WriteLineToConsole($"Empty measurement skipped (line {line_number}, sample {S?.sampleCode})", ConsoleBox.LineType.NoLine);
+                        continue;
+                    }
                     if(S==null){
                         ErrorManager.Add(new Error("ERROR","S == null",line_number.ToString()));
                         continue;

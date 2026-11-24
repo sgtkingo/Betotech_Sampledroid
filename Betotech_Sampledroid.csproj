@@ -130,6 +130,9 @@
     <Compile Include="AppSettingsForm.Designer.cs">
       <DependentUpon>AppSettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="OutputColumnsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DataViewForm.cs">
       <SubType>Form</SubType>
     </Compile>

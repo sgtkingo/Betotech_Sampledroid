@@ -97,6 +97,42 @@ namespace ConcreteSampleTransformers.Properties {
 
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool computeObjHmotnost {
+            get {
+                return ((bool)(this["computeObjHmotnost"]));
+            }
+            set {
+                this["computeObjHmotnost"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string outputColumnsCube {
+            get {
+                return ((string)(this["outputColumnsCube"]));
+            }
+            set {
+                this["outputColumnsCube"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string outputColumnsCylinder {
+            get {
+                return ((string)(this["outputColumnsCylinder"]));
+            }
+            set {
+                this["outputColumnsCylinder"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(".")]
         public char inputNfi {
             get {

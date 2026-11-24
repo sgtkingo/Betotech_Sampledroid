@@ -49,6 +49,9 @@
             this.btn_InPathSet = new System.Windows.Forms.Button();
             this.gbox_NumberFormat = new System.Windows.Forms.GroupBox();
             this.gpbox_SQL = new System.Windows.Forms.GroupBox();
+            this.gbox_Output = new System.Windows.Forms.GroupBox();
+            this.chk_computeObjHmotnost = new System.Windows.Forms.CheckBox();
+            this.btn_OutputColumns = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.btn_Connect = new System.Windows.Forms.Button();
             this.l_sqladdr = new System.Windows.Forms.Label();
@@ -60,6 +63,7 @@
             this.gbox_Path.SuspendLayout();
             this.gbox_NumberFormat.SuspendLayout();
             this.gpbox_SQL.SuspendLayout();
+            this.gbox_Output.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtInputDataPath
@@ -143,7 +147,7 @@
             this.btn_SaveAndClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_SaveAndClose.Image = global::ConcreteSampleTransformers.Properties.Resources.diskette;
             this.btn_SaveAndClose.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btn_SaveAndClose.Location = new System.Drawing.Point(146, 353);
+            this.btn_SaveAndClose.Location = new System.Drawing.Point(146, 418);
             this.btn_SaveAndClose.Name = "btn_SaveAndClose";
             this.btn_SaveAndClose.Size = new System.Drawing.Size(228, 64);
             this.btn_SaveAndClose.TabIndex = 8;
@@ -246,6 +250,39 @@
             this.gbox_NumberFormat.TabStop = false;
             this.gbox_NumberFormat.Text = "Number format";
             // 
+            // gbox_Output
+            // 
+            this.gbox_Output.Controls.Add(this.chk_computeObjHmotnost);
+            this.gbox_Output.Controls.Add(this.btn_OutputColumns);
+            this.gbox_Output.Location = new System.Drawing.Point(12, 275);
+            this.gbox_Output.Name = "gbox_Output";
+            this.gbox_Output.Size = new System.Drawing.Size(495, 58);
+            this.gbox_Output.TabIndex = 17;
+            this.gbox_Output.TabStop = false;
+            this.gbox_Output.Text = "Output";
+            // 
+            // chk_computeObjHmotnost
+            // 
+            this.chk_computeObjHmotnost.AutoSize = true;
+            this.chk_computeObjHmotnost.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.chk_computeObjHmotnost.Location = new System.Drawing.Point(9, 25);
+            this.chk_computeObjHmotnost.Name = "chk_computeObjHmotnost";
+            this.chk_computeObjHmotnost.Size = new System.Drawing.Size(300, 20);
+            this.chk_computeObjHmotnost.TabIndex = 0;
+            this.chk_computeObjHmotnost.Text = "Compute Obj. hmotnost (cube) if missing";
+            this.chk_computeObjHmotnost.UseVisualStyleBackColor = true;
+            // 
+            // btn_OutputColumns
+            // 
+            this.btn_OutputColumns.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_OutputColumns.Location = new System.Drawing.Point(350, 19);
+            this.btn_OutputColumns.Name = "btn_OutputColumns";
+            this.btn_OutputColumns.Size = new System.Drawing.Size(134, 31);
+            this.btn_OutputColumns.TabIndex = 1;
+            this.btn_OutputColumns.Text = "Output columns...";
+            this.btn_OutputColumns.UseVisualStyleBackColor = true;
+            this.btn_OutputColumns.Click += new System.EventHandler(this.btn_OutputColumns_Click);
+            // 
             // gpbox_SQL
             // 
             this.gpbox_SQL.Controls.Add(this.label7);
@@ -253,7 +290,7 @@
             this.gpbox_SQL.Controls.Add(this.l_sqladdr);
             this.gpbox_SQL.Controls.Add(this.txt_SQLAddr);
             this.gpbox_SQL.Controls.Add(this.l_status);
-            this.gpbox_SQL.Location = new System.Drawing.Point(12, 275);
+            this.gpbox_SQL.Location = new System.Drawing.Point(12, 340);
             this.gpbox_SQL.Name = "gpbox_SQL";
             this.gpbox_SQL.Size = new System.Drawing.Size(495, 72);
             this.gpbox_SQL.TabIndex = 16;
@@ -315,7 +352,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(518, 429);
+            this.ClientSize = new System.Drawing.Size(518, 494);
+            this.Controls.Add(this.gbox_Output);
             this.Controls.Add(this.gpbox_SQL);
             this.Controls.Add(this.gbox_NumberFormat);
             this.Controls.Add(this.gbox_Path);
@@ -331,6 +369,8 @@
             this.gbox_Path.PerformLayout();
             this.gbox_NumberFormat.ResumeLayout(false);
             this.gbox_NumberFormat.PerformLayout();
+            this.gbox_Output.ResumeLayout(false);
+            this.gbox_Output.PerformLayout();
             this.gpbox_SQL.ResumeLayout(false);
             this.gpbox_SQL.PerformLayout();
             this.ResumeLayout(false);
@@ -365,5 +405,8 @@
         private System.Windows.Forms.ComboBox cbox_inputFieldSeparator;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cbox_outputFieldSeparator;
+        private System.Windows.Forms.GroupBox gbox_Output;
+        private System.Windows.Forms.CheckBox chk_computeObjHmotnost;
+        private System.Windows.Forms.Button btn_OutputColumns;
     }
 }

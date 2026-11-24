@@ -36,7 +36,7 @@ namespace ConcreteSampleTransformers.Managers
                     {
                         var row = DataTable.NewRow();
                         var stringArray = stringRow.Split(';');
-                        for (int i = 0; i < stringArray.Length; i++)
+                        for (int i = 0; i < stringArray.Length && i < DataTable.Columns.Count; i++)
                         {
                             row[i] = stringArray[i];
                         }

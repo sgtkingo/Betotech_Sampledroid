@@ -21,6 +21,26 @@ namespace ConcreteSampleTransformers
         public static char inputFieldSeparator { get; set; } = defaultFieldSeparator;
         //Column (field) separator of generated CSV files
         public static char outputFieldSeparator { get; set; } = defaultFieldSeparator;
+
+        //Compute volumetric density (kg/m^3) from weight and volume when input does not contain it
+        public static bool computeObjHmotnost { get; set; } = false;
+
+        //Output columns config per sample type: column keys in order, empty = all columns
+        public static string outputColumnsCube { get; set; } = string.Empty;
+        public static string outputColumnsCylinder { get; set; } = string.Empty;
+
+        public static string GetOutputColumnsConfig(TypesEnums.SampleType sampleType)
+        {
+            if (sampleType == TypesEnums.SampleType.Cube) return outputColumnsCube;
+            if (sampleType == TypesEnums.SampleType.Cylinder) return outputColumnsCylinder;
+            return string.Empty;
+        }
+
+        public static void SetOutputColumnsConfig(TypesEnums.SampleType sampleType, string config)
+        {
+            if (sampleType == TypesEnums.SampleType.Cube) outputColumnsCube = config;
+            if (sampleType == TypesEnums.SampleType.Cylinder) outputColumnsCylinder = config;
+        }
         public static Dictionary<char, string> fieldSeparatorMap = new Dictionary<char, string>();
 
         public static NumberFormatInfo CurrentNfo = NumberFormatInfo.CurrentInfo;
@@ -111,6 +131,9 @@ namespace ConcreteSampleTransformers
             outputNfiSeparator = Properties.Settings.Default.outputNfi;
             inputFieldSeparator = FieldSeparatorFromSetting(Properties.Settings.Default.inputFieldSeparator);
             outputFieldSeparator = FieldSeparatorFromSetting(Properties.Settings.Default.outputFieldSeparator);
+            computeObjHmotnost = Properties.Settings.Default.computeObjHmotnost;
+            outputColumnsCube = Properties.Settings.Default.outputColumnsCube;
+            outputColumnsCylinder = Properties.Settings.Default.outputColumnsCylinder;
             autosaveFunction = Properties.Settings.Default.autosaveFunction;
             inputDataPath = Properties.Settings.Default.inputDataPath;
             outputDataPath = Properties.Settings.Default.outputDataPath;
@@ -130,6 +153,9 @@ namespace ConcreteSampleTransformers
             Properties.Settings.Default.outputNfi = outputNfiSeparator;
             Properties.Settings.Default.inputFieldSeparator = FieldSeparatorToSetting(inputFieldSeparator);
             Properties.Settings.Default.outputFieldSeparator = FieldSeparatorToSetting(outputFieldSeparator);
+            Properties.Settings.Default.computeObjHmotnost = computeObjHmotnost;
+            Properties.Settings.Default.outputColumnsCube = outputColumnsCube ?? string.Empty;
+            Properties.Settings.Default.outputColumnsCylinder = outputColumnsCylinder ?? string.Empty;
             Properties.Settings.Default.autosaveFunction = autosaveFunction;
             Properties.Settings.Default.inputDataPath = inputDataPath;
             Properties.Settings.Default.outputDataPath = outputDataPath;

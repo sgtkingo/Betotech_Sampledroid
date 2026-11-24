@@ -13,6 +13,8 @@ namespace ConcreteSampleTransformers
     public partial class AppSettingsForm : Form
     {
         private DataManager DataManager;
+        //Output columns config edited in OutputColumnsForm, applied on Confirm
+        private Dictionary<TypesEnums.SampleType, string> pendingColumnConfigs;
 
         public AppSettingsForm(DataManager dataManager)
         {
@@ -27,6 +29,12 @@ namespace ConcreteSampleTransformers
             this.btn_InPathSet.Click += RefereshDirectoryPathsEvent;
             this.btn_OutPathSet.Click += RefereshDirectoryPathsEvent;
             BindLanguageList();
+
+            chk_computeObjHmotnost.Checked = PropertiesManager.computeObjHmotnost;
+            pendingColumnConfigs = new Dictionary<TypesEnums.SampleType, string> {
+                { TypesEnums.SampleType.Cube, PropertiesManager.outputColumnsCube },
+                { TypesEnums.SampleType.Cylinder, PropertiesManager.outputColumnsCylinder },
+            };
 
             ShowConnectionStatus(DataManager.ServerName, string.Empty);
         }
@@ -145,12 +153,28 @@ namespace ConcreteSampleTransformers
                 PropertiesManager.outputNfiSeparator = outputNfi;
                 PropertiesManager.inputFieldSeparator = fieldSeparator;
                 PropertiesManager.outputFieldSeparator = outputFieldSeparator;
+                PropertiesManager.computeObjHmotnost = chk_computeObjHmotnost.Checked;
+                foreach (var config in pendingColumnConfigs)
+                {
+                    PropertiesManager.SetOutputColumnsConfig(config.Key, config.Value);
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Exp: {e.Message}|{e.Source}");
             }
             return true;
+        }
+
+        private void btn_OutputColumns_Click(object sender, EventArgs e)
+        {
+            using (var form = new OutputColumnsForm(pendingColumnConfigs))
+            {
+                if (form.ShowDialog(this) == DialogResult.OK)
+                {
+                    pendingColumnConfigs = form.ResultConfigs;
+                }
+            }
         }
 
         private void btn_SaveAndClose_Click(object sender, EventArgs e)

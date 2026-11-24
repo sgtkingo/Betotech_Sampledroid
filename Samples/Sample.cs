@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace ConcreteSampleTransformers
 {
@@ -38,6 +40,11 @@ namespace ConcreteSampleTransformers
         {
             string output = numbersString.Replace(originalSeparator, wantedSeparator);
             return output;
+        }
+        //Computed number formatted with output decimal separator (independent on OS culture)
+        protected string FormatOutputNumber(decimal value)
+        {
+            return value.ToString(CultureInfo.InvariantCulture).Replace('.', PropertiesManager.outputNfiSeparator);
         }
         protected virtual void InitSample(){
 
@@ -82,9 +89,11 @@ namespace ConcreteSampleTransformers
             try{
                 last_index=sampleCode.LastIndexOf('/');
                 first_index=sampleCode.IndexOf('/');
+                //Code without "a/b/c" structure (e.g. 2602755) is already simple
+                if (first_index < 0 || last_index <= first_index) return sampleCode;
                 simple=sampleCode.Substring(first_index+1,(last_index-first_index)-1);
             }
-            catch (IndexOutOfRangeException e)
+            catch (ArgumentOutOfRangeException e)
             {
                 Processer.ConsoleBox.WriteLineToConsole(e.ToString());
                 simple ="";
@@ -94,46 +103,35 @@ namespace ConcreteSampleTransformers
 
         protected virtual string createHead()
         {
-            string head = "";
-            head += sampleCode;
-            head += ";";
-            head += sampleSimpleCode;
-            head += ";";
-            head += getType;
-            head += ";";
-            head += sampleDate;
-            //Add ; to create Table format CSV
-            for (int i = 0; i < dataArrLenght-3; i++)
-            {
-                head += ";";
-            }
-            head += "\n";
-            return head;
+            var fields = new List<string> { sampleCode, sampleSimpleCode, getType.ToString(), sampleDate };
+            //Pad with empty fields to create Table format CSV
+            int rowLength = ProperitiesSamples.GetOutputRowLength(getType);
+            while (fields.Count < rowLength) fields.Add(string.Empty);
+
+            return string.Join(Processer.FieldSeparator.ToString(), fields) + "\n";
+        }
+
+        //One body row with columns selected in Settings
+        private string createBodyRow(List<OutputColumn> columns, string[] arrData, bool found)
+        {
+            var fields = columns.Select(c => c.DataIndex == OutputColumn.ValidColumnIndex ? found.ToString() : arrData[c.DataIndex]).ToList();
+            //Keep row as long as head row
+            int rowLength = ProperitiesSamples.GetOutputRowLength(getType);
+            while (fields.Count < rowLength) fields.Add(string.Empty);
+
+            return string.Join(Processer.FieldSeparator.ToString(), fields);
         }
 
         protected virtual string createBody()
         {
+            var columns = ProperitiesSamples.GetOutputColumns(getType);
+
             string formatData = "";
-            for (int i = 0; i < dataArrLenght; i++)
-            {
-                formatData += S1_ArrData[i];
-                formatData += ";";
-            }
-            formatData += S1_FOUND.ToString();
+            formatData += createBodyRow(columns, S1_ArrData, S1_FOUND);
             formatData += "\n";
-            for (int i = 0; i < dataArrLenght; i++)
-            {
-                formatData += S2_ArrData[i];
-                formatData += ";";
-            }
-            formatData += S2_FOUND.ToString();
+            formatData += createBodyRow(columns, S2_ArrData, S2_FOUND);
             formatData += "\n";
-            for (int i = 0; i < dataArrLenght; i++)
-            {
-                formatData += S3_ArrData[i];
-                formatData += ";";
-            }
-            formatData += S3_FOUND.ToString();
+            formatData += createBodyRow(columns, S3_ArrData, S3_FOUND);
             return formatData;
         }
 
