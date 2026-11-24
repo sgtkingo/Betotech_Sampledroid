@@ -68,7 +68,10 @@ namespace ConcreteSampleTransformers
 
         public static string connectionString { get; set; }
 
+        //Reports and logs live outside application folder (Velopack replaces app folder on every update)
         public static string currentDirectoryPath { get; set; }
+        private static readonly string dataDirectoryPath = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "BETOTECH", "Sampledroid");
 
         public static TypesEnums.FileType ActualFileType;
 
@@ -122,7 +125,7 @@ namespace ConcreteSampleTransformers
         }
 
         private static void checkDirectory(){
-            currentDirectoryPath = Directory.GetCurrentDirectory();
+            currentDirectoryPath = dataDirectoryPath;
             if (!Directory.Exists(currentDirectoryPath + reportDataPath)){ 
                 Directory.CreateDirectory(currentDirectoryPath + reportDataPath);
             }

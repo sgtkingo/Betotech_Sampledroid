@@ -1,0 +1,85 @@
+# Release: push tag vX.Y.Z (must match first 3 parts of AssemblyVersion in Properties/AssemblyInfo.cs)
+#   git tag v1.5.0 && git push origin v1.5.0
+# Builds Release, packs it with Velopack and publishes GitHub Release with installer and update packages.
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write   # create release and upload assets with GITHUB_TOKEN
+
+env:
+  PACK_ID: Betotech_Sampledroid
+  MAIN_EXE: Betotech_Sampledroid.exe
+  VPK_VERSION: 1.2.161   # keep same as Velopack package version in csproj
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve version
+        id: version
+        shell: pwsh
+        run: |
+          $version = "${{ github.ref_name }}".TrimStart('v')
+          $assembly = (Select-String -Path Properties/AssemblyInfo.cs -Pattern 'AssemblyVersion\("([^"]+)"\)').Matches[0].Groups[1].Value
+          if (-not $assembly.StartsWith("$version.")) {
+            throw "Tag v$version does not match AssemblyVersion $assembly - bump Properties/AssemblyInfo.cs first."
+          }
+          "version=$version" >> $env:GITHUB_OUTPUT
+          Write-Host "Releasing $version (assembly $assembly)"
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Setup .NET SDK (for vpk)
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Build Release
+        shell: pwsh
+        run: msbuild Betotech_Sampledroid.csproj -restore -m -nologo -v:m -p:Configuration=Release -p:OutDir=$PWD\artifacts\publish\
+
+      - name: Install vpk
+        shell: pwsh
+        run: dotnet tool install -g vpk --version $env:VPK_VERSION
+
+      - name: Download previous release (delta updates)
+        shell: pwsh
+        run: |
+          vpk download github --repoUrl https://github.com/${{ github.repository }} --token ${{ secrets.GITHUB_TOKEN }} -o artifacts\Releases
+          if ($LASTEXITCODE -ne 0) { Write-Warning "No previous release downloaded - full package only."; $global:LASTEXITCODE = 0 }
+
+      - name: Pack
+        shell: pwsh
+        run: >-
+          vpk pack
+          --packId $env:PACK_ID
+          --packVersion ${{ steps.version.outputs.version }}
+          --packDir artifacts\publish
+          --mainExe $env:MAIN_EXE
+          --packTitle "Betotech Sampledroid"
+          --packAuthors "Jiri Konecny"
+          --framework net48
+          --icon icon.ico
+          -o artifacts\Releases
+
+      - name: Publish GitHub Release
+        shell: pwsh
+        run: >-
+          vpk upload github
+          --repoUrl https://github.com/${{ github.repository }}
+          --token ${{ secrets.GITHUB_TOKEN }}
+          -o artifacts\Releases
+          --publish
+          --merge
+          --releaseName "Sampledroid ${{ steps.version.outputs.version }}"
+          --tag ${{ github.ref_name }}

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Deployment.Application;
 using System.Diagnostics;
 using System.Windows.Forms;
 
 using ControlModul.FileControl;
+using ConcreteSampleTransformers.Managers;
 
 namespace ConcreteSampleTransformers
 {
@@ -26,6 +26,60 @@ namespace ConcreteSampleTransformers
 
             UseSettings();
             EnableProcess(false);
+
+            CheckForUpdates();
+        }
+
+        //Background check of GitHub Releases, user decides about installation
+        private async void CheckForUpdates()
+        {
+            var console = Processer.ConsoleBox;
+            try
+            {
+                var updater = new AppUpdater();
+                if (!updater.IsInstalled)
+                {
+                    console.Detail("Updates: not installed app");
+                    return;
+                }
+
+                var update = await updater.CheckForUpdatesAsync();
+                if (update == null)
+                {
+                    console.Detail($"Up to date ({updater.CurrentVersion})");
+                    return;
+                }
+
+                string newVersion = update.TargetFullRelease.Version.ToString();
+                console.Info($"Update {newVersion} available");
+
+                var answer = MessageBox.Show(this,
+                    $"New version {newVersion} is available (current {updater.CurrentVersion}).\n\nDownload and install now? The application will restart.",
+                    "Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (answer != DialogResult.Yes)
+                {
+                    console.Detail("Update postponed");
+                    return;
+                }
+
+                int reported = -1;
+                await updater.DownloadAsync(update, progress =>
+                {
+                    //Progress comes from background thread, report every 25 %
+                    int step = progress / 25;
+                    if (step == reported) return;
+                    reported = step;
+                    BeginInvoke((MethodInvoker)(() => console.Detail($"Downloading {progress} %")));
+                });
+
+                console.Success("Update ready - restarting");
+                PropertiesManager.SaveSettings();
+                updater.ApplyAndRestart(update);
+            }
+            catch (Exception e)
+            {
+                console.Warning($"Update check failed: {e.Message}");
+            }
         }
 
         private void UseSettings() {
@@ -167,7 +221,7 @@ namespace ConcreteSampleTransformers
         {
             string DateTimeString = DateTime.Now.ToString("MM_dd_hh_ss");
             Processer.ConsoleBox.SaveToFile(DateTimeString);
-            MessageBox.Show("Debug REPORT " + DateTimeString + " SAVED!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Debug REPORT " + DateTimeString + " SAVED!\n\n" + PropertiesManager.currentDirectoryPath + PropertiesManager.reportDataPath, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btn_clearConsole_Click(object sender, EventArgs e)

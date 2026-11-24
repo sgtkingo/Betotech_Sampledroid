@@ -1,0 +1,7 @@
+# Release pipeline output (vpk / CI)
+artifacts/
+Releases/
+
+# Local runtime output and IDE
+/logs/
+.vs/

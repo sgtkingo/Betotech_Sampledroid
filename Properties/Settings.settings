@@ -35,6 +35,9 @@
     <Setting Name="outputColumnsCylinder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="upgradeRequired" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
     <Setting Name="connectionString" Type="System.String" Scope="User">
       <Value Profile="(Default)">Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=myPassword;</Value>
     </Setting>
