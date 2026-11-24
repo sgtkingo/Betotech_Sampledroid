@@ -53,11 +53,14 @@ namespace ConcreteSampleTransformers
             string FP = PropertiesManager.GetSampleFilePathByType(sampleType);
             string LABELS = ProperitiesSamples.GetSampleLabelByType(sampleType);
 
+            //Samples are formatted with internal separator ';', output file uses the one chosen in Settings
+            char outputSeparator = PropertiesManager.outputFieldSeparator;
+
             virtualFile.AppendFile(FP);
-            virtualFile.SetLabels(LABELS);
+            virtualFile.SetLabels(LABELS.Replace(Processer.FieldSeparator, outputSeparator));
             foreach (Sample S in Storage.GetFiltredSamples(sampleType))
             {
-                DATA += S.getSampleAsFormatData();
+                DATA += S.getSampleAsFormatData().Replace(Processer.FieldSeparator, outputSeparator);
                 DATA += "\n";
             }
             DATA += ProperitiesSamples.GetDateTimeStamp();

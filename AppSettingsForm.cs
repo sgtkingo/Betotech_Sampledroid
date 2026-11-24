@@ -28,9 +28,6 @@ namespace ConcreteSampleTransformers
             this.btn_OutPathSet.Click += RefereshDirectoryPathsEvent;
             BindLanguageList();
 
-            txt_langIn.Text = PropertiesManager.inputNfiSeparator.ToString();
-            txt_langOut.Text = PropertiesManager.outputNfiSeparator.ToString();
-
             ShowConnectionStatus(DataManager.ServerName, string.Empty);
         }
 
@@ -45,6 +42,20 @@ namespace ConcreteSampleTransformers
             bindingSource_LanguageOUT.ResetBindings(false);
 
             SetLanguageList();
+            BindFieldSeparatorList();
+        }
+
+        private void BindFieldSeparatorList()
+        {
+            cbox_inputFieldSeparator.DisplayMember = "Value";
+            cbox_inputFieldSeparator.ValueMember = "Key";
+            cbox_inputFieldSeparator.DataSource = new BindingSource(PropertiesManager.fieldSeparatorMap, null);
+            cbox_inputFieldSeparator.SelectedValue = PropertiesManager.inputFieldSeparator;
+
+            cbox_outputFieldSeparator.DisplayMember = "Value";
+            cbox_outputFieldSeparator.ValueMember = "Key";
+            cbox_outputFieldSeparator.DataSource = new BindingSource(PropertiesManager.fieldSeparatorMap, null);
+            cbox_outputFieldSeparator.SelectedValue = PropertiesManager.outputFieldSeparator;
         }
 
         private void SetLanguageList(){
@@ -99,49 +110,52 @@ namespace ConcreteSampleTransformers
             txtOutputDataPath.Text = PropertiesManager.outputDataPath;
         }
 
-        private void cbox_inputLang_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                var itemIn = (KeyValuePair<char, string>)cbox_inputLang.SelectedItem;
-                txt_langIn.Text = itemIn.Key.ToString();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Exp: {ex.Message}|{ex.Source}");
-            }
-        }
-
-        private void cbox_outputLang_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                var itemOut = (KeyValuePair<char, string>)cbox_outputLang.SelectedItem;
-                txt_langOut.Text = itemOut.Key.ToString();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Exp: {ex.Message}|{ex.Source}");
-            }
-        }
-
         //Settings save and close
-        private void SaveSettings()
+        private bool SaveSettings()
         {
             try
             {
-                PropertiesManager.inputNfiSeparator = txt_langIn.Text[0];
-                PropertiesManager.outputNfiSeparator = txt_langOut.Text[0];
+                char inputNfi = ((KeyValuePair<char, string>)cbox_inputLang.SelectedItem).Key;
+                char outputNfi = ((KeyValuePair<char, string>)cbox_outputLang.SelectedItem).Key;
+                char fieldSeparator = cbox_inputFieldSeparator.SelectedValue is char selected
+                    ? selected
+                    : PropertiesManager.defaultFieldSeparator;
+
+                char outputFieldSeparator = cbox_outputFieldSeparator.SelectedValue is char selectedOut
+                    ? selectedOut
+                    : PropertiesManager.defaultFieldSeparator;
+
+                //Column separator must differ from decimal separator, otherwise numbers would be split
+                if (fieldSeparator == inputNfi)
+                {
+                    MessageBox.Show(
+                        $"Input data separator '{fieldSeparator}' is the same as input decimal separator!\nChoose different input number format or data separator.",
+                        "Settings conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+                if (outputFieldSeparator == outputNfi)
+                {
+                    MessageBox.Show(
+                        $"Output data separator '{outputFieldSeparator}' is the same as output decimal separator!\nChoose different output number format or data separator.",
+                        "Settings conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+
+                PropertiesManager.inputNfiSeparator = inputNfi;
+                PropertiesManager.outputNfiSeparator = outputNfi;
+                PropertiesManager.inputFieldSeparator = fieldSeparator;
+                PropertiesManager.outputFieldSeparator = outputFieldSeparator;
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Exp: {e.Message}|{e.Source}");
             }
+            return true;
         }
 
         private void btn_SaveAndClose_Click(object sender, EventArgs e)
         {
-            SaveSettings();
+            if (!SaveSettings()) return;
             this.Close();
         }
 

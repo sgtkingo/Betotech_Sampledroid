@@ -17,9 +17,12 @@ namespace ConcreteSampleTransformers
 
         //Patterns
         private const string codePattern = @"[0-9]+/[0-9]+/[0-9]+"; //recognize code pattern
-        private const string datePattern = @"(\d{2}\.\d{2}\.\d{4})+"; //recognize date pattern
-        private const string dataCubePattern = @"(;\d+\.?\d*){7}"; //recognize data Cube pattern
-        private const string dataCylinderPattern = @"(;\d+\.?\d*){6}"; //recognize data Cylinder pattern
+        private const string datePattern = @"(\d{1,2}\.\d{1,2}\.\d{4})+"; //recognize date pattern (01.04.2020 or 1.4.2020)
+        private const string dataCubePattern = @"(;\d+([.,]\d*)?){7}"; //recognize data Cube pattern (decimal '.' or ',')
+        private const string dataCylinderPattern = @"(;\d+([.,]\d*)?){6}"; //recognize data Cylinder pattern (decimal '.' or ',')
+
+        //Internal field separator used by parser and output files (input separator is chosen in Settings)
+        public const char FieldSeparator = ';';
 
         public Storage Storage { get; private set; }
         public DataManager DataManager{ get; private set; }
@@ -71,7 +74,7 @@ namespace ConcreteSampleTransformers
         }
         private string cutDate(string data){ 
             string date="";
-            string[] parts=data.Split(';');
+            string[] parts=data.Split(FieldSeparator);
 
             if (parts.Length > 3){
                 if(RecognizeDate(parts[3])){ 
@@ -82,6 +85,23 @@ namespace ConcreteSampleTransformers
         }
         private bool RecognizeCode(string data){ 
             return Regex.IsMatch(data,codePattern);
+        }
+        //Returns only the field that holds the sample code (drops ";;;" padding from CSV exports)
+        private string CutCode(string data){
+            foreach (string part in data.Split(FieldSeparator)){
+                if (Regex.IsMatch(part, codePattern)) return part;
+            }
+            return data;
+        }
+        //Unify input line: strip line ending/BOM, convert input field separator (Settings) to ';', trim spaces and quotes of each field
+        private string NormalizeLine(string line){
+            line = line.Trim('\r', '\n', '﻿');
+
+            string[] parts = line.Split(PropertiesManager.inputFieldSeparator);
+            for (int i = 0; i < parts.Length; i++){
+                parts[i] = parts[i].Trim().Trim('"').Trim();
+            }
+            return string.Join(FieldSeparator.ToString(), parts);
         }
         private bool RecognizeDate(string data){ 
             return Regex.IsMatch(data,datePattern);
@@ -109,12 +129,13 @@ namespace ConcreteSampleTransformers
 
             ConsoleBox.WriteLineToConsole($"Start parsing [{Lines.Length}] lines...", ConsoleBox.LineType.NoLine);
 
-            foreach (string line in Lines){
+            foreach (string rawLine in Lines){
                 line_number++;
+                string line = NormalizeLine(rawLine);
                 if(RecognizeCode(line)){
                     if(S!=null)if(S.getType==TypesEnums.SampleType.NoType){ ErrorManager.Add(new Error("ERROR","S is PROTOTYPE!",S.sampleCode)); }
                     //Storage.SaveSample(S);
-                    actualCode=line;
+                    actualCode=CutCode(line);
                     S=CreateNewSample(actualCode);
                     continue;
                 }

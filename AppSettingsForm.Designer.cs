@@ -37,10 +37,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cbox_outputLang = new System.Windows.Forms.ComboBox();
-            this.txt_langIn = new System.Windows.Forms.TextBox();
-            this.txt_langOut = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cbox_inputFieldSeparator = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cbox_outputFieldSeparator = new System.Windows.Forms.ComboBox();
             this.btn_SaveAndClose = new System.Windows.Forms.Button();
             this.bindingSource_LanguageIN = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSource_LanguageOUT = new System.Windows.Forms.BindingSource(this.components);
@@ -108,7 +108,6 @@
             this.cbox_inputLang.Name = "cbox_inputLang";
             this.cbox_inputLang.Size = new System.Drawing.Size(202, 28);
             this.cbox_inputLang.TabIndex = 4;
-            this.cbox_inputLang.SelectedIndexChanged += new System.EventHandler(this.cbox_inputLang_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -138,52 +137,13 @@
             this.cbox_outputLang.Name = "cbox_outputLang";
             this.cbox_outputLang.Size = new System.Drawing.Size(202, 28);
             this.cbox_outputLang.TabIndex = 9;
-            this.cbox_outputLang.SelectedIndexChanged += new System.EventHandler(this.cbox_outputLang_SelectedIndexChanged);
-            // 
-            // txt_langIn
-            // 
-            this.txt_langIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txt_langIn.Location = new System.Drawing.Point(178, 85);
-            this.txt_langIn.Name = "txt_langIn";
-            this.txt_langIn.ReadOnly = true;
-            this.txt_langIn.Size = new System.Drawing.Size(30, 31);
-            this.txt_langIn.TabIndex = 10;
-            this.txt_langIn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // txt_langOut
-            // 
-            this.txt_langOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txt_langOut.Location = new System.Drawing.Point(454, 85);
-            this.txt_langOut.Name = "txt_langOut";
-            this.txt_langOut.ReadOnly = true;
-            this.txt_langOut.Size = new System.Drawing.Size(30, 31);
-            this.txt_langOut.TabIndex = 11;
-            this.txt_langOut.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(116, 97);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(56, 13);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Separator:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(392, 97);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(56, 13);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "Separator:";
             // 
             // btn_SaveAndClose
             // 
             this.btn_SaveAndClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_SaveAndClose.Image = global::ConcreteSampleTransformers.Properties.Resources.diskette;
             this.btn_SaveAndClose.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btn_SaveAndClose.Location = new System.Drawing.Point(146, 330);
+            this.btn_SaveAndClose.Location = new System.Drawing.Point(146, 353);
             this.btn_SaveAndClose.Name = "btn_SaveAndClose";
             this.btn_SaveAndClose.Size = new System.Drawing.Size(228, 64);
             this.btn_SaveAndClose.TabIndex = 8;
@@ -228,20 +188,60 @@
             this.btn_InPathSet.TabIndex = 4;
             this.btn_InPathSet.UseVisualStyleBackColor = true;
             this.btn_InPathSet.Click += new System.EventHandler(this.btn_InPathSet_Click);
+            //
+            // label8
+            //
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label8.Location = new System.Drawing.Point(6, 92);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(124, 16);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Input data separator:";
+            //
+            // cbox_inputFieldSeparator
+            //
+            this.cbox_inputFieldSeparator.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbox_inputFieldSeparator.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cbox_inputFieldSeparator.FormattingEnabled = true;
+            this.cbox_inputFieldSeparator.Location = new System.Drawing.Point(6, 111);
+            this.cbox_inputFieldSeparator.Name = "cbox_inputFieldSeparator";
+            this.cbox_inputFieldSeparator.Size = new System.Drawing.Size(202, 28);
+            this.cbox_inputFieldSeparator.TabIndex = 15;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label9.Location = new System.Drawing.Point(282, 92);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(134, 16);
+            this.label9.TabIndex = 16;
+            this.label9.Text = "Output data separator:";
+            // 
+            // cbox_outputFieldSeparator
+            // 
+            this.cbox_outputFieldSeparator.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbox_outputFieldSeparator.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cbox_outputFieldSeparator.FormattingEnabled = true;
+            this.cbox_outputFieldSeparator.Location = new System.Drawing.Point(282, 111);
+            this.cbox_outputFieldSeparator.Name = "cbox_outputFieldSeparator";
+            this.cbox_outputFieldSeparator.Size = new System.Drawing.Size(202, 28);
+            this.cbox_outputFieldSeparator.TabIndex = 17;
+            //
             // gbox_NumberFormat
-            // 
+            //
+            this.gbox_NumberFormat.Controls.Add(this.label9);
+            this.gbox_NumberFormat.Controls.Add(this.cbox_outputFieldSeparator);
+            this.gbox_NumberFormat.Controls.Add(this.label8);
+            this.gbox_NumberFormat.Controls.Add(this.cbox_inputFieldSeparator);
             this.gbox_NumberFormat.Controls.Add(this.cbox_inputLang);
             this.gbox_NumberFormat.Controls.Add(this.label3);
-            this.gbox_NumberFormat.Controls.Add(this.label6);
             this.gbox_NumberFormat.Controls.Add(this.cbox_outputLang);
-            this.gbox_NumberFormat.Controls.Add(this.txt_langOut);
-            this.gbox_NumberFormat.Controls.Add(this.label5);
-            this.gbox_NumberFormat.Controls.Add(this.txt_langIn);
             this.gbox_NumberFormat.Controls.Add(this.label4);
             this.gbox_NumberFormat.Location = new System.Drawing.Point(12, 118);
             this.gbox_NumberFormat.Name = "gbox_NumberFormat";
-            this.gbox_NumberFormat.Size = new System.Drawing.Size(495, 127);
+            this.gbox_NumberFormat.Size = new System.Drawing.Size(495, 150);
             this.gbox_NumberFormat.TabIndex = 15;
             this.gbox_NumberFormat.TabStop = false;
             this.gbox_NumberFormat.Text = "Number format";
@@ -253,7 +253,7 @@
             this.gpbox_SQL.Controls.Add(this.l_sqladdr);
             this.gpbox_SQL.Controls.Add(this.txt_SQLAddr);
             this.gpbox_SQL.Controls.Add(this.l_status);
-            this.gpbox_SQL.Location = new System.Drawing.Point(12, 252);
+            this.gpbox_SQL.Location = new System.Drawing.Point(12, 275);
             this.gpbox_SQL.Name = "gpbox_SQL";
             this.gpbox_SQL.Size = new System.Drawing.Size(495, 72);
             this.gpbox_SQL.TabIndex = 16;
@@ -315,7 +315,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(518, 406);
+            this.ClientSize = new System.Drawing.Size(518, 429);
             this.Controls.Add(this.gpbox_SQL);
             this.Controls.Add(this.gbox_NumberFormat);
             this.Controls.Add(this.gbox_Path);
@@ -348,10 +348,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btn_SaveAndClose;
         private System.Windows.Forms.ComboBox cbox_outputLang;
-        private System.Windows.Forms.TextBox txt_langIn;
-        private System.Windows.Forms.TextBox txt_langOut;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.BindingSource bindingSource_LanguageIN;
         private System.Windows.Forms.BindingSource bindingSource_LanguageOUT;
         private System.Windows.Forms.GroupBox gbox_Path;
@@ -365,5 +361,9 @@
         private System.Windows.Forms.Button btn_Connect;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cbox_inputFieldSeparator;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox cbox_outputFieldSeparator;
     }
 }

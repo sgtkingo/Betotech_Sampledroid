@@ -73,6 +73,30 @@ namespace ConcreteSampleTransformers.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(";")]
+        public string inputFieldSeparator {
+            get {
+                return ((string)(this["inputFieldSeparator"]));
+            }
+            set {
+                this["inputFieldSeparator"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(";")]
+        public string outputFieldSeparator {
+            get {
+                return ((string)(this["outputFieldSeparator"]));
+            }
+            set {
+                this["outputFieldSeparator"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(".")]
         public char inputNfi {
             get {
