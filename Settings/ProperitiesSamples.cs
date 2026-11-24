@@ -57,11 +57,13 @@ namespace ConcreteSampleTransformers
             });
             columnCatalogMap.Add(TypesEnums.SampleType.Cylinder, new List<OutputColumn> {
                 new OutputColumn("ID", "Kod [-]", (int)CylinderSample.DataTypeToName.ID),
+                new OutputColumn("Hmotnost", "Vaha [kg]", (int)CylinderSample.DataTypeToName.Hmotnost),
                 new OutputColumn("Prumer", "Prumer [mm]", (int)CylinderSample.DataTypeToName.Prumer),
                 new OutputColumn("Vyska", "Vyska [mm]", (int)CylinderSample.DataTypeToName.Vyska),
                 new OutputColumn("Objem", "Objem [dm^3]", (int)CylinderSample.DataTypeToName.Objem),
                 new OutputColumn("ObjHmotnost", "Obj. hmotnost [kg/m^3]", (int)CylinderSample.DataTypeToName.ObjHmotnost),
                 new OutputColumn("Tlak", "Tlak [kN]", (int)CylinderSample.DataTypeToName.Tlak),
+                new OutputColumn("Pevnost", "Pevnost [MPa]", (int)CylinderSample.DataTypeToName.Pevnost),
                 new OutputColumn("Valid", "Valid [True/False]", OutputColumn.ValidColumnIndex),
             });
 

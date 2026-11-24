@@ -269,7 +269,7 @@
             this.chk_computeObjHmotnost.Name = "chk_computeObjHmotnost";
             this.chk_computeObjHmotnost.Size = new System.Drawing.Size(300, 20);
             this.chk_computeObjHmotnost.TabIndex = 0;
-            this.chk_computeObjHmotnost.Text = "Compute Obj. hmotnost (cube) if missing";
+            this.chk_computeObjHmotnost.Text = "Calculate missing values from measurements";
             this.chk_computeObjHmotnost.UseVisualStyleBackColor = true;
             // 
             // btn_OutputColumns

@@ -9,6 +9,7 @@ namespace ConcreteSampleTransformers
     class CylinderSamplePartDso : ISamplePartDso
     {
         public string s_ID { get; set; } //Sekundární identifikator vzorku
+        public decimal d_Vaha { get; set; } //Váha [kg]
         public decimal d_Prumer { get; set; } //Delka [mm]
         public decimal d_Vyska { get; set; } //Výška [mm]
         public decimal d_Objem { get; set; } //Objem [dm^3]
@@ -39,6 +40,7 @@ namespace ConcreteSampleTransformers
             try
             {
                 s_ID = (string)Convert.ChangeType(data[(int)CylinderSample.DataTypeToName.ID], typeof(string));
+                d_Vaha = (decimal)Convert.ChangeType(data[(int)CylinderSample.DataTypeToName.Hmotnost], typeof(decimal));
                 d_Vyska = (decimal)Convert.ChangeType(data[(int)CylinderSample.DataTypeToName.Vyska], typeof(decimal));
                 d_Prumer = (decimal)Convert.ChangeType(data[(int)CylinderSample.DataTypeToName.Prumer], typeof(decimal));
                 d_Objem = (decimal)Convert.ChangeType(data[(int)CylinderSample.DataTypeToName.Objem], typeof(decimal));

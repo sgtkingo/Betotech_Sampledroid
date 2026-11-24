@@ -31,6 +31,9 @@ namespace ConcreteSampleTransformers
             BindLanguageList();
 
             chk_computeObjHmotnost.Checked = PropertiesManager.computeObjHmotnost;
+            new ToolTip(components ?? (components = new System.ComponentModel.Container())) { AutoPopDelay = 15000 }.SetToolTip(chk_computeObjHmotnost,
+                "Values missing in input file (0) are calculated from measured data:\n" +
+                "- Obj. hmotnost [kg/m^3] = weight / volume (cube and cylinder)");
             pendingColumnConfigs = new Dictionary<TypesEnums.SampleType, string> {
                 { TypesEnums.SampleType.Cube, PropertiesManager.outputColumnsCube },
                 { TypesEnums.SampleType.Cylinder, PropertiesManager.outputColumnsCylinder },
