@@ -31,6 +31,7 @@ namespace ConcreteSampleTransformers
             BindLanguageList();
 
             chk_computeObjHmotnost.Checked = PropertiesManager.computeObjHmotnost;
+            chk_checkForUpdates.Checked = PropertiesManager.checkForUpdates;
             new ToolTip(components ?? (components = new System.ComponentModel.Container())) { AutoPopDelay = 15000 }.SetToolTip(chk_computeObjHmotnost,
                 "Values missing in input file (0) are calculated from measured data:\n" +
                 "- Obj. hmotnost [kg/m^3] = weight / volume (cube and cylinder)");
@@ -157,6 +158,7 @@ namespace ConcreteSampleTransformers
                 PropertiesManager.inputFieldSeparator = fieldSeparator;
                 PropertiesManager.outputFieldSeparator = outputFieldSeparator;
                 PropertiesManager.computeObjHmotnost = chk_computeObjHmotnost.Checked;
+                PropertiesManager.checkForUpdates = chk_checkForUpdates.Checked;
                 foreach (var config in pendingColumnConfigs)
                 {
                     PropertiesManager.SetOutputColumnsConfig(config.Key, config.Value);

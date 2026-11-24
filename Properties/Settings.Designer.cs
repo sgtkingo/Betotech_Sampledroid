@@ -86,6 +86,18 @@ namespace ConcreteSampleTransformers.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool checkForUpdates {
+            get {
+                return ((bool)(this["checkForUpdates"]));
+            }
+            set {
+                this["checkForUpdates"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool upgradeRequired {
             get {
                 return ((bool)(this["upgradeRequired"]));

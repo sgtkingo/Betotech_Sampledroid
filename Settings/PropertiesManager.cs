@@ -25,6 +25,9 @@ namespace ConcreteSampleTransformers
         //Compute volumetric density (kg/m^3) from weight and volume when input does not contain it
         public static bool computeObjHmotnost { get; set; } = false;
 
+        //Check GitHub Releases for new version on startup
+        public static bool checkForUpdates { get; set; } = true;
+
         //Output columns config per sample type: column keys in order, empty = all columns
         public static string outputColumnsCube { get; set; } = string.Empty;
         public static string outputColumnsCylinder { get; set; } = string.Empty;
@@ -141,6 +144,7 @@ namespace ConcreteSampleTransformers
             inputFieldSeparator = FieldSeparatorFromSetting(Properties.Settings.Default.inputFieldSeparator);
             outputFieldSeparator = FieldSeparatorFromSetting(Properties.Settings.Default.outputFieldSeparator);
             computeObjHmotnost = Properties.Settings.Default.computeObjHmotnost;
+            checkForUpdates = Properties.Settings.Default.checkForUpdates;
             outputColumnsCube = Properties.Settings.Default.outputColumnsCube;
             outputColumnsCylinder = Properties.Settings.Default.outputColumnsCylinder;
             autosaveFunction = Properties.Settings.Default.autosaveFunction;
@@ -163,6 +167,7 @@ namespace ConcreteSampleTransformers
             Properties.Settings.Default.inputFieldSeparator = FieldSeparatorToSetting(inputFieldSeparator);
             Properties.Settings.Default.outputFieldSeparator = FieldSeparatorToSetting(outputFieldSeparator);
             Properties.Settings.Default.computeObjHmotnost = computeObjHmotnost;
+            Properties.Settings.Default.checkForUpdates = checkForUpdates;
             Properties.Settings.Default.outputColumnsCube = outputColumnsCube ?? string.Empty;
             Properties.Settings.Default.outputColumnsCylinder = outputColumnsCylinder ?? string.Empty;
             Properties.Settings.Default.autosaveFunction = autosaveFunction;

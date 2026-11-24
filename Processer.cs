@@ -61,6 +61,7 @@ namespace ConcreteSampleTransformers
             ConsoleBox.Detail($"In : dec '{PropertiesManager.inputNfiSeparator}'  col {SeparatorName(PropertiesManager.inputFieldSeparator)}");
             ConsoleBox.Detail($"Out: dec '{PropertiesManager.outputNfiSeparator}'  col {SeparatorName(PropertiesManager.outputFieldSeparator)}");
             ConsoleBox.Detail($"Calc missing: {(PropertiesManager.computeObjHmotnost ? "ON" : "OFF")}");
+            ConsoleBox.Detail($"Auto update : {(PropertiesManager.checkForUpdates ? "ON" : "OFF")}");
             if (!PropertiesManager.IsValidDirectory(PropertiesManager.outputDataPath))
             {
                 ConsoleBox.Warning("Output folder not set");

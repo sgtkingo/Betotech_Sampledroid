@@ -1,0 +1,66 @@
+# Standalone build (no installer, no auto-update) for every release tag.
+# Runs in parallel with release.yml and attaches Betotech_Sampledroid-X.Y.Z-standalone.zip
+# to the GitHub Release created there: unzip anywhere and run Betotech_Sampledroid.exe.
+name: Release standalone
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write   # upload release asset with GITHUB_TOKEN
+
+env:
+  APP_NAME: Betotech_Sampledroid
+
+jobs:
+  standalone:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Resolve version
+        id: version
+        shell: pwsh
+        run: |
+          $version = "${{ github.ref_name }}".TrimStart('v')
+          # anchored to line start: AssemblyInfo.cs also contains commented-out example "// [assembly: AssemblyVersion("1.0.*")]"
+          $assembly = (Select-String -Path Properties/AssemblyInfo.cs -Pattern '^\[assembly: AssemblyVersion\("([^"]+)"\)').Matches[0].Groups[1].Value
+          if (-not $assembly.StartsWith("$version.")) {
+            throw "Tag v$version does not match AssemblyVersion $assembly - bump Properties/AssemblyInfo.cs first."
+          }
+          "version=$version" >> $env:GITHUB_OUTPUT
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build Release
+        shell: pwsh
+        run: msbuild "$env:APP_NAME.csproj" -restore -m -nologo -v:m -p:Configuration=Release -p:OutDir=$PWD\artifacts\standalone\
+
+      - name: Create zip
+        id: zip
+        shell: pwsh
+        run: |
+          $zip = "artifacts\$env:APP_NAME-${{ steps.version.outputs.version }}-standalone.zip"
+          Get-ChildItem artifacts\standalone -Exclude *.pdb, *.xml | Compress-Archive -DestinationPath $zip
+          Write-Host "Created $zip ($([math]::Round((Get-Item $zip).Length / 1MB, 1)) MB)"
+          "path=$zip" >> $env:GITHUB_OUTPUT
+
+      - name: Attach to GitHub Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Release is created by release.yml (Velopack upload), wait until it exists
+          $tag = "${{ github.ref_name }}"
+          for ($i = 1; $i -le 40; $i++) {
+            gh release view $tag --repo ${{ github.repository }} *> $null
+            if ($LASTEXITCODE -eq 0) { break }
+            Write-Host "Waiting for release $tag ($i/40)..."
+            Start-Sleep -Seconds 30
+          }
+          gh release upload $tag "${{ steps.zip.outputs.path }}" --repo ${{ github.repository }} --clobber

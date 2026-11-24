@@ -37,6 +37,12 @@ namespace ConcreteSampleTransformers
             var console = Processer.ConsoleBox;
             try
             {
+                if (!PropertiesManager.checkForUpdates)
+                {
+                    console.Detail("Updates: disabled");
+                    return;
+                }
+
                 var updater = new AppUpdater();
                 if (!updater.IsInstalled)
                 {

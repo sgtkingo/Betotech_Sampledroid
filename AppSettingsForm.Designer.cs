@@ -50,6 +50,8 @@
             this.gbox_NumberFormat = new System.Windows.Forms.GroupBox();
             this.gpbox_SQL = new System.Windows.Forms.GroupBox();
             this.gbox_Output = new System.Windows.Forms.GroupBox();
+            this.gbox_Updates = new System.Windows.Forms.GroupBox();
+            this.chk_checkForUpdates = new System.Windows.Forms.CheckBox();
             this.chk_computeObjHmotnost = new System.Windows.Forms.CheckBox();
             this.btn_OutputColumns = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -64,6 +66,7 @@
             this.gbox_NumberFormat.SuspendLayout();
             this.gpbox_SQL.SuspendLayout();
             this.gbox_Output.SuspendLayout();
+            this.gbox_Updates.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtInputDataPath
@@ -147,7 +150,7 @@
             this.btn_SaveAndClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_SaveAndClose.Image = global::ConcreteSampleTransformers.Properties.Resources.diskette;
             this.btn_SaveAndClose.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btn_SaveAndClose.Location = new System.Drawing.Point(146, 418);
+            this.btn_SaveAndClose.Location = new System.Drawing.Point(146, 477);
             this.btn_SaveAndClose.Name = "btn_SaveAndClose";
             this.btn_SaveAndClose.Size = new System.Drawing.Size(228, 64);
             this.btn_SaveAndClose.TabIndex = 8;
@@ -283,6 +286,27 @@
             this.btn_OutputColumns.UseVisualStyleBackColor = true;
             this.btn_OutputColumns.Click += new System.EventHandler(this.btn_OutputColumns_Click);
             // 
+            // gbox_Updates
+            // 
+            this.gbox_Updates.Controls.Add(this.chk_checkForUpdates);
+            this.gbox_Updates.Location = new System.Drawing.Point(12, 340);
+            this.gbox_Updates.Name = "gbox_Updates";
+            this.gbox_Updates.Size = new System.Drawing.Size(495, 52);
+            this.gbox_Updates.TabIndex = 18;
+            this.gbox_Updates.TabStop = false;
+            this.gbox_Updates.Text = "Updates";
+            // 
+            // chk_checkForUpdates
+            // 
+            this.chk_checkForUpdates.AutoSize = true;
+            this.chk_checkForUpdates.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.chk_checkForUpdates.Location = new System.Drawing.Point(9, 22);
+            this.chk_checkForUpdates.Name = "chk_checkForUpdates";
+            this.chk_checkForUpdates.Size = new System.Drawing.Size(210, 20);
+            this.chk_checkForUpdates.TabIndex = 0;
+            this.chk_checkForUpdates.Text = "Check for updates on startup";
+            this.chk_checkForUpdates.UseVisualStyleBackColor = true;
+            // 
             // gpbox_SQL
             // 
             this.gpbox_SQL.Controls.Add(this.label7);
@@ -290,7 +314,7 @@
             this.gpbox_SQL.Controls.Add(this.l_sqladdr);
             this.gpbox_SQL.Controls.Add(this.txt_SQLAddr);
             this.gpbox_SQL.Controls.Add(this.l_status);
-            this.gpbox_SQL.Location = new System.Drawing.Point(12, 340);
+            this.gpbox_SQL.Location = new System.Drawing.Point(12, 399);
             this.gpbox_SQL.Name = "gpbox_SQL";
             this.gpbox_SQL.Size = new System.Drawing.Size(495, 72);
             this.gpbox_SQL.TabIndex = 16;
@@ -352,7 +376,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(518, 494);
+            this.ClientSize = new System.Drawing.Size(518, 553);
+            this.Controls.Add(this.gbox_Updates);
             this.Controls.Add(this.gbox_Output);
             this.Controls.Add(this.gpbox_SQL);
             this.Controls.Add(this.gbox_NumberFormat);
@@ -369,6 +394,8 @@
             this.gbox_Path.PerformLayout();
             this.gbox_NumberFormat.ResumeLayout(false);
             this.gbox_NumberFormat.PerformLayout();
+            this.gbox_Updates.ResumeLayout(false);
+            this.gbox_Updates.PerformLayout();
             this.gbox_Output.ResumeLayout(false);
             this.gbox_Output.PerformLayout();
             this.gpbox_SQL.ResumeLayout(false);
@@ -406,6 +433,8 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cbox_outputFieldSeparator;
         private System.Windows.Forms.GroupBox gbox_Output;
+        private System.Windows.Forms.GroupBox gbox_Updates;
+        private System.Windows.Forms.CheckBox chk_checkForUpdates;
         private System.Windows.Forms.CheckBox chk_computeObjHmotnost;
         private System.Windows.Forms.Button btn_OutputColumns;
     }
