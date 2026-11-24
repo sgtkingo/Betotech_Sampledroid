@@ -1,3 +1,7 @@
+# Build output (distribution via GitHub Releases)
+bin/
+obj/
+
 # Release pipeline output (vpk / CI)
 artifacts/
 Releases/
