@@ -52,7 +52,6 @@
             this.gbox_Output = new System.Windows.Forms.GroupBox();
             this.gbox_Updates = new System.Windows.Forms.GroupBox();
             this.chk_checkForUpdates = new System.Windows.Forms.CheckBox();
-            this.chk_computeObjHmotnost = new System.Windows.Forms.CheckBox();
             this.btn_OutputColumns = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.btn_Connect = new System.Windows.Forms.Button();
@@ -255,7 +254,6 @@
             // 
             // gbox_Output
             // 
-            this.gbox_Output.Controls.Add(this.chk_computeObjHmotnost);
             this.gbox_Output.Controls.Add(this.btn_OutputColumns);
             this.gbox_Output.Location = new System.Drawing.Point(12, 275);
             this.gbox_Output.Name = "gbox_Output";
@@ -263,17 +261,6 @@
             this.gbox_Output.TabIndex = 17;
             this.gbox_Output.TabStop = false;
             this.gbox_Output.Text = "Output";
-            // 
-            // chk_computeObjHmotnost
-            // 
-            this.chk_computeObjHmotnost.AutoSize = true;
-            this.chk_computeObjHmotnost.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.chk_computeObjHmotnost.Location = new System.Drawing.Point(9, 25);
-            this.chk_computeObjHmotnost.Name = "chk_computeObjHmotnost";
-            this.chk_computeObjHmotnost.Size = new System.Drawing.Size(300, 20);
-            this.chk_computeObjHmotnost.TabIndex = 0;
-            this.chk_computeObjHmotnost.Text = "Calculate missing values from measurements";
-            this.chk_computeObjHmotnost.UseVisualStyleBackColor = true;
             // 
             // btn_OutputColumns
             // 
@@ -435,7 +422,6 @@
         private System.Windows.Forms.GroupBox gbox_Output;
         private System.Windows.Forms.GroupBox gbox_Updates;
         private System.Windows.Forms.CheckBox chk_checkForUpdates;
-        private System.Windows.Forms.CheckBox chk_computeObjHmotnost;
         private System.Windows.Forms.Button btn_OutputColumns;
     }
 }

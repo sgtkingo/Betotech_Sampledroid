@@ -121,18 +121,6 @@ namespace ConcreteSampleTransformers.Properties {
 
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool computeObjHmotnost {
-            get {
-                return ((bool)(this["computeObjHmotnost"]));
-            }
-            set {
-                this["computeObjHmotnost"] = value;
-            }
-        }
-
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string outputColumnsCube {
             get {

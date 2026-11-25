@@ -10,10 +10,11 @@ namespace ConcreteSampleTransformers
     public class OutputColumn
     {
         public const int ValidColumnIndex = -1;
+        public const int EmptyColumnIndex = -2;
 
         public string Key { get; private set; }     //Stable identifier stored in settings
-        public string Label { get; private set; }   //Column header in output
-        public int DataIndex { get; private set; }  //Index into sample data array, ValidColumnIndex = Valid flag
+        public string Label { get; private set; }   //Column header in data view / column settings
+        public int DataIndex { get; private set; }  //Index into sample data array, ValidColumnIndex = Valid flag, EmptyColumnIndex = spacer
 
         public OutputColumn(string key, string label, int dataIndex)
         {
@@ -34,8 +35,8 @@ namespace ConcreteSampleTransformers
         private const string CubeFileExtensionName = "_Cube";
         private const string CylinderFileExtensionName = "_Cylinder";
         private const char ColumnConfigSeparator = ',';
-        //Head row (code; simple code; type; date) needs at least this number of columns
-        private const int HeadColumnsCount = 4;
+        //Head row (code; type; date) needs at least this number of columns
+        private const int HeadColumnsCount = 3;
 
         private static Dictionary<TypesEnums.SampleType, string> sampleExtensionNameMap = new Dictionary<TypesEnums.SampleType, string>();
         private static Dictionary<TypesEnums.SampleType, List<OutputColumn>> columnCatalogMap = new Dictionary<TypesEnums.SampleType, List<OutputColumn>>();
@@ -59,6 +60,8 @@ namespace ConcreteSampleTransformers
                 new OutputColumn("ID", "Kod [-]", (int)CylinderSample.DataTypeToName.ID),
                 new OutputColumn("Hmotnost", "Vaha [kg]", (int)CylinderSample.DataTypeToName.Hmotnost),
                 new OutputColumn("Prumer", "Prumer [mm]", (int)CylinderSample.DataTypeToName.Prumer),
+                //Spacer in place of cube width, so cylinder columns line up with cube columns (legacy format)
+                new OutputColumn("Mezera", "(prazdny sloupec)", OutputColumn.EmptyColumnIndex),
                 new OutputColumn("Vyska", "Vyska [mm]", (int)CylinderSample.DataTypeToName.Vyska),
                 new OutputColumn("Objem", "Objem [dm^3]", (int)CylinderSample.DataTypeToName.Objem),
                 new OutputColumn("ObjHmotnost", "Obj. hmotnost [kg/m^3]", (int)CylinderSample.DataTypeToName.ObjHmotnost),
@@ -112,9 +115,10 @@ namespace ConcreteSampleTransformers
             return Math.Max(HeadColumnsCount, GetOutputColumns(sampleType).Count);
         }
 
+        //Column labels for data view (output file has no label row)
         public static string GetSampleLabelByType(TypesEnums.SampleType sampleType){
             var labels = GetOutputColumns(sampleType).Select(c => c.Label).ToList();
-            //Pad labels so head row (code; simple code; type; date) always fits
+            //Pad labels so head row (code; type; date) always fits
             while (labels.Count < HeadColumnsCount) labels.Add(string.Empty);
             return string.Join(Processer.FieldSeparator.ToString(), labels) + "\n";
         }

@@ -12,8 +12,6 @@ namespace ConcreteSampleTransformers
         public string sampleCode{ get; set; }
         public string sampleDate { get; set; }
 
-        public string sampleSimpleCode{ get { return cutSimpleCode(); } }
-
         protected int dataArrLenght = 0;
 
         //Maps
@@ -42,9 +40,15 @@ namespace ConcreteSampleTransformers
             return output;
         }
         //Computed number formatted with output decimal separator (independent on OS culture)
-        protected string FormatOutputNumber(decimal value)
+        protected string FormatOutputNumber(decimal value, string format = null)
         {
-            return value.ToString(CultureInfo.InvariantCulture).Replace('.', PropertiesManager.outputNfiSeparator);
+            return value.ToString(format, CultureInfo.InvariantCulture).Replace('.', PropertiesManager.outputNfiSeparator);
+        }
+
+        //Volumetric density [kg/m^3] as in legacy format: weight [kg] / rounded volume [dm^3] * 1000, 3 decimals
+        protected string FormatDensity(decimal weight_kg, decimal volume_dm3)
+        {
+            return FormatOutputNumber(Math.Round(weight_kg * 1000 / volume_dm3, 3), "0.000");
         }
         protected virtual void InitSample(){
 
@@ -82,28 +86,9 @@ namespace ConcreteSampleTransformers
             return (S1_FOUND | S2_FOUND | S3_FOUND);
         }
 
-        protected string cutSimpleCode(){ 
-            string simple="";
-            int last_index=0;
-            int first_index=0;
-            try{
-                last_index=sampleCode.LastIndexOf('/');
-                first_index=sampleCode.IndexOf('/');
-                //Code without "a/b/c" structure (e.g. 2602755) is already simple
-                if (first_index < 0 || last_index <= first_index) return sampleCode;
-                simple=sampleCode.Substring(first_index+1,(last_index-first_index)-1);
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                Processer.ConsoleBox.Error($"{sampleCode}: {e.Message}");
-                simple ="";
-            }
-            return simple;
-        }
-
         protected virtual string createHead()
         {
-            var fields = new List<string> { sampleCode, sampleSimpleCode, getType.ToString(), sampleDate };
+            var fields = new List<string> { sampleCode, getType.ToString(), sampleDate };
             //Pad with empty fields to create Table format CSV
             int rowLength = ProperitiesSamples.GetOutputRowLength(getType);
             while (fields.Count < rowLength) fields.Add(string.Empty);
@@ -114,12 +99,20 @@ namespace ConcreteSampleTransformers
         //One body row with columns selected in Settings
         private string createBodyRow(List<OutputColumn> columns, string[] arrData, bool found)
         {
-            var fields = columns.Select(c => c.DataIndex == OutputColumn.ValidColumnIndex ? found.ToString() : arrData[c.DataIndex]).ToList();
+            var fields = columns.Select(c => CellValue(c, arrData, found)).ToList();
             //Keep row as long as head row
             int rowLength = ProperitiesSamples.GetOutputRowLength(getType);
             while (fields.Count < rowLength) fields.Add(string.Empty);
 
             return string.Join(Processer.FieldSeparator.ToString(), fields);
+        }
+
+        private static string CellValue(OutputColumn column, string[] arrData, bool found)
+        {
+            if (column.DataIndex == OutputColumn.ValidColumnIndex) return found.ToString();
+            //Legacy format: spacer is empty in measured rows, 0 in unused rows (like other values)
+            if (column.DataIndex == OutputColumn.EmptyColumnIndex) return found ? string.Empty : "0";
+            return arrData[column.DataIndex];
         }
 
         protected virtual string createBody()

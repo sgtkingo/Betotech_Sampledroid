@@ -23,7 +23,6 @@ namespace ConcreteSampleTransformers
         public static char outputFieldSeparator { get; set; } = defaultFieldSeparator;
 
         //Compute volumetric density (kg/m^3) from weight and volume when input does not contain it
-        public static bool computeObjHmotnost { get; set; } = false;
 
         //Check GitHub Releases for new version on startup
         public static bool checkForUpdates { get; set; } = true;
@@ -143,7 +142,6 @@ namespace ConcreteSampleTransformers
             outputNfiSeparator = Properties.Settings.Default.outputNfi;
             inputFieldSeparator = FieldSeparatorFromSetting(Properties.Settings.Default.inputFieldSeparator);
             outputFieldSeparator = FieldSeparatorFromSetting(Properties.Settings.Default.outputFieldSeparator);
-            computeObjHmotnost = Properties.Settings.Default.computeObjHmotnost;
             checkForUpdates = Properties.Settings.Default.checkForUpdates;
             outputColumnsCube = Properties.Settings.Default.outputColumnsCube;
             outputColumnsCylinder = Properties.Settings.Default.outputColumnsCylinder;
@@ -166,7 +164,6 @@ namespace ConcreteSampleTransformers
             Properties.Settings.Default.outputNfi = outputNfiSeparator;
             Properties.Settings.Default.inputFieldSeparator = FieldSeparatorToSetting(inputFieldSeparator);
             Properties.Settings.Default.outputFieldSeparator = FieldSeparatorToSetting(outputFieldSeparator);
-            Properties.Settings.Default.computeObjHmotnost = computeObjHmotnost;
             Properties.Settings.Default.checkForUpdates = checkForUpdates;
             Properties.Settings.Default.outputColumnsCube = outputColumnsCube ?? string.Empty;
             Properties.Settings.Default.outputColumnsCylinder = outputColumnsCylinder ?? string.Empty;

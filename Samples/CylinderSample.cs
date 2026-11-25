@@ -60,12 +60,10 @@ namespace ConcreteSampleTransformers
 
             arrData[(int)DataTypeToName.Objem] = FormatOutputNumber(dso.d_Objem);
 
-            //Volumetric density [kg/m^3] = weight [kg] / volume [m^3], only if enabled and missing in input
-            decimal volume_mm3 = ((decimal)Math.PI * dso.d_Prumer * dso.d_Prumer / 4) * dso.d_Vyska;
-            if (PropertiesManager.computeObjHmotnost && dso.d_ObjHmotnost == 0 && dso.d_Vaha > 0 && volume_mm3 > 0)
+            //Volumetric density is missing (0) in input, computed from weight and volume
+            if (dso.d_ObjHmotnost == 0 && dso.d_Vaha > 0 && dso.d_Objem > 0)
             {
-                decimal density = Math.Round(dso.d_Vaha * 1000000000m / volume_mm3, 0);
-                arrData[(int)DataTypeToName.ObjHmotnost] = FormatOutputNumber(density);
+                arrData[(int)DataTypeToName.ObjHmotnost] = FormatDensity(dso.d_Vaha, dso.d_Objem);
             }
         }
         public override string getSampleAsFormatData()

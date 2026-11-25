@@ -60,8 +60,8 @@ namespace ConcreteSampleTransformers
             //Samples are formatted with internal separator ';', output file uses the one chosen in Settings
             char outputSeparator = PropertiesManager.outputFieldSeparator;
 
+            //Legacy format: no column label row, file starts with first sample
             var content = new StringBuilder();
-            content.Append(ProperitiesSamples.GetSampleLabelByType(sampleType).Replace(Processer.FieldSeparator, outputSeparator));
             foreach (Sample S in Storage.GetFiltredSamples(sampleType))
             {
                 content.Append(S.getSampleAsFormatData().Replace(Processer.FieldSeparator, outputSeparator));
