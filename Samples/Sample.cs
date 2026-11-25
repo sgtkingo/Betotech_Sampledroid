@@ -86,6 +86,11 @@ namespace ConcreteSampleTransformers
             return (S1_FOUND | S2_FOUND | S3_FOUND);
         }
 
+        //Rows of one sample in output: head ("code;;;;" + ";type;date;;;") + 3 specimen rows
+        public const int HeadRowsCount = 2;
+        public const int SpecimenRowsCount = 3;
+        public const int RowsPerSample = HeadRowsCount + SpecimenRowsCount;
+
         //Legacy format, two rows: "code;;;;" and ";type;date;;;"
         protected virtual string createHead()
         {

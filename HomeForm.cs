@@ -198,7 +198,6 @@ namespace ConcreteSampleTransformers
             }
 
             if ( ShowDataTablesForm().DialogResult != DialogResult.OK ){
-                MessageBox.Show("Result was REJECTED by user!", "Reject by user", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Processer.ConsoleBox.Warning("Rejected by user - not saved");
                 return;
             }

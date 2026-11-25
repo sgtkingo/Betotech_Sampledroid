@@ -15,8 +15,8 @@ namespace ConcreteSampleTransformers
     //Preview of output data before saving (fullscreen, one tab per sample type)
     public partial class DataViewForm : Form
     {
-        //Every sample is one head row (code; simple code; type; date) + 3 specimen rows
-        private const int RowsPerSample = 4;
+        //Every sample is two head rows (code / type; date) + 3 specimen rows
+        private const int RowsPerSample = Sample.RowsPerSample;
 
         private static readonly Color HeadRowBackColor = Color.FromArgb(225, 236, 248);
         private static readonly Color EmptyRowForeColor = Color.DarkGray;
@@ -113,9 +113,9 @@ namespace ConcreteSampleTransformers
             var headFont = new Font(grid.DefaultCellStyle.Font, FontStyle.Bold);
             foreach (DataGridViewRow row in grid.Rows)
             {
-                if (row.Index % RowsPerSample == 0)
+                if (row.Index % RowsPerSample < Sample.HeadRowsCount)
                 {
-                    //Sample head row: code, simple code, type, date
+                    //Sample head rows: code / type, date
                     row.DefaultCellStyle.BackColor = HeadRowBackColor;
                     row.DefaultCellStyle.Font = headFont;
                     row.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
