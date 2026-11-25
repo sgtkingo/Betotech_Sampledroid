@@ -15,12 +15,14 @@ namespace ConcreteSampleTransformers
         public string Key { get; private set; }     //Stable identifier stored in settings
         public string Label { get; private set; }   //Column header in data view / column settings
         public int DataIndex { get; private set; }  //Index into sample data array, ValidColumnIndex = Valid flag, EmptyColumnIndex = spacer
+        public bool DefaultSelected { get; private set; } //In output when columns are not configured (legacy format = default)
 
-        public OutputColumn(string key, string label, int dataIndex)
+        public OutputColumn(string key, string label, int dataIndex, bool defaultSelected = true)
         {
             Key = key;
             Label = label;
             DataIndex = dataIndex;
+            DefaultSelected = defaultSelected;
         }
 
         public override string ToString()
@@ -53,7 +55,7 @@ namespace ConcreteSampleTransformers
                 new OutputColumn("Objem", "Objem [dm^3]", (int)CubeSample.DataTypeToName.Objem),
                 new OutputColumn("ObjHmotnost", "Obj. hmotnost [kg/m^3]", (int)CubeSample.DataTypeToName.ObjHmotnost),
                 new OutputColumn("Tlak", "Tlak [kN]", (int)CubeSample.DataTypeToName.Tlak),
-                new OutputColumn("Pevnost", "Pevnost [MPa]", (int)CubeSample.DataTypeToName.Pevnost),
+                new OutputColumn("Pevnost", "Pevnost [MPa]", (int)CubeSample.DataTypeToName.Pevnost, defaultSelected: false),
                 new OutputColumn("Valid", "Valid [True/False]", OutputColumn.ValidColumnIndex),
             });
             columnCatalogMap.Add(TypesEnums.SampleType.Cylinder, new List<OutputColumn> {
@@ -66,7 +68,7 @@ namespace ConcreteSampleTransformers
                 new OutputColumn("Objem", "Objem [dm^3]", (int)CylinderSample.DataTypeToName.Objem),
                 new OutputColumn("ObjHmotnost", "Obj. hmotnost [kg/m^3]", (int)CylinderSample.DataTypeToName.ObjHmotnost),
                 new OutputColumn("Tlak", "Tlak [kN]", (int)CylinderSample.DataTypeToName.Tlak),
-                new OutputColumn("Pevnost", "Pevnost [MPa]", (int)CylinderSample.DataTypeToName.Pevnost),
+                new OutputColumn("Pevnost", "Pevnost [MPa]", (int)CylinderSample.DataTypeToName.Pevnost, defaultSelected: false),
                 new OutputColumn("Valid", "Valid [True/False]", OutputColumn.ValidColumnIndex),
             });
 
@@ -81,7 +83,7 @@ namespace ConcreteSampleTransformers
             return columnCatalogMap[sampleType];
         }
 
-        //Selected columns in configured order; empty/invalid config = all columns
+        //Selected columns in configured order; empty/invalid config = default columns
         public static List<OutputColumn> ParseColumnConfig(TypesEnums.SampleType sampleType, string config)
         {
             var catalog = GetColumnCatalog(sampleType);
@@ -95,7 +97,7 @@ namespace ConcreteSampleTransformers
                     if (column != null && !selected.Contains(column)) selected.Add(column);
                 }
             }
-            return selected.Count > 0 ? selected : new List<OutputColumn>(catalog);
+            return selected.Count > 0 ? selected : catalog.Where(c => c.DefaultSelected).ToList();
         }
 
         public static string BuildColumnConfig(IEnumerable<OutputColumn> columns)

@@ -50,6 +50,12 @@ namespace ConcreteSampleTransformers
         //Selected columns in configured order first, then not selected columns in default order
         private static List<ColumnState> CreateStates(TypesEnums.SampleType type, string config)
         {
+            //Default columns: keep catalog order, so an enabled optional column lands on its default position
+            if (string.IsNullOrWhiteSpace(config))
+            {
+                return ProperitiesSamples.GetColumnCatalog(type).Select(c => new ColumnState { Column = c, Selected = c.DefaultSelected }).ToList();
+            }
+
             var selected = ProperitiesSamples.ParseColumnConfig(type, config);
             var result = selected.Select(c => new ColumnState { Column = c, Selected = true }).ToList();
             foreach (var column in ProperitiesSamples.GetColumnCatalog(type).Where(c => !selected.Contains(c)))
