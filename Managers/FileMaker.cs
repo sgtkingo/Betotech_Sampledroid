@@ -67,7 +67,13 @@ namespace ConcreteSampleTransformers
                 content.Append(S.getSampleAsFormatData().Replace(Processer.FieldSeparator, outputSeparator));
                 content.Append("\n");
             }
+            //Footer padded like other rows
             content.Append(ProperitiesSamples.GetDateTimeStamp());
+            content.Append(outputSeparator, ProperitiesSamples.GetOutputRowLength(sampleType) - 1);
+            content.Append("\n");
+
+            //Legacy format: Windows line endings (CRLF) on every row including the last one
+            content.Replace("\n", "\r\n");
 
             //Written directly: ControlModul FileManager reports success even when writing fails
             try

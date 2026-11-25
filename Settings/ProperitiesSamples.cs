@@ -35,7 +35,7 @@ namespace ConcreteSampleTransformers
         private const string CubeFileExtensionName = "_Cube";
         private const string CylinderFileExtensionName = "_Cylinder";
         private const char ColumnConfigSeparator = ',';
-        //Head row (code; type; date) needs at least this number of columns
+        //Head row (; type; date) needs at least this number of columns
         private const int HeadColumnsCount = 3;
 
         private static Dictionary<TypesEnums.SampleType, string> sampleExtensionNameMap = new Dictionary<TypesEnums.SampleType, string>();
@@ -118,7 +118,7 @@ namespace ConcreteSampleTransformers
         //Column labels for data view (output file has no label row)
         public static string GetSampleLabelByType(TypesEnums.SampleType sampleType){
             var labels = GetOutputColumns(sampleType).Select(c => c.Label).ToList();
-            //Pad labels so head row (code; type; date) always fits
+            //Pad labels so head row (; type; date) always fits
             while (labels.Count < HeadColumnsCount) labels.Add(string.Empty);
             return string.Join(Processer.FieldSeparator.ToString(), labels) + "\n";
         }

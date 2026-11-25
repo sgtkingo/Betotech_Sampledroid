@@ -86,25 +86,26 @@ namespace ConcreteSampleTransformers
             return (S1_FOUND | S2_FOUND | S3_FOUND);
         }
 
+        //Legacy format, two rows: "code;;;;" and ";type;date;;;"
         protected virtual string createHead()
         {
-            var fields = new List<string> { sampleCode, getType.ToString(), sampleDate };
-            //Pad with empty fields to create Table format CSV
+            return createRow(new List<string> { sampleCode }) + "\n"
+                + createRow(new List<string> { string.Empty, getType.ToString(), sampleDate }) + "\n";
+        }
+
+        //Every row padded with empty fields to the same length (table format CSV)
+        private string createRow(List<string> fields)
+        {
             int rowLength = ProperitiesSamples.GetOutputRowLength(getType);
             while (fields.Count < rowLength) fields.Add(string.Empty);
 
-            return string.Join(Processer.FieldSeparator.ToString(), fields) + "\n";
+            return string.Join(Processer.FieldSeparator.ToString(), fields);
         }
 
         //One body row with columns selected in Settings
         private string createBodyRow(List<OutputColumn> columns, string[] arrData, bool found)
         {
-            var fields = columns.Select(c => CellValue(c, arrData, found)).ToList();
-            //Keep row as long as head row
-            int rowLength = ProperitiesSamples.GetOutputRowLength(getType);
-            while (fields.Count < rowLength) fields.Add(string.Empty);
-
-            return string.Join(Processer.FieldSeparator.ToString(), fields);
+            return createRow(columns.Select(c => CellValue(c, arrData, found)).ToList());
         }
 
         private static string CellValue(OutputColumn column, string[] arrData, bool found)
